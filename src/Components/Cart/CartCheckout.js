@@ -15,7 +15,7 @@ const CartCheckout = () => {
                 </div>
                 <div className="product-price d-inline w-100 my-3  border">34000 pounds</div>
                 <Link
-                    to="/order/paymethoud"
+                    to="/order/payment"
                     style={{ textDecoration: "none" }}
                     className="product-cart-add  d-inline ">
                     <button className="product-cart-add w-100 px-2">checkout</button>
