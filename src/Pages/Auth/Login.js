@@ -40,7 +40,7 @@ const Login = () => {
             <br/>
             <br/>
             <label className="mx-auto my-4">
-                <Link to="/admin/allproducts" style={{textDecoration: 'none'}}>
+                <Link to="/admin/products" style={{textDecoration: 'none'}}>
                     <span style={{cursor: "pointer"}} className="text-danger">login as admin</span>
                 </Link>
 

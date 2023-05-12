@@ -54,7 +54,7 @@ const Register = () => {
                     </Form>
                     <label className="mx-auto my-4">
                          already have account?{" "}
-                        <Link to="/register" style={{textDecoration: 'none'}}>
+                        <Link to="/login" style={{textDecoration: 'none'}}>
                             <span style={{cursor: "pointer"}} className="text-danger">click here</span>
                         </Link>
                     </label>
