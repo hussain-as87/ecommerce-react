@@ -5,7 +5,6 @@ import Pagination from "../../Components/Utility/Pagination";
 import CategoryHeader from "../../Components/Category/CategoryHeader";
 import SearchResultCount from "../../Components/Utility/SearchResultCount";
 import SidebarFilter from "../../Components/Utility/SidebarFilter";
-import {Link} from "react-router-dom";
 
 const Products = () => {
     return (

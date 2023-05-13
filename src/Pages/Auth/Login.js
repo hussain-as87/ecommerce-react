@@ -1,4 +1,4 @@
-import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
+import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 const Login = () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Col, Form, FormText} from 'react-bootstrap';
+import {Row, Col, Form} from 'react-bootstrap';
 
 const SidebarFilter = () => {
     return (
