@@ -8,10 +8,9 @@ const token =
 
 export const getCategories = () => async (dispatch) => {
   try {
-    const response = indexData(url, {
+    const response =await indexData(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    // console.log(response.data.data);
     dispatch({ type: GET_ALL_CATEGORIES, payload: response.data });
   } catch (error) {
     console.log(error);
