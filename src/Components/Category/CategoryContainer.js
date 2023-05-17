@@ -1,37 +1,41 @@
-import React from 'react'
-import { Container, Row } from 'react-bootstrap'
+import React from 'react';
+import {Container, Row, Spinner} from 'react-bootstrap';
 import CategoryCard from './../Category/CategoryCard';
-import clothe from "../../assets/images/clothe.png";
-import cat2 from "../../assets/images/cat2.png";
-import labtop from "../../assets/images/labtop.png";
-import sale from "../../assets/images/sale.png";
-import pic from "../../assets/images/pic.png";
-const CategoryContainer = () => {
+
+
+const CategoryContainer = ({categories, loading}) => {
+    const getRandomColor = () => {
+        const colors = ["#FFD3E8", "#a568b7", "#55CFDF", "blue", "#e2db65"];
+        const randomIndex = Math.floor(Math.random() * colors.length);
+        return colors[randomIndex];
+    };
+
     return (
-        <Container >
-            <div className="admin-content-text mt-2 ">All of categories</div>
+        <Container>
+            <div className="admin-content-text mt-2 ">All categories</div>
             <Row className='my-2 d-flex justify-content-between'>
-                <CategoryCard title="house tools" img={clothe} background="#F4DBA4" />
-                <CategoryCard title="house tools" img={cat2} background="#F4DBA4" />
-                <CategoryCard title="house tools" img={labtop} background="#0034FF" />
-                <CategoryCard title="house tools" img={sale} background="#F4DBA4" />
-                <CategoryCard title="house tools" img={clothe} background="#FF6262" />
-                <CategoryCard title="house tools" img={pic} background="#F4DBA4" />
-                <CategoryCard title="house tools" img={clothe} background="#F4DBA4" />
-                <CategoryCard title="house tools" img={cat2} background="#F4DBA4" />
-                <CategoryCard title="house tools" img={labtop} background="#0034FF" />
-                <CategoryCard title="house tools" img={sale} background="#F4DBA4" />
-                <CategoryCard title="house tools" img={clothe} background="#FF6262" />
-                <CategoryCard title="house tools" img={pic} background="#F4DBA4" />
-                <CategoryCard title="house tools" img={clothe} background="#F4DBA4" />
-                <CategoryCard title="house tools" img={cat2} background="#F4DBA4" />
-                <CategoryCard title="house tools" img={labtop} background="#0034FF" />
-                <CategoryCard title="house tools" img={sale} background="#F4DBA4" />
-                <CategoryCard title="house tools" img={clothe} background="#FF6262" />
-                <CategoryCard title="house tools" img={pic} background="#F4DBA4" />
+                {loading === false ? (categories &&
+                        categories
+                            .map((category) => (
+                                <CategoryCard key={category.id} title={category.name} img={category.image}
+                                              background={getRandomColor()}/>
+                            ))) :
+                    <div className="d-flex justify-content-center align-items-center py-md-3 py-sm-2">
+                        <Spinner animation="grow" role="status" variant="secondary">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                        <Spinner animation="grow" role="status" variant="secondary">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                        <Spinner animation="grow" role="status" variant="secondary">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                    </div>
+
+                }
             </Row>
         </Container>
     )
 }
 
-export default CategoryContainer
+export default CategoryContainer;

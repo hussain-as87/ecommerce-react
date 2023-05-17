@@ -44,7 +44,7 @@ const Login = () => {
                     <span style={{cursor: "pointer"}} className="text-danger">login as admin</span>
                 </Link>
 
-                <Link to="/user/allorders" style={{textDecoration: 'none'}}>
+                <Link to="/user/orders" style={{textDecoration: 'none'}}>
                     <span style={{cursor: "pointer"}} className="text-danger mx-3">login as user</span>
                 </Link>
             </label>
