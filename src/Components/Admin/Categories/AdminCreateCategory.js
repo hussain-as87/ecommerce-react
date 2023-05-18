@@ -3,6 +3,7 @@ import {Button, Col, Row, Spinner} from "react-bootstrap";
 import avatar from "../../../assets/images/avatar.png"
 import {useDispatch, useSelector} from "react-redux";
 import {createCategory} from "../../../Redux/Actions/CategoryAction";
+import {toast} from "react-toastify";
 
 const AdminCreateCategory = () => {
     const [img, setImg] = useState(avatar);
@@ -29,6 +30,15 @@ const AdminCreateCategory = () => {
         await dispatch(createCategory(formData))
         setLoading(false)
         setIsPress(true)
+        toast.success('the category has been created successfully!', {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        })
         console.log(category.data)
     }
     useEffect(() => {
@@ -36,7 +46,7 @@ const AdminCreateCategory = () => {
             setName("")
             setImg(avatar)
             setSelectedFile(null)
-            setTimeout(()=>setIsPress(false),2000)
+            setTimeout(() => setIsPress(false), 2000)
             console.log("done!")
             setLoading(true)
         }
@@ -68,7 +78,7 @@ const AdminCreateCategory = () => {
                 <Col sm={8} className="d-flex justify-content-end">
                     <Button onClick={handleSubmit} variant="outline-primary" className="d-inline mt-2">
                         Submit
-                        {isPress  && (<Spinner
+                        {isPress && (<Spinner
                             as="span"
                             animation="border"
                             size="sm"
