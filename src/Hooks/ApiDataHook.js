@@ -6,5 +6,5 @@ export const use_index_data = async (url, params) => {
 }
 export const use_create_data = async (url, formData, params) => {
     const response = await BaseURL.post(url, formData, params)
-    return response.data
+    return response
 }
