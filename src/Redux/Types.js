@@ -1,3 +1,5 @@
 export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES"
 export const CREATE_CATEGORY = "CREATE_CATEGORY"
 export const ERROR = "ERROR"
+export const GET_ALL_BRANDS = "GET_ALL_BRANDS"
+export const CREATE_BRAND = "CREATE_BRAND"

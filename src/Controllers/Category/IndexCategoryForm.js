@@ -11,8 +11,7 @@ const IndexCategoryForm = () => {
     useEffect(() => {
         dispatch(getCategories(12, page));
     }, [dispatch, page]);
-    const categories = useSelector((s) => s.categories.category);
-    const loading = useSelector((s) => s.categories.loading);
+    const {categories, loading} = useSelector((s) => s.categories);
     console.log(loading);
     let pageCount = 0;
     if (categories.paginationResult)

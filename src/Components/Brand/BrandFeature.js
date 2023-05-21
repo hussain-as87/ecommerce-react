@@ -1,23 +1,35 @@
 import React from 'react'
-import { Container, Row } from 'react-bootstrap'
+import {Container, Row, Spinner} from 'react-bootstrap'
 import SubTitle from '../Utility/SubTitle'
 import BrandCard from './BrandCardItem'
-import brand1 from "../../assets/images/brand1.png";
-import brand2 from "../../assets/images/brand2.png";
-import brand3 from "../../assets/images/brand3.png";
+import IndexHomeBrandForm from "../../Controllers/Brand/IndexHomeBrandForm";
+import CategoryCard from "../Category/CategoryCard";
 
-const BrandFeatured = ({ title, btn }) => {
+const BrandFeatured = ({title, btn}) => {
+    const {brands,loading} = IndexHomeBrandForm()
+    // Check if brands.data exists before applying slice method
+    const slicedBrands = brands.data ? brands.data.slice(0, 6) : [];
+
     return (
         <Container>
-            <SubTitle title={title} btn={btn} path="/allbrand" />
+            <SubTitle title={title} btn={btn} path="/brands"/>
             <Row className='my-1 d-flex justify-content-between'>
-                <BrandCard img={brand1} />
-                <BrandCard img={brand2} />
-                <BrandCard img={brand3} />
-                <BrandCard img={brand2} />
-                <BrandCard img={brand1} />
-                <BrandCard img={brand3} />
+                {loading === false ? (slicedBrands.map((brand) => (
+                        <BrandCard image={brand.image}/>
+                            ))) :
+                    <div className="d-flex justify-content-center align-items-center py-md-2 py-sm-1">
+                        <Spinner animation="grow" role="status" variant="secondary">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                        <Spinner animation="grow" role="status" variant="secondary">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                        <Spinner animation="grow" role="status" variant="secondary">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                    </div>
 
+                }
             </Row>
         </Container>
     )

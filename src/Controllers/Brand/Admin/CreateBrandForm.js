@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import avatar from "../../../assets/images/avatar.png";
 import {useDispatch, useSelector} from "react-redux";
-import { createCategory } from "../../../Redux/Actions/CategoryAction";
 import use_notification from "../../use_notification";
+import {createBrand} from "../../../Redux/Actions/BrandAction";
 
-const CreateCategoryForm = () => {
+const CreateBrandForm = () => {
     const [img, setImg] = useState(avatar);
     const [name, setName] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
@@ -24,7 +24,8 @@ const CreateCategoryForm = () => {
             setSelectedFile(file);
         }
     };
-    const response = useSelector(state => state.categories.category)
+    const response = useSelector(state => state.brands.brands)
+
     const onChangeName = (e) => {
         e.persist()
         setName(e.target.value);
@@ -37,7 +38,7 @@ const CreateCategoryForm = () => {
         formData.append("image", selectedFile);
 
         try {
-            await dispatch(createCategory(formData));
+            await dispatch(createBrand(formData));
             setLoading(false);
             setIsPress(true);
         } catch (error) {
@@ -52,10 +53,10 @@ const CreateCategoryForm = () => {
             setSelectedFile(null);
             setTimeout(() => setIsPress(false), 2000);
             setLoading(true);
-            if (response.status === 201){
-                use_notification("The category has been created successfully! 😀", "success");
-            }else {
-                 use_notification("The name is required! 😔", "error");
+            if (response.status === 201) {
+                use_notification("The brand has been created successfully! 😀", "success");
+            } else {
+                use_notification("The name is required! 😔", "error");
             }
         }
     }, [loading]);
@@ -63,4 +64,4 @@ const CreateCategoryForm = () => {
     return {name, onChangeName, img, handleSubmit, isPress, onChangeImage};
 };
 
-export default CreateCategoryForm;
+export default CreateBrandForm;
