@@ -34,6 +34,6 @@ export const createCategory = (formData) => async (dispatch) => {
     dispatch({ type: CREATE_CATEGORY, payload: response ,loading:true});
   } catch (error) {
     console.log(error);
-    dispatch({ type: ERROR, payload: error });
+    dispatch({ type: ERROR, payload: error.response });
   }
 };

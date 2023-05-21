@@ -1,22 +1,11 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {Container, Row, Spinner} from "react-bootstrap";
 import SubTitle from "../Utility/SubTitle";
-import clothe from "../../assets/images/clothe.png";
 import CategoryCard from "../Category/CategoryCard"
-import {useDispatch, useSelector} from "react-redux";
-import {getCategories} from "../../Redux/Actions/CategoryAction";
+import IndexHomeCategoryForm from "../../Controllers/Category/IndexHomeCategoryForm";
 
 const HomeCategory = () => {
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getCategories());
-    }, []);
-
-    const categories = useSelector((s) => s.categories.category);
-    const loading = useSelector((s) => s.categories.loading);
-    console.log(loading);
-    const colors = ["#FFD3E8", "#a568b7", "#55CFDF", "blue", "#e2db65"]
+const {categories,loading,colors} = IndexHomeCategoryForm()
     return (
         <Container>
             <SubTitle title="Categories" btn="More" path="/categories"/>
