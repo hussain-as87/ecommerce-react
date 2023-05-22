@@ -10,7 +10,7 @@ const IndexHomeCategoryForm = () => {
     }, []);
 
     const {categories, loading} = useSelector((s) => s.categories);
-    console.log(loading);
+
     const colors = ["#FFD3E8", "#a568b7", "#55CFDF", "blue", "#e2db65"]
     return {categories,loading,colors}
 }

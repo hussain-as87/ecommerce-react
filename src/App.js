@@ -25,6 +25,7 @@ import UserEditAddressPage from "./Pages/User/Addresses/UserEditAddressPage";
 import UserProfilePage from "./Pages/User/UserProfilePage";
 
 function App() {
+
     return (
         <div className="font">
             <NavbarSection/>
@@ -59,6 +60,8 @@ function App() {
                     <Route path="/user/profile" element={<UserProfilePage/>}/>
                 </Routes>
             </BrowserRouter>
+
+
             <Footer/>
         </div>
     );

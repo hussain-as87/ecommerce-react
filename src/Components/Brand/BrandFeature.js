@@ -3,7 +3,6 @@ import {Container, Row, Spinner} from 'react-bootstrap'
 import SubTitle from '../Utility/SubTitle'
 import BrandCard from './BrandCardItem'
 import IndexHomeBrandForm from "../../Controllers/Brand/IndexHomeBrandForm";
-import CategoryCard from "../Category/CategoryCard";
 
 const BrandFeatured = ({title, btn}) => {
     const {brands,loading} = IndexHomeBrandForm()
