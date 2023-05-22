@@ -662,3 +662,27 @@ body {
   position: absolute;
   z-index: -1;
 }
+/*the bad connection page*/
+.bad-connection-page {
+  background-color: #f8f8f8;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.wifi-icon {
+  color: #f53c3c;
+  margin-bottom: 20px;
+}
+
+.heading {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.message {
+  font-size: 18px;
+  color: #ff7aa8;
+  margin-bottom: 10px;
+}
