@@ -12,7 +12,7 @@ const IndexBrandForm = () => {
         dispatch(getBrands(12, page));
     }, [dispatch, page]);
     const {brands,loading} = useSelector((s) => s.brands);
-    console.log(loading);
+
     let pageCount = 0;
     if (brands.paginationResult)
         pageCount = brands.paginationResult.numberOfPages

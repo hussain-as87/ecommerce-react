@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {getCategories} from "../../Redux/Actions/CategoryAction";
+import {getProducts} from "../../Redux/Actions/ProductAction";
 
 
 const IndexCategoryForm = () => {
@@ -9,19 +9,18 @@ const IndexCategoryForm = () => {
     const [page, setPage] = useState(1);
 
     useEffect(() => {
-        dispatch(getCategories(12, page));
+        dispatch(getProducts(12, page));
     }, [dispatch, page]);
-    const {categories, loading} = useSelector((s) => s.categories);
-    
+    const {products, loading} = useSelector((s) => s.products);
     let pageCount = 0;
-    if (categories.paginationResult)
-        pageCount = categories.paginationResult.numberOfPages
+    if (products.paginationResult)
+        pageCount = products.paginationResult.numberOfPages
 
     const getPage = async (page) => {
         console.log('page :' + page)
         await setPage(page)
     }
-    return {categories, loading, pageCount, getPage};
+    return {products, loading, pageCount, getPage};
 };
 
 export default IndexCategoryForm;
