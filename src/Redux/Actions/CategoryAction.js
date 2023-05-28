@@ -1,9 +1,9 @@
 import {use_create_data, use_index_data} from "../../Hooks/ApiDataHook";
-import {CREATE_CATEGORY, ERROR, GET_ALL_CATEGORIES} from "../Types";
+import {ERROR, CREATE_CATEGORY, GET_ALL_CATEGORIES} from "../Types";
 
 const url = "/api/v1/categories";
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzNiYjMzOWMyMjA4YzcxNWE5NTBkNmMiLCJpYXQiOjE2ODQzMjQyMDIsImV4cCI6MTY5MjEwMDIwMn0.1vEchRw6jR02DZ3DBbSiZC760csCeNQC3NHK-yIVvJw";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzNiYjMzOWMyMjA4YzcxNWE5NTBkNmMiLCJpYXQiOjE2ODUxODc4MDcsImV4cCI6MTY5Mjk2MzgwN30.bIrENgn6nM0z2VJgpKTJgwjmkXWT6n0MwlSzOd_QZ9c";
 
 /**
  * @method GET

@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {getProducts} from "../../Redux/Actions/ProductAction";
 
-const IndexHomeCategoryForm = () => {
+const IndexHomeProductForm = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -14,4 +14,4 @@ const IndexHomeCategoryForm = () => {
     const colors = ["#FFD3E8", "#a568b7", "#55CFDF", "blue", "#e2db65"]
     return {products,loading,colors}
 }
-export default IndexHomeCategoryForm
+export default IndexHomeProductForm

@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {getProducts} from "../../Redux/Actions/ProductAction";
 
 
-const IndexCategoryForm = () => {
+const IndexProductForm = () => {
     const dispatch = useDispatch();
 
     const [page, setPage] = useState(1);
@@ -12,7 +12,6 @@ const IndexCategoryForm = () => {
         dispatch(getProducts(12, page));
     }, [dispatch, page]);
     const {products, loading} = useSelector((s) => s.products);
-    console.log(loading);
     let pageCount = 0;
     if (products.paginationResult)
         pageCount = products.paginationResult.numberOfPages
@@ -24,4 +23,4 @@ const IndexCategoryForm = () => {
     return {products, loading, pageCount, getPage};
 };
 
-export default IndexCategoryForm;
+export default IndexProductForm;

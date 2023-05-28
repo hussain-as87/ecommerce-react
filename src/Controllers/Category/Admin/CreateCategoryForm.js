@@ -24,7 +24,7 @@ const CreateCategoryForm = () => {
             setSelectedFile(file);
         }
     };
-    const response = useSelector(state => state.categories.category)
+    const response = useSelector(state => state.categories.categories)
     const onChangeName = (e) => {
         e.persist()
         setName(e.target.value);
@@ -52,13 +52,14 @@ const CreateCategoryForm = () => {
             setSelectedFile(null);
             setTimeout(() => setIsPress(false), 2000);
             setLoading(true);
+            console.log(response)
             if (response.status === 201){
                 use_notification("The category has been created successfully! 😀", "success");
             }else {
-                 use_notification("The name is required! 😔", "error");
+                 use_notification("The data is required! 😔", "error");
             }
         }
-    }, [loading]);
+    }, [loading,response]);
 
     return {name, onChangeName, img, handleSubmit, isPress, onChangeImage};
 };

@@ -1,4 +1,4 @@
-import {CREATE_PRODUCT, ERROR, GET_ALL_PRODUCT} from "../Types";
+import {CREATE_PRODUCT, ERROR, GET_ALL_PRODUCTS} from "../Types";
 
 const initialState = {
   products: [],
@@ -6,7 +6,7 @@ const initialState = {
 };
 const CategoryReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_ALL_PRODUCT:
+    case GET_ALL_PRODUCTS:
       return { ...state, products: action.payload, loading: false };
       case CREATE_PRODUCT:
         return { ...state, products: action.payload, loading: false };
