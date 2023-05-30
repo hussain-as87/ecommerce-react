@@ -1,11 +1,10 @@
-import {useEffect, useState} from "react";
-import avatar from "../../../assets/images/avatar.png";
-import {useDispatch, useSelector} from "react-redux";
-import {createProduct} from "../../../Redux/Actions/ProductAction";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createProduct } from "../../../Redux/Actions/ProductAction";
 import use_notification from "../../use_notification";
 import IndexCategoryForm from "../../Category/IndexCategoryForm";
 import IndexBrandForm from "../../Brand/IndexBrandForm";
-import {getSpecificSubcategories} from "../../../Redux/Actions/SubcategoryAction";
+import { getSpecificSubcategories } from "../../../Redux/Actions/SubcategoryAction";
 
 const CreateProductForm = () => {
     const [images, setImages] = useState([]);
@@ -13,6 +12,8 @@ const CreateProductForm = () => {
     const [isPress, setIsPress] = useState(false);
     const [colorPickerShow, setColorPickerShow] = useState(false);
     const [colors, setColors] = useState([]);
+    const [subcategoryOptions, setSubcategoryOptions] = useState([]);
+
     const [data, setData] = useState({
         title: "",
         description: "",
@@ -20,7 +21,7 @@ const CreateProductForm = () => {
         price: 0,
         colors: [],
         imageCover: "",
-        images: images,
+        images: [],
         category: "",
         subCategory: [],
         brand: "",
@@ -33,8 +34,17 @@ const CreateProductForm = () => {
     const { subcategories } = useSelector((state) => state.subcategories);
 
     const handleCreateColors = (color) => {
+        if (colors.includes(color.hex)) {
+            setColorPickerShow(!colorPickerShow);
+            return;
+        }
         setColors((prevColors) => [...prevColors, color.hex]);
         setColorPickerShow(!colorPickerShow);
+    };
+
+    const handleRemoveColors = (color) => {
+        const newColors = colors.filter((c) => c !== color);
+        setColors(newColors);
     };
 
     const crop = {
@@ -44,51 +54,66 @@ const CreateProductForm = () => {
     };
 
     const handleTitleChange = (e) => {
-        setData({ ...data, title: e.target.value });
+        setData((prevData) => ({ ...prevData, title: e.target.value }));
     };
 
     const handleDescriptionChange = (e) => {
-        setData({ ...data, description: e.target.value });
+        setData((prevData) => ({ ...prevData, description: e.target.value }));
     };
 
     const handlePriceChange = (e) => {
-        setData({ ...data, price: e.target.value });
+        setData((prevData) => ({ ...prevData, price: e.target.value }));
     };
 
     const handleQuantityChange = (e) => {
-        setData({ ...data, quantity: e.target.value });
+        setData((prevData) => ({ ...prevData, quantity: e.target.value }));
     };
 
-    const handleCategoryChange = (e) => {
-        setData({ ...data, category: e.target.value });
+    const handleCategoryChange = async (e) => {
+        if (data.category !== "") {
+            await dispatch(getSpecificSubcategories(e.target.value));
+        }
+        setData((prevData) => ({ ...prevData, category: e.target.value }));
     };
 
-    const handleSubcategorySelect = (selectedList, selectedItem) => {
-        setData({ ...data, subCategory: selectedList });
+    useEffect(() => {
+        if (data.category !== "") {
+            if (subcategories.data) {
+                setSubcategoryOptions(subcategories.data);
+            }
+        }
+    }, [data.category, subcategories.data]);
+
+    const handleSubcategorySelect = (selectedList) => {
+        setData((prevData) => ({
+            ...prevData,
+            subCategory: selectedList,
+        }));
     };
 
-    const handleSubcategoryRemove = (selectedList, removedItem) => {
-        setData({ ...data, subCategory: selectedList });
+    const handleSubcategoryRemove = (selectedList) => {
+        setData((prevData) => ({
+            ...prevData,
+            subCategory: selectedList,
+        }));
     };
 
     const handleBrandChange = (e) => {
-        setData({ ...data, brand: e.target.value });
+        setData((prevData) => ({ ...prevData, brand: e.target.value }));
     };
-
 
     // Convert base64 to file
-    const dataURLtoFile = (dataURL, filename) => {
-        const arr = dataURL.split(",");
+    function dataURLtoFile(dataUrl, filename) {
+        const arr = dataUrl.split(",");
         const mime = arr[0].match(/:(.*?);/)[1];
         const bstr = atob(arr[1]);
-        const n = bstr.length;
+        let n = bstr.length;
         const u8arr = new Uint8Array(n);
-        for (let i = 0; i < n; i++) {
-            u8arr[i] = bstr.charCodeAt(i);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
         }
-
         return new File([u8arr], filename, { type: mime });
-    };
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -100,48 +125,44 @@ const CreateProductForm = () => {
             category,
             subCategory,
             brand,
-        } = data
-        //convert base 64 image to file
-        const imgCover = dataURLtoFile(images[0], Math.random() + ".png")
-        //convert array of base 64 image to file
-        const itemImages = Array.from(Array(images.length).keys()).map(
+        } = data;
+
+        // Convert base64 image to file
+        const imgCover = dataURLtoFile(images[0], Math.random() + ".png");
+
+        // Convert array of base64 images to files
+        const itemImages = Array.from(Array(Object.keys(images).length).keys()).map(
             (item, index) => {
-                return dataURLtoFile(images[index], Math.random() + ".png");
+                return dataURLtoFile(images[index], Math.random() + ".png")
             }
-        );
+        )
+
+        console.log(itemImages)
         const formData = new FormData();
         formData.append("title", title);
         formData.append("description", description);
         formData.append("quantity", quantity);
         formData.append("price", price);
-        formData.append("imageCover", imgCover);
         formData.append("category", category);
         formData.append("brand", brand);
-        subCategory.map((subCat) => formData.append(`subCategory`, subCat));
-        itemImages.map((image) => formData.append(`images`, image));
-        colors.forEach((color) => formData.append("colors", JSON.stringify(color)));
+        subCategory.forEach((subCat) =>
+            formData.append("subCategory", subCat._id)
+        );
+        formData.append("imageCover", imgCover);
+        itemImages.forEach((image) => formData.append("images", image));
+        colors.map((color) => formData.append("availableColors", color))
 
-        try {
-            await dispatch(createProduct(formData));
-            console.log(response.status)
-            setLoading(false);
-            setIsPress(true);
-        } catch (error) {
-            console.log(error)
-        }
-    };
-
-    const removeColor = (color) => {
-        const newColors = colors.filter((c) => c !== color);
-        setColors(newColors);
+        setLoading(true);
+        await dispatch(createProduct(formData));
+        setLoading(false);
+        setIsPress(true);
     };
 
     useEffect(() => {
-        if (data.category !== "") {
-            dispatch(getSpecificSubcategories(data.category));
-        }
         if (!loading) {
             setImages([]);
+            setColors([]);
+            setSubcategoryOptions([]);
             setTimeout(() => setIsPress(false), 2000);
             setLoading(true);
             if (response.status === 201) {
@@ -151,7 +172,7 @@ const CreateProductForm = () => {
                     quantity: 0,
                     price: 0,
                     colors: [],
-                    imageCover: avatar,
+                    imageCover: "",
                     images: [],
                     category: "",
                     subCategory: [],
@@ -162,7 +183,7 @@ const CreateProductForm = () => {
                 use_notification("There are data required! 😔", "error");
             }
         }
-    }, [loading, dispatch, data, response]);
+    }, [loading, dispatch, response]);
 
     return {
         data,
@@ -176,12 +197,12 @@ const CreateProductForm = () => {
         handleBrandChange,
         setImages,
         crop,
-        subcategories,
+        subcategoryOptions,
         setColorPickerShow,
         handleSubmit,
         images,
         isPress,
-        removeColor,
+        handleRemoveColors,
         brands,
         categories,
         colorPickerShow,
