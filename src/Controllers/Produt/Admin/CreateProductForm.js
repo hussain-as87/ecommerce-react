@@ -153,7 +153,8 @@ const CreateProductForm = () => {
         );
         formData.append("imageCover", imgCover);
         itemImages.forEach((image) => formData.append("images", image));
-        colors.map((color) => formData.append("availableColors", color))
+        colors.map((color) => formData.append("colors", color))
+        console.log(colors)
 
         setLoading(true);
         await dispatch(createProduct(formData));
