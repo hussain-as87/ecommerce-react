@@ -14,7 +14,7 @@ const token =
  */
 export const getSpecificSubcategories = (category) => async (dispatch) => {
   try {
-    const response =await use_index_data(`/api/v1/categories/${category}/subcategories`, {
+    const response =await use_index_data(`/categories/${category}/subcategories`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch({ type: GET_SPECIFIC_SUBCATEGORY, payload: response,loading:true });

@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { createProduct } from "../../../Redux/Actions/ProductAction";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {createProduct} from "../../../Redux/Actions/ProductAction";
 import use_notification from "../../use_notification";
 import IndexCategoryForm from "../../Category/IndexCategoryForm";
 import IndexBrandForm from "../../Brand/IndexBrandForm";
-import { getSpecificSubcategories } from "../../../Redux/Actions/SubcategoryAction";
+import {getSpecificSubcategories} from "../../../Redux/Actions/SubcategoryAction";
 
 const CreateProductForm = () => {
+    const dispatch = useDispatch();
+
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isPress, setIsPress] = useState(false);
@@ -27,11 +29,10 @@ const CreateProductForm = () => {
         brand: "",
     });
 
-    const dispatch = useDispatch();
     const response = useSelector((state) => state.products.products);
-    const { categories } = IndexCategoryForm();
-    const { brands } = IndexBrandForm();
-    const { subcategories } = useSelector((state) => state.subcategories);
+    const {categories} = IndexCategoryForm();
+    const {brands} = IndexBrandForm();
+    const {subcategories} = useSelector((state) => state.subcategories);
 
     const handleCreateColors = (color) => {
         if (colors.includes(color.hex)) {
@@ -54,26 +55,30 @@ const CreateProductForm = () => {
     };
 
     const handleTitleChange = (e) => {
-        setData((prevData) => ({ ...prevData, title: e.target.value }));
+        setData((prevData) => ({...prevData, title: e.target.value}));
     };
 
     const handleDescriptionChange = (e) => {
-        setData((prevData) => ({ ...prevData, description: e.target.value }));
+        setData((prevData) => ({...prevData, description: e.target.value}));
     };
 
     const handlePriceChange = (e) => {
-        setData((prevData) => ({ ...prevData, price: e.target.value }));
+        setData((prevData) => ({...prevData, price: e.target.value}));
     };
 
     const handleQuantityChange = (e) => {
-        setData((prevData) => ({ ...prevData, quantity: e.target.value }));
+        setData((prevData) => ({...prevData, quantity: e.target.value}));
     };
 
     const handleCategoryChange = async (e) => {
-        if (data.category !== "") {
-            await dispatch(getSpecificSubcategories(e.target.value));
+        setData((prevData) => ({...prevData, category: e.target.value}));
+        if (e.target.value !== "") {
+            try {
+                await dispatch(getSpecificSubcategories(e.target.value));
+            } catch (err) {
+                console.log("Error fetching subcategories:", err);
+            }
         }
-        setData((prevData) => ({ ...prevData, category: e.target.value }));
     };
 
     useEffect(() => {
@@ -99,7 +104,7 @@ const CreateProductForm = () => {
     };
 
     const handleBrandChange = (e) => {
-        setData((prevData) => ({ ...prevData, brand: e.target.value }));
+        setData((prevData) => ({...prevData, brand: e.target.value}));
     };
 
     // Convert base64 to file
@@ -112,7 +117,7 @@ const CreateProductForm = () => {
         while (n--) {
             u8arr[n] = bstr.charCodeAt(n);
         }
-        return new File([u8arr], filename, { type: mime });
+        return new File([u8arr], filename, {type: mime});
     }
 
     const handleSubmit = async (e) => {
@@ -136,8 +141,6 @@ const CreateProductForm = () => {
                 return dataURLtoFile(images[index], Math.random() + ".png")
             }
         )
-
-        console.log(itemImages)
         const formData = new FormData();
         formData.append("title", title);
         formData.append("description", description);
@@ -183,6 +186,7 @@ const CreateProductForm = () => {
                 use_notification("There are data required! 😔", "error");
             }
         }
+
     }, [loading, dispatch, response]);
 
     return {
