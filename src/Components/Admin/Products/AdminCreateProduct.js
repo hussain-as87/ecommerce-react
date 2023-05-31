@@ -3,7 +3,7 @@ import {Button, Col, Form, Row, Spinner} from "react-bootstrap";
 import {Multiselect} from "multiselect-react-dropdown";
 import MultiImageInput from "react-multiple-image-input";
 import {CompactPicker} from "react-color";
-import CreateProductForm from "../../../Controllers/Produt/Admin/CreateProductForm";
+import CreateProductForm from "../../../Controllers/Product/Admin/CreateProductForm";
 
 import add from "../../../assets/images/add.png";
 

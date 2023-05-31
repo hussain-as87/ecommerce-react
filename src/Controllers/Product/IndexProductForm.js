@@ -8,9 +8,7 @@ const IndexProductForm = () => {
 
     const [page, setPage] = useState(1);
 
-    useEffect(() => {
-        dispatch(getProducts(12, page));
-    }, [dispatch, page]);
+
     const {products, loading} = useSelector((s) => s.products);
     let pageCount = 0;
     if (products.paginationResult)
@@ -20,6 +18,9 @@ const IndexProductForm = () => {
         console.log('page :' + page)
         await setPage(page)
     }
+    useEffect(() => {
+        dispatch(getProducts(12, page));
+    }, [dispatch, page]);
     return {products, loading, pageCount, getPage};
 };
 

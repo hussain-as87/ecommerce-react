@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
 import CategoryHeader from "../../Components/Category/CategoryHeader";
-import ProductItemContainer from "../../Components/Product/ProductItemContainer";
+import ProductHomeItemContainer from "../../Components/Product/ProductHomeItemContainer";
 import RateContainer from "../../Components/Rate/RateContainer";
 import ProductDetailsContainer from "../../Components/Product/ProductDetailsContainer";
 const ProductDetails = () => {
@@ -11,7 +11,7 @@ const ProductDetails = () => {
            <Container>
                  <ProductDetailsContainer />
                 <RateContainer />
-               <ProductItemContainer title="Products maybe like it" />
+               <ProductHomeItemContainer title="Products maybe like it" />
          </Container>
         </div>
     )
