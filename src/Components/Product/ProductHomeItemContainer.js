@@ -7,7 +7,7 @@ const ProductHomeItemContainer = ({title, btn, path,products,loading}) => {
         <Container>
             <SubTitle title={title} btn={btn} path={path}/>
             <Row className="my-2 d-flex justify-content-between">
-                {loading === false ? (products.data.map((product) => (
+                {loading === false ? (products.data.slice(0, 6).map((product) => (
                         <ProductItem product={product} key={product._id}/>
                     ))) :
                     <div className="d-flex justify-content-center align-items-center py-md-2 py-sm-1">
@@ -21,7 +21,6 @@ const ProductHomeItemContainer = ({title, btn, path,products,loading}) => {
                             <span className="visually-hidden">Loading...</span>
                         </Spinner>
                     </div>
-
                 }
             </Row>
         </Container>
