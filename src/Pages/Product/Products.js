@@ -14,13 +14,13 @@ const Products = () => {
         <div style={{minHeight: '670px'}}>
             <CategoryHeader/>
             <Container>
-                <SearchResultCount title="the result of search is 120"/>
+                <SearchResultCount title={`results ${products.data && products.data.length}`}/>
                 <Row className='d-flex flex-row'>
                     <Col sm="2" xs="2" md="1" className='d-flex py-2'>
                         <SidebarFilter/>
                     </Col>
                         <Col sm="10" xs="10" md="11">
-                            <ProductItemContainer title="Prodcuts" btn="more" path="/products" products={products} loading={loading}/>
+                            <ProductItemContainer title="Prodcuts" btn="More" path="/products" products={products} loading={loading}/>
                         </Col>
                 </Row>
                 {pageCount > 1 && (<Pagination pageCount={pageCount} onPress={getPage}/>)}
