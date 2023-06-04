@@ -1,5 +1,5 @@
 import {use_create_data, use_index_data} from "../../Hooks/ApiDataHook";
-import {ERROR, GET_ALL_PRODUCTS, CREATE_PRODUCT} from "../Types";
+import {ERROR, GET_ALL_PRODUCTS, CREATE_PRODUCT, GET_PRODUCT, GET_TOP_PRODUCTS} from "../Types";
 
 const url = "/products";
 const token =
@@ -10,12 +10,43 @@ const token =
  * @return data object
  * @static true
  */
-export const getProducts = (limit, page, sort) => async (dispatch) => {
+export const getProducts = (limit, page) => async (dispatch) => {
     try {
-        const response = await use_index_data(url + `?limit=${limit}&page=${page}&sort=${sort}`, {
+        const response = await use_index_data(url + `?limit=${limit}&page=${page}&sort=-createdAt`, {
             headers: {Authorization: `Bearer ${token}`},
         });
         dispatch({type: GET_ALL_PRODUCTS, payload: response});
+    } catch (error) {
+        console.log(error);
+        dispatch({type: ERROR, payload: error});
+    }
+};/**
+ * @method GET
+ * @return data object
+ * @static true
+ */
+export const getTopProducts = () => async (dispatch) => {
+    try {
+        const response = await use_index_data(url + `?sort=-sold`, {
+            headers: {Authorization: `Bearer ${token}`},
+        });
+        dispatch({type: GET_TOP_PRODUCTS, payload: response});
+    } catch (error) {
+        console.log(error);
+        dispatch({type: ERROR, payload: error});
+    }
+};
+/**
+ * @method GET
+ * @return data object
+ * @static true
+ */
+export const getProduct = (id) => async (dispatch) => {
+    try {
+        const response = await use_index_data(url + `/${id}`, {
+            headers: {Authorization: `Bearer ${token}`},
+        });
+        dispatch({type: GET_PRODUCT, payload: response});
     } catch (error) {
         console.log(error);
         dispatch({type: ERROR, payload: error});

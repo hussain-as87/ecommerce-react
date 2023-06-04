@@ -45,7 +45,7 @@ const AdminCreateProduct = () => {
                         theme="light"
                         max={6}
                         handleError={handleError}
-                        allowCrop={true}
+                        allowCrop={false}
                         cropConfig={{crop, ruleOfThirds: true}}
                     />
                     <input

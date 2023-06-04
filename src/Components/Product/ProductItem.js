@@ -53,7 +53,7 @@ const ProductItem = ({product}) => {
                             </div>
                             <div className="d-flex">
                                 <div className="card-price">{product.price}</div>
-                                <div className="card-currency mx-1">pound</div>
+                                <div className="card-currency mx-1">$</div>
                             </div>
                         </div>
                     </Card.Text>

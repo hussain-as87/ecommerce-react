@@ -4,21 +4,21 @@ import ProductHomeItemContainer from "../../Components/Product/ProductHomeItemCo
 import DiscountSection from "../../Components/Home/DiscountSection";
 import BrandFeatured from "../../Components/Brand/BrandFeature";
 import IndexHomeProductForm from "../../Controllers/Product/IndexHomeProductForm";
+import IndexHomeTopProductForm from "../../Controllers/Product/IndexHomeTopProductForm";
 
 const HomePage = () => {
-    const {products: homeProducts, loading: homeLoading} = IndexHomeProductForm();
-
-    const {products: soldProducts, loading: soldLoading} = IndexHomeProductForm("-sold")
+    const {products, loading} = IndexHomeProductForm();
+    const {TopProducts, TopLoading} = IndexHomeTopProductForm()
 
     return (
         <>
             <Slider/>
             <HomeCategory/>
-            <ProductHomeItemContainer title="Most Products" btn="More" path="/products" products={homeProducts}
-                                      loading={homeLoading}/>
+            <ProductHomeItemContainer title="Most Products" btn="More" path="/products" products={products}
+                                      loading={loading}/>
             <DiscountSection/>
-            <ProductHomeItemContainer title="Top Rated Products" btn="More" path="/products" products={soldProducts}
-                                      loading={soldLoading}/>
+            <ProductHomeItemContainer title="Top Rated Products" btn="More" path="/products" products={TopProducts}
+                                      loading={TopLoading}/>
             <BrandFeatured title="Brands" btn="More"/>
         </>);
 };
