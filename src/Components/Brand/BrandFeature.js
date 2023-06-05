@@ -17,14 +17,7 @@ const BrandFeatured = ({title, btn}) => {
                         <BrandCard image={brand.image}/>
                             ))) :
                     <div className="d-flex justify-content-center align-items-center py-md-2 py-sm-1">
-                        <Spinner animation="grow" role="status" variant="secondary">
-                            <span className="visually-hidden">Loading...</span>
-                        </Spinner>
-                        <Spinner animation="grow" role="status" variant="secondary">
-                            <span className="visually-hidden">Loading...</span>
-                        </Spinner>
-                        <Spinner animation="grow" role="status" variant="secondary">
-                            <span className="visually-hidden">Loading...</span>
+                        <Spinner animation="border" role="status" variant="primary">
                         </Spinner>
                     </div>
 

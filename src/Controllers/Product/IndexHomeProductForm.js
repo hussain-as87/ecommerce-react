@@ -6,9 +6,8 @@ export const IndexHomeProductForm = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getProducts());
+        dispatch(getProducts({sort:"-createdAt",limit:6}));
     }, [dispatch]);
-
 
     const {products, loading} = useSelector((state) => state.products);
     return {products, loading};
