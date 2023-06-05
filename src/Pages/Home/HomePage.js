@@ -4,11 +4,9 @@ import ProductHomeItemContainer from "../../Components/Product/ProductHomeItemCo
 import DiscountSection from "../../Components/Home/DiscountSection";
 import BrandFeatured from "../../Components/Brand/BrandFeature";
 import IndexHomeProductForm from "../../Controllers/Product/IndexHomeProductForm";
-import IndexHomeTopProductForm from "../../Controllers/Product/IndexHomeTopProductForm";
 
 const HomePage = () => {
     const {products, loading} = IndexHomeProductForm();
-    const {TopProducts, TopLoading} = IndexHomeTopProductForm()
 
     return (
         <>
@@ -17,8 +15,8 @@ const HomePage = () => {
             <ProductHomeItemContainer title="Most Products" btn="More" path="/products" products={products}
                                       loading={loading}/>
             <DiscountSection/>
-            <ProductHomeItemContainer title="Top Rated Products" btn="More" path="/products" products={TopProducts}
-                                      loading={TopLoading}/>
+            <ProductHomeItemContainer title="Most Products" btn="More" path="/products" products={products}
+                                      loading={loading}/>
             <BrandFeatured title="Brands" btn="More"/>
         </>);
 };

@@ -21,14 +21,7 @@ const CategoryContainer = ({categories, loading}) => {
                                               background={getRandomColor()}/>
                             ))) :
                     <div className="d-flex justify-content-center align-items-center py-md-3 py-sm-2">
-                        <Spinner animation="grow" role="status" variant="secondary">
-                            <span className="visually-hidden">Loading...</span>
-                        </Spinner>
-                        <Spinner animation="grow" role="status" variant="secondary">
-                            <span className="visually-hidden">Loading...</span>
-                        </Spinner>
-                        <Spinner animation="grow" role="status" variant="secondary">
-                            <span className="visually-hidden">Loading...</span>
+                        <Spinner animation="border" role="status" variant="primary">
                         </Spinner>
                     </div>
 

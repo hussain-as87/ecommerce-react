@@ -14,14 +14,7 @@ const ProductDetails = () => {
     if (loading) {
         return (
             <div className="d-flex justify-content-center align-items-center py-2">
-                <Spinner animation="grow" role="status" variant="secondary">
-                    <span className="visually-hidden">Loading...</span>
-                </Spinner>
-                <Spinner animation="grow" role="status" variant="secondary">
-                    <span className="visually-hidden">Loading...</span>
-                </Spinner>
-                <Spinner animation="grow" role="status" variant="secondary">
-                    <span className="visually-hidden">Loading...</span>
+                <Spinner animation="border" role="status" variant="primary">
                 </Spinner>
             </div>
         );

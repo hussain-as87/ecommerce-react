@@ -5,7 +5,7 @@ import CategoryCard from "../Category/CategoryCard"
 import IndexHomeCategoryForm from "../../Controllers/Category/IndexHomeCategoryForm";
 
 const HomeCategory = () => {
-const {categories,loading,colors} = IndexHomeCategoryForm()
+    const {categories, loading, colors} = IndexHomeCategoryForm()
     return (
         <Container>
             <SubTitle title="Categories" btn="More" path="/categories"/>
@@ -18,15 +18,8 @@ const {categories,loading,colors} = IndexHomeCategoryForm()
                                               background={colors[index]}/>
                             ))) :
                     <div className="d-flex justify-content-center align-items-center py-md-2 py-sm-1">
-                        <Spinner animation="grow" role="status" variant="secondary">
-                            <span className="visually-hidden">Loading...</span>
+                        <Spinner animation="border" role="status" variant="primary">
                         </Spinner>
-                        <Spinner animation="grow" role="status" variant="secondary">
-                            <span className="visually-hidden">Loading...</span>
-                        </Spinner>
-                        <Spinner animation="grow" role="status" variant="secondary">
-                        <span className="visually-hidden">Loading...</span>
-                    </Spinner>
                     </div>
 
                 }
