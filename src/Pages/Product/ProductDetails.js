@@ -6,10 +6,12 @@ import RateContainer from "../../Components/Rate/RateContainer";
 import ProductDetailsContainer from "../../Components/Product/ProductDetailsContainer";
 import {useParams} from "react-router-dom";
 import ShowProductForm from "../../Controllers/Product/ShowProductForm";
+import IndexCategoryProductsForm from "../../Controllers/Product/IndexCategoryProductsForm";
 
 const ProductDetails = () => {
     const {id} = useParams();
     const {product, loading} = ShowProductForm(id)
+    const {categoryProducts, loadingCP} = IndexCategoryProductsForm(product?.data?.category.name)
 
     if (loading) {
         return (
@@ -24,8 +26,9 @@ const ProductDetails = () => {
             <CategoryHeader/>
             <Container>
                 <ProductDetailsContainer product={product} loading={loading}/>
-                <RateContainer />
-                <ProductHomeItemContainer title="Products maybe like it"/>
+                <RateContainer/>
+                <ProductHomeItemContainer title="Suggestion products" products={categoryProducts} loading={loadingCP}
+                                          btn="More" path="/products" exceptID={product?.data?._id}/>
             </Container>
         </div>
     )

@@ -23,7 +23,7 @@ const ProductText = ({product}) => {
       </Row>
       <Row>
         <Col md="8" className="mt-1 d-flex">
-          {product.colors.map((col)=>(
+          {product.colors !== [] && product.colors.map((col)=>(
               <div
                   className="color ms-2 border"
                   style={{ backgroundColor: col }}></div>

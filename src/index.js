@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import store from "./Redux/Store";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 ReactDOM.render(
   <Provider store={store}>

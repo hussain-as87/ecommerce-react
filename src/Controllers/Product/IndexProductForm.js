@@ -39,7 +39,6 @@ const IndexProductForm = () => {
         setSort(value)
     }
     const getPage = async (page) => {
-        console.log('page :' + page)
         await setPage(page)
     }
     useEffect(() => {
