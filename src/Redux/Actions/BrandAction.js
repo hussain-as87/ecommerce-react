@@ -3,7 +3,7 @@ import {ERROR, GET_ALL_BRANDS, CREATE_BRAND} from "../Types";
 
 const url = "/brands";
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzNiYjMzOWMyMjA4YzcxNWE5NTBkNmMiLCJpYXQiOjE2ODUxODc4MDcsImV4cCI6MTY5Mjk2MzgwN30.bIrENgn6nM0z2VJgpKTJgwjmkXWT6n0MwlSzOd_QZ9c";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzNiYjMzOWMyMjA4YzcxNWE5NTBkNmMiLCJpYXQiOjE2ODYwMzg1OTcsImV4cCI6MTY5MzgxNDU5N30.EiXvpt92eRmmfPeXgIR7haGNJpdjTmESUyjKg5l0slw";
 
 /**
  * @method GET
