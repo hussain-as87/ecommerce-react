@@ -40,7 +40,6 @@ const IndexProductForm = () => {
     }
     const getPage = async (page) => {
         await setPage(page)
-        await localStorage.setItem("currentPage", page);
     }
     useEffect(() => {
         let sortValue = sort !== "" ? sort : "-createdAt"
