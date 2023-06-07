@@ -3,7 +3,9 @@ import {
     ERROR,
     GET_ALL_PRODUCTS,
     GET_PRODUCT,
-    GET_PRODUCTS_BY_CATEGORY, GET_PRODUCTS_BY_SOLD
+    GET_PRODUCTS_BY_CATEGORY,
+    GET_PRODUCTS_BY_SOLD,
+    EDIT_PRODUCT
 } from "../Types";
 
 const initialState = {
@@ -20,6 +22,8 @@ const CategoryReducer = (state = initialState, action) => {
             return {...state, soldProducts: action.payload, loadingS: false};
         case CREATE_PRODUCT:
             return {...state, products: action.payload, loading: false};
+        case EDIT_PRODUCT:
+            return {...state, ProductE: action.payload, loadingE: false};
         case GET_PRODUCT:
             return {...state, product: action.payload, loading: false};
         case DELETE_PRODUCT:

@@ -33,7 +33,7 @@ const SidebarFilter = ({search,onChangeSearch}) => {
                         </Form.Group>
                     </Form>
                 </Col>
-                <Col className="py-2">
+                {/*<Col className="py-2">
                     <Form>
                         <Form.Group>
                             <Form.Label>Price</Form.Label>
@@ -49,7 +49,7 @@ const SidebarFilter = ({search,onChangeSearch}) => {
                             </Row>
                         </Form.Group>
                     </Form>
-                </Col>
+                </Col>*/}
             </Row>
         </div>
     );

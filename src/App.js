@@ -23,6 +23,7 @@ import UserAddressesPage from "./Pages/User/Addresses/UserAddressesPage";
 import UserCreateAddressPage from "./Pages/User/Addresses/UserCreateAddressPage";
 import UserEditAddressPage from "./Pages/User/Addresses/UserEditAddressPage";
 import UserProfilePage from "./Pages/User/UserProfilePage";
+import AdminEditProductPage from "./Pages/Admin/AdminEditProductPage";
 
 function App() {
 
@@ -47,6 +48,7 @@ function App() {
                     <Route path="/admin/orders" element={<AdminOrdersPage/>}/>
                     <Route path="/admin/orders/:id" element={<AdminOrderDetailsPage/>}/>
                     <Route path="/admin/products/create" element={<AdminCreateProductPage/>}/>
+                    <Route path="/admin/products/edit/:id" element={<AdminEditProductPage/>}/>
                     <Route path="/admin/brands/create" element={<AdminCreateBrandPage/>}/>
                     <Route path="/admin/categories/create" element={<AdminCreateCategoryPage/>}/>
                     <Route path="/admin/subcategories/create" element={<AdminCreateSubCategoryPage/>}/>
