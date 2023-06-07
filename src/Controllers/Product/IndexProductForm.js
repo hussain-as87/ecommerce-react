@@ -6,7 +6,7 @@ import {getProducts} from "../../Redux/Actions/ProductAction";
 const IndexProductForm = () => {
     const dispatch = useDispatch();
 
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState( 1);
     const [search, setSearch] = useState("");
     const [sort, setSort] = useState("");
 
@@ -45,7 +45,7 @@ const IndexProductForm = () => {
         let sortValue = sort !== "" ? sort : "-createdAt"
         dispatch(getProducts({limit: 12, page: page, sort: sortValue, search: search}));
     }, [dispatch, page, search, sort]);
-    return {products, loading, pageCount, getPage, search, onChangeSearch, sort, onChangeSort};
+    return {products, loading, pageCount, getPage, search, onChangeSearch, sort, onChangeSort,page};
 };
 
 export default IndexProductForm;
