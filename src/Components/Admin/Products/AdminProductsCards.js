@@ -1,6 +1,6 @@
 import {Card, Col, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import DestroyProductForm from "../../../Controllers/Product/DestroyProductForm";
+import DestroyProductForm from "../../../Controllers/Product/Admin/DestroyProductForm";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrash,faPenToSquare} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
@@ -21,8 +21,8 @@ const AdminProductsCards = ({product}) => {
                     <Col className="d-flex justify-content-between">
                         <div className="d-inline item-delete-edit" onClick={deleteHandler}><FontAwesomeIcon
                             icon={faTrash} size="1x" style={{color:"#f03"}}/></div>
-                        <div className="d-inline item-delete-edit" style={{color: "#ffd600"}}><FontAwesomeIcon
-                            icon={faPenToSquare} size="1x"/></div>
+                       <Link to={`/admin/products/edit/${product._id}`}> <div className="d-inline item-delete-edit" style={{color: "#ffd600"}}><FontAwesomeIcon
+                           icon={faPenToSquare} size="1x"/></div></Link>
                     </Col>
                 </Row>
                 <Link to="products/:id" style={{textDecoration: 'none'}}>

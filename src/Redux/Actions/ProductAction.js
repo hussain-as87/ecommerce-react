@@ -1,11 +1,11 @@
-import {use_create_data, use_destroy_data, use_index_data} from "../../Hooks/ApiDataHook";
+import {use_create_data, use_destroy_data, use_index_data, use_update_data} from "../../Hooks/ApiDataHook";
 import {
     ERROR,
     GET_ALL_PRODUCTS,
     CREATE_PRODUCT,
     GET_PRODUCT,
     GET_PRODUCTS_BY_CATEGORY,
-    GET_PRODUCTS_BY_SOLD, DELETE_PRODUCT
+    GET_PRODUCTS_BY_SOLD, DELETE_PRODUCT, EDIT_PRODUCT
 } from "../Types";
 
 const url = "/products";
@@ -108,6 +108,26 @@ export const createProduct = (formData) => async (dispatch) => {
         });
         console.log(response.data)
         dispatch({type: CREATE_PRODUCT, payload: response, loading: true});
+    } catch (error) {
+        dispatch({type: ERROR, payload: error.response});
+        console.log(error);
+    }
+};
+/**
+ * @method POST
+ * @return data object
+ * @static true
+ */
+export const updateProduct = ({id, formData}) => async (dispatch) => {
+    try {
+        const response = await use_update_data(`${url}/${id}`, formData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data"
+            },
+        });
+        console.log(response.data)
+        dispatch({type: EDIT_PRODUCT, payload: response, loadingE: true});
     } catch (error) {
         dispatch({type: ERROR, payload: error.response});
         console.log(error);

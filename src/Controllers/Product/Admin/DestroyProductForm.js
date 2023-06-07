@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { destroyProduct, getProducts } from "../../Redux/Actions/ProductAction";
+import { destroyProduct, getProducts } from "../../../Redux/Actions/ProductAction";
 import { confirmAlert } from "react-confirm-alert";
-import use_notification from "../use_notification";
+import use_notification from "../../use_notification";
 import { toast } from "react-toastify";
 
 const DestroyProductForm = (id) => {
