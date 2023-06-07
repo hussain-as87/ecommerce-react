@@ -1,6 +1,5 @@
 import {Card, Col, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import prod1 from "../../../assets/images/prod1.png";
 import DestroyProductForm from "../../../Controllers/Product/DestroyProductForm";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrash,faPenToSquare} from "@fortawesome/free-solid-svg-icons";
