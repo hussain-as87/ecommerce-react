@@ -3,11 +3,10 @@ import { Button, Col, Form, Row, Spinner } from "react-bootstrap";
 import { Multiselect } from "multiselect-react-dropdown";
 import MultiImageInput from "react-multiple-image-input";
 import { CompactPicker } from "react-color";
-import CreateProductForm from "../../../Controllers/Product/Admin/CreateProductForm";
+import { useParams } from "react-router-dom";
 
 import add from "../../../assets/images/add.png";
 import EditProductForm from "../../../Controllers/Product/Admin/EditProductForm";
-import { useParams } from "react-router-dom";
 
 const AdminEditProduct = () => {
     const { id } = useParams();
@@ -28,24 +27,17 @@ const AdminEditProduct = () => {
         setImages,
         crop,
         subcategoryOptions,
-        handleTitleChange,
-        handleDescriptionChange,
-        handlePriceChange,
-        handleQuantityChange,
-        handleCategoryChange,
         handleSubcategorySelect,
         handleSubcategoryRemove,
-        handleBrandChange,
-    } = EditProductForm(id);
-
-    console.log(data);
+        handleInputChange,
+    } = EditProductForm({ id });
 
     const handleError = (e) => console.log(e);
 
     return (
         <Form onSubmit={handleSubmit}>
             <Row className="justify-content-start">
-                 {/*Display the product title*/}
+                {/*Display the product title*/}
                 <div className="admin-content-text pb-4">
                     Edit: <b className="text-warning">{data.title}</b>
                 </div>
@@ -53,7 +45,7 @@ const AdminEditProduct = () => {
                     <div className="text-form pb-2">The images gallery of the product</div>
                     {/* Input for selecting multiple images*/}
                     <MultiImageInput
-                        images={images.length > 0 ? images : data.images}
+                        images={images || []}
                         setImages={setImages}
                         theme="light"
                         max={6}
@@ -62,75 +54,83 @@ const AdminEditProduct = () => {
                         cropConfig={{ crop, ruleOfThirds: true }}
                     />
 
-
                     {/* Input for the product title*/}
                     <input
                         className="input-form d-block mt-3 px-3"
                         type="text"
                         placeholder="Title"
+                        name="title"
                         value={data.title}
-                        onChange={handleTitleChange}
+                        onChange={handleInputChange}
                     />
-                     {/*Textarea for the product description*/}
+                    {/*Textarea for the product description*/}
                     <textarea
                         className="input-form-area p-2 mt-3"
                         rows={4}
                         cols={50}
+                        name="description"
                         placeholder="Description"
                         value={data.description}
-                        onChange={handleDescriptionChange}
+                        onChange={handleInputChange}
                     />
-                     {/*Input for the product price*/}
+                    {/*Input for the product price*/}
                     <input
                         className="input-form d-block mt-3 px-3"
                         type="number"
+                        name="price"
                         placeholder="Price"
                         value={data.price}
-                        onChange={handlePriceChange}
+                        onChange={handleInputChange}
                     />
-                     {/*Input for the available quantity*/}
+                    {/*Input for the available quantity*/}
                     <input
                         className="input-form d-block mt-3 px-3"
                         type="number"
+                        name="quantity"
                         placeholder="Available quantity"
                         value={data.quantity}
-                        onChange={handleQuantityChange}
+                        onChange={handleInputChange}
                     />
-                     {/*Dropdown for selecting the category*/}
+                    {/*Dropdown for selecting the category*/}
                     <select
-                        id="category"
                         name="category"
+                        id="category"
                         value={data.category}
-                        onChange={handleCategoryChange}
+                        onChange={handleInputChange}
                         className="select input-form-area mt-3 px-2"
                     >
                         <option value="val">Choose category</option>
                         {Array.isArray(categories.data) &&
-                            categories.data.map((cate) => (
-                                <option value={cate._id} key={cate._id}>
-                                    {cate.name}
+                            categories.data.map((category) => (
+                                <option value={category._id} key={category._id}>
+                                    {category.name}
                                 </option>
                             ))}
                     </select>
-                     {/*Multiselect for selecting subcategories*/}
+                    {/*Multiselect for selecting subcategories*/}
                     <Multiselect
                         className="select input-form-area mt-3"
-                        placeholder={subcategoryOptions && subcategoryOptions.length < 1 ? "Subcategory" : ""}
+                        placeholder={
+                            subcategoryOptions && subcategoryOptions.length < 1
+                                ? "Subcategory"
+                                : ""
+                        }
                         options={Array.isArray(subcategoryOptions) ? subcategoryOptions : []}
                         selectedValues={data.subCategory}
                         onSelect={handleSubcategorySelect}
                         onRemove={handleSubcategoryRemove}
                         displayValue="name"
+                        loading={true}
                         selectionLimit={4}
                         style={{ color: "red" }}
                     />
 
-                     {/*Dropdown for selecting the brand*/}
+                    {/*Dropdown for selecting the brand*/}
                     <select
                         name="brand"
                         id="brand"
                         value={data.brand}
-                        onChange={handleBrandChange}
+                        onChange={handleInputChange}
                         className="select input-form-area mt-3 px-2"
                     >
                         <option value="val">Choose brand</option>
@@ -144,27 +144,26 @@ const AdminEditProduct = () => {
                     <div className="text-form mt-3">Available colors of the product</div>
                     <div className="mt-1 d-flex">
                         {/* Display the selected colors*/}
-                        {colors.length > 0 ? colors : data.colors &&
-                            colors.map((co, index) => (
-                                <div
-                                    key={index}
-                                    onClick={() => handleRemoveColors(co)}
-                                    className="color ms-2 border mt-1"
-                                    style={{backgroundColor: co}}
-                                ></div>
-                            ))}
+                        {(colors || []).map((color, index) => (
+                            <div
+                                key={index}
+                                onClick={() => handleRemoveColors(color)}
+                                className="color ms-2 border mt-1"
+                                style={{ backgroundColor: color }}
+                            ></div>
+                        ))}
+
                         <img
                             src={add}
                             alt=""
                             onClick={setColorPickerShow}
                             width="30px"
                             height="35px"
-                            style={{cursor: "pointer"}}
+                            style={{ cursor: "pointer" }}
                             className="color ms-2 mt-1"
                         />
-                        {colorPickerShow && <CompactPicker onChangeComplete={handleCreateColors}/>}
+                        {colorPickerShow && <CompactPicker onChangeComplete={handleCreateColors} />}
                     </div>
-
                 </Col>
             </Row>
             <Row>

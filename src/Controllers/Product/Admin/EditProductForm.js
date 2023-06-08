@@ -7,7 +7,7 @@ import { getSpecificSubcategories } from "../../../Redux/Actions/SubcategoryActi
 import { updateProduct } from "../../../Redux/Actions/ProductAction";
 import use_notification from "../../use_notification";
 
-const EditProductForm = (id) => {
+const EditProductForm = ({ id }) => {
     const dispatch = useDispatch();
     const { productE, loadingE } = useSelector((state) => state.products);
 
@@ -69,17 +69,13 @@ const EditProductForm = (id) => {
     };
 
     // Handle input change for generic fields
-    const handleInputChange = (e) => {
+    const handleInputChange = async (e) => {
         const { name, value } = e.target;
-        setData((prevData) => ({ ...prevData, [name]: value }));
-    };
-
-    // Handle category change
-    const handleCategoryChange = async (e) => {
-        const { value } = e.target;
-        setData((prevData) => ({ ...prevData, category: value }));
-
-        if (value !== "") {
+        setData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+        if (name === "category" && value !== "") {
             try {
                 await dispatch(getSpecificSubcategories(value || product.data.category._id));
             } catch (err) {
@@ -98,16 +94,14 @@ const EditProductForm = (id) => {
         setData((prevData) => ({ ...prevData, subCategory: selectedList }));
     };
 
-    // Handle brand change
-    const handleBrandChange = (e) => {
-        const { value } = e.target;
-        setData((prevData) => ({ ...prevData, brand: value }));
-    };
-
     // Convert base64 image to file
     function dataURLtoFile(dataUrl, filename) {
+        if (!dataUrl) {
+            return null; // or handle the case when dataUrl is null/undefined
+        }
+
         const arr = dataUrl.split(",");
-        const mime = arr[0].match(/:(.*?);/)[1];
+        const mime = arr[0]?.match(/:(.*?);/)?.[1];
         const bstr = atob(arr[1]);
         let n = bstr.length;
         const u8arr = new Uint8Array(n);
@@ -131,11 +125,11 @@ const EditProductForm = (id) => {
         } = data;
 
         // Convert base64 image to file
-        const imgCover = dataURLtoFile(images[0], Math.random() + ".png");
+        const imgCover = images[0] ? dataURLtoFile(images[0], Math.random() + ".png") : null;
 
         // Convert array of base64 images to files
         const itemImages = images.map((image, index) =>
-            dataURLtoFile(image, Math.random() + ".png")
+            image ? dataURLtoFile(image, Math.random() + ".png") : null
         );
 
         const formData = new FormData();
@@ -170,9 +164,10 @@ const EditProductForm = (id) => {
                 subCategory: productData.subCategory,
                 brand: productData.brand?._id,
             }));
-           /* setImages(productData.images)
-            setColors(productData.colors)*/
+            setImages(productData.images);
+            setColors(productData.colors);
         }
+
         // Update subcategory options
         if (data.category !== "") {
             if (subcategories.data) {
@@ -209,10 +204,8 @@ const EditProductForm = (id) => {
     return {
         data,
         handleInputChange,
-        handleCategoryChange,
         handleSubcategorySelect,
         handleSubcategoryRemove,
-        handleBrandChange,
         setImages,
         crop,
         subcategoryOptions,
