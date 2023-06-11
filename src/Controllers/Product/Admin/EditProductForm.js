@@ -1,24 +1,22 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import ShowProductForm from "../ShowProductForm";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {createProduct, updateProduct} from "../../../Redux/Actions/ProductAction";
+import use_notification from "../../use_notification";
 import IndexCategoryForm from "../../Category/IndexCategoryForm";
 import IndexBrandForm from "../../Brand/IndexBrandForm";
-import { getSpecificSubcategories } from "../../../Redux/Actions/SubcategoryAction";
-import { updateProduct } from "../../../Redux/Actions/ProductAction";
-import use_notification from "../../use_notification";
+import {getSpecificSubcategories} from "../../../Redux/Actions/SubcategoryAction";
+import ShowProductForm from "../ShowProductForm";
 
-const EditProductForm = ({ id }) => {
+const EditProductForm = ({id}) => {
     const dispatch = useDispatch();
-    const { productE, loadingE } = useSelector((state) => state.products);
-
     // Retrieve the product data using the provided ID
-    const { product } = ShowProductForm(id);
-
+    const {product} = ShowProductForm(id)
     // Extract the data from the product, or set it as an empty array if not available
     const productData = product ? product.data : [];
 
     // State variables
     const [images, setImages] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [isPress, setIsPress] = useState(false);
     const [colorPickerShow, setColorPickerShow] = useState(false);
     const [colors, setColors] = useState([]);
@@ -38,14 +36,13 @@ const EditProductForm = ({ id }) => {
         brand: "",
     });
 
-    // Retrieve categories and brands
-    const { categories } = IndexCategoryForm();
-    const { brands } = IndexBrandForm();
+    const response = useSelector((state) => state.products.ProductE);
+    const {categories} = IndexCategoryForm();
+    const {brands} = IndexBrandForm();
 
     // Retrieve subcategories from the Redux store
-    const { subcategories } = useSelector((state) => state.subcategories);
+    const {subcategories} = useSelector((state) => state.subcategories);
 
-    // Handle the creation of colors
     const handleCreateColors = (color) => {
         if (colors.includes(color.hex)) {
             setColorPickerShow(!colorPickerShow);
@@ -55,63 +52,94 @@ const EditProductForm = ({ id }) => {
         setColorPickerShow(!colorPickerShow);
     };
 
-    // Handle the removal of colors
     const handleRemoveColors = (color) => {
         const newColors = colors.filter((c) => c !== color);
         setColors(newColors);
     };
 
-    // Crop settings for image
     const crop = {
         unit: "%",
         aspect: 4 / 3,
         width: "100",
     };
 
-    // Handle input change for generic fields
-    const handleInputChange = async (e) => {
-        const { name, value } = e.target;
-        setData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
-        if (name === "category" && value !== "") {
+    const handleTitleChange = (e) => {
+        setData((prevData) => ({...prevData, title: e.target.value}));
+    };
+
+    const handleDescriptionChange = (e) => {
+        setData((prevData) => ({...prevData, description: e.target.value}));
+    };
+
+    const handlePriceChange = (e) => {
+        setData((prevData) => ({...prevData, price: e.target.value}));
+    };
+
+    const handleQuantityChange = (e) => {
+        setData((prevData) => ({...prevData, quantity: e.target.value}));
+    };
+
+    const handleCategoryChange = async (e) => {
+        setData((prevData) => ({...prevData, category: e.target.value}));
+        if (e.target.value !== "") {
             try {
-                await dispatch(getSpecificSubcategories(value || product.data.category._id));
+                await dispatch(getSpecificSubcategories(e.target.value));
             } catch (err) {
                 console.log("Error fetching subcategories:", err);
             }
         }
     };
 
-    // Handle subcategory selection
+    useEffect(() => {
+        if (data.category !== "") {
+            if (subcategories.data) {
+                setSubcategoryOptions(subcategories.data);
+            }
+        }
+    }, [data.category, subcategories.data]);
+
     const handleSubcategorySelect = (selectedList) => {
-        setData((prevData) => ({ ...prevData, subCategory: selectedList }));
+        setData((prevData) => ({
+            ...prevData,
+            subCategory: selectedList,
+        }));
     };
 
-    // Handle subcategory removal
     const handleSubcategoryRemove = (selectedList) => {
-        setData((prevData) => ({ ...prevData, subCategory: selectedList }));
+        setData((prevData) => ({
+            ...prevData,
+            subCategory: selectedList,
+        }));
     };
 
-    // Convert base64 image to file
+    const handleBrandChange = (e) => {
+        setData((prevData) => ({...prevData, brand: e.target.value}));
+    };
+
+    // Convert base64 to file
     function dataURLtoFile(dataUrl, filename) {
-        if (!dataUrl) {
-            return null; // or handle the case when dataUrl is null/undefined
+        if (!dataUrl || typeof dataUrl !== 'string') {
+            // Handle the case when dataUrl is not valid
+            return null;
         }
 
         const arr = dataUrl.split(",");
-        const mime = arr[0]?.match(/:(.*?);/)?.[1];
+        if (arr.length < 2) {
+            // Handle the case when dataUrl is not in the expected format
+            return null;
+        }
+
+        const mime = arr[0].match(/:(.*?);/)[1];
         const bstr = atob(arr[1]);
         let n = bstr.length;
         const u8arr = new Uint8Array(n);
         while (n--) {
             u8arr[n] = bstr.charCodeAt(n);
         }
-        return new File([u8arr], filename, { type: mime });
+        return new File([u8arr], filename, {type: mime});
     }
 
-    // Handle form submission
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const {
@@ -123,67 +151,64 @@ const EditProductForm = ({ id }) => {
             subCategory,
             brand,
         } = data;
-
-        // Convert base64 image to file
-        const imgCover = images[0] ? dataURLtoFile(images[0], Math.random() + ".png") : null;
-
-        // Convert array of base64 images to files
-        const itemImages = images.map((image, index) =>
-            image ? dataURLtoFile(image, Math.random() + ".png") : null
-        );
-
         const formData = new FormData();
+
+        if (images && images.length > 0) {
+            // Convert base64 image to file
+            const imgCover = dataURLtoFile(images[0], Math.random() + ".png");
+
+            // Convert array of base64 images to files
+            const itemImages = Array.from(Array(Object.keys(images).length).keys()).map(
+                (item, index) => {
+                    return dataURLtoFile(images[index], Math.random() + ".png")
+                }
+            )
+            formData.append("imageCover", imgCover);
+            itemImages.forEach((image) => formData.append("images", image));
+        }
+
         formData.append("title", title);
         formData.append("description", description);
         formData.append("quantity", quantity);
         formData.append("price", price);
         formData.append("category", category);
         formData.append("brand", brand);
-        subCategory.forEach((subCat) => formData.append("subCategory", subCat._id));
-        formData.append("imageCover", imgCover);
-        itemImages.forEach((image) => formData.append("images", image));
-        colors.forEach((color) => formData.append("colors", color));
+        subCategory.forEach((subCat) =>
+            formData.append("subCategory", subCat._id)
+        );
 
-        await dispatch(updateProduct({ id: id, formData: formData }));
+        colors.map((color) => formData.append("colors", color))
+
+        setLoading(true);
+        await dispatch(updateProduct({id, formData}));
+        setLoading(false);
         setIsPress(true);
     };
 
     useEffect(() => {
-        // Update form data with default values from productData
         if (productData) {
-            setData((prevData) => ({
-                ...prevData,
+            setData((prevState) => ({
+                ...prevState,
                 title: productData.title,
                 description: productData.description,
                 quantity: productData.quantity,
-                price: productData.price,
-                colors: productData.colors,
+                price: productData.price ,
                 imageCover: productData.imageCover,
-                images: productData.images,
                 category: productData.category?._id,
                 subCategory: productData.subCategory,
                 brand: productData.brand?._id,
             }));
             setImages(productData.images);
             setColors(productData.colors);
-        }
 
-        // Update subcategory options
-        if (data.category !== "") {
-            if (subcategories.data) {
-                setSubcategoryOptions(subcategories.data);
-            }
         }
-    }, [productData, subcategories.data, data.category]);
-
-    useEffect(() => {
-        if (!loadingE) {
+        if (!loading) {
             setImages([]);
             setColors([]);
             setSubcategoryOptions([]);
-            setIsPress(false);
-
-            if (productE && productE.status === 201) {
+            setTimeout(() => setIsPress(false), 2000);
+            setLoading(true);
+            if (response.status === 200) {
                 setData({
                     title: "",
                     description: "",
@@ -197,15 +222,23 @@ const EditProductForm = ({ id }) => {
                     brand: "",
                 });
                 use_notification("The product has been created successfully! 😀", "success");
+            } else {
+                use_notification("There are data required! 😔", "error");
             }
         }
-    }, [loadingE, dispatch, productE]);
+
+    }, [loading, dispatch, response, productData]);
 
     return {
         data,
-        handleInputChange,
+        handleTitleChange,
+        handleDescriptionChange,
+        handlePriceChange,
+        handleQuantityChange,
+        handleCategoryChange,
         handleSubcategorySelect,
         handleSubcategoryRemove,
+        handleBrandChange,
         setImages,
         crop,
         subcategoryOptions,
@@ -219,7 +252,6 @@ const EditProductForm = ({ id }) => {
         colorPickerShow,
         handleCreateColors,
         colors,
-        product,
     };
 };
 
