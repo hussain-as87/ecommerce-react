@@ -2,11 +2,11 @@ import {Card, Col, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import DestroyProductForm from "../../../Controllers/Product/Admin/DestroyProductForm";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faTrash,faPenToSquare} from "@fortawesome/free-solid-svg-icons";
+import {faTrash, faPenToSquare} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 
 const AdminProductsCards = ({product}) => {
-    const {deleteHandler} = DestroyProductForm(product?._id)
+        const {deleteHandler} = DestroyProductForm(product?._id)
     return (
         <Col xs={12} sm={6} md={5} lg={4} className="d-flex">
             <Card className="my-2"
@@ -19,10 +19,13 @@ const AdminProductsCards = ({product}) => {
                   }}>
                 <Row className="d-flex justify-content-center px-2">
                     <Col className="d-flex justify-content-between">
-                        <div className="d-inline item-delete-edit" onClick={deleteHandler}><FontAwesomeIcon
-                            icon={faTrash} size="1x" style={{color:"#f03"}}/></div>
-                       <Link to={`/admin/products/edit/${product._id}`}> <div className="d-inline item-delete-edit" style={{color: "#ffd600"}}><FontAwesomeIcon
-                           icon={faPenToSquare} size="1x"/></div></Link>
+                        <div className="d-inline item-delete-edit" onClick={deleteHandler}>
+                            <FontAwesomeIcon icon={faTrash} size="1x" style={{color: "#f03"}}/>
+                        </div>
+                        <Link to={`/admin/products/edit/${product._id}`}>
+                            <div className="d-inline item-delete-edit" style={{color: "#ffd600"}}><FontAwesomeIcon
+                                icon={faPenToSquare} size="1x"/></div>
+                        </Link>
                     </Col>
                 </Row>
                 <Link to="products/:id" style={{textDecoration: 'none'}}>

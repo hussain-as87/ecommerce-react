@@ -1,13 +1,13 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { destroyProduct, getProducts } from "../../../Redux/Actions/ProductAction";
-import { confirmAlert } from "react-confirm-alert";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {destroyProduct, getProducts} from "../../../Redux/Actions/ProductAction";
+import {confirmAlert} from "react-confirm-alert";
 import use_notification from "../../use_notification";
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
 
 const DestroyProductForm = (id) => {
     const dispatch = useDispatch();
-    const { loadingD } = useSelector((state) => state.products);
+    const {loadingD} = useSelector((state) => state.products);
     const currentPage = useSelector((state) => state.products.products.paginationResult?.currentPage);
     const deleteHandler = (e) => {
         e.preventDefault();
@@ -19,27 +19,28 @@ const DestroyProductForm = (id) => {
                     label: "Yes",
                     onClick: async () => {
                         await dispatch(destroyProduct(id));
+                        await dispatch(getProducts({limit: 12, page:currentPage,sort:"-createdAt"}));
                         use_notification("Successfully deleted!🙂", "success");
                     },
                 },
                 {
                     label: "No",
-                    onClick: () => {},
+                    onClick: () => {
+                    },
                 },
             ],
         });
     };
 
     useEffect(() => {
-        dispatch(getProducts({ limit: 12, page: currentPage }));
 
         return () => {
             // Cleanup notification messages
             toast.dismiss();
         };
-    }, [dispatch,currentPage]);
+    }, [dispatch, currentPage]);
 
-    return { deleteHandler };
+    return {deleteHandler};
 };
 
 export default DestroyProductForm;
