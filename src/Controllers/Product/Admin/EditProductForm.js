@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {createProduct, updateProduct} from "../../../Redux/Actions/ProductAction";
+import {updateProduct} from "../../../Redux/Actions/ProductAction";
 import use_notification from "../../use_notification";
 import IndexCategoryForm from "../../Category/IndexCategoryForm";
 import IndexBrandForm from "../../Brand/IndexBrandForm";
@@ -21,8 +21,6 @@ const EditProductForm = ({id}) => {
     const [colorPickerShow, setColorPickerShow] = useState(false);
     const [colors, setColors] = useState([]);
     const [subcategoryOptions, setSubcategoryOptions] = useState([]);
-
-    // Form data state
     const [data, setData] = useState({
         title: "",
         description: "",
@@ -63,6 +61,13 @@ const EditProductForm = ({id}) => {
         width: "100",
     };
 
+    const handleInputChange = (e) => {
+        const {name, value} = e.target
+        setData((prevData) => ({
+            ...prevData,
+            [name]: value
+        }));
+    };
     const handleTitleChange = (e) => {
         setData((prevData) => ({...prevData, title: e.target.value}));
     };
@@ -129,7 +134,6 @@ const EditProductForm = ({id}) => {
         return new File([u8arr], filename, {type: mime});
     }
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const {
@@ -142,10 +146,9 @@ const EditProductForm = ({id}) => {
             brand,
         } = data;
         const formData = new FormData();
-        console.log(images)
-        if (Array.isArray(images) && images.length > 0) {
+        if (images) {
             // Convert base64 image to file
-            const imgCover = dataURLtoFile(images[0], Math.random() + ".png");
+            const imgCover = await dataURLtoFile(images[0], Math.random() + ".png");
 
             // Convert array of base64 images to files
             const itemImages = Array.from(Array(Object.keys(images).length).keys()).map(
@@ -163,6 +166,7 @@ const EditProductForm = ({id}) => {
         formData.append("price", price);
         formData.append("category", category);
         formData.append("brand", brand);
+
         subCategory.forEach((subCat) =>
             formData.append("subCategory", subCat._id)
         );
@@ -220,6 +224,7 @@ const EditProductForm = ({id}) => {
 
     return {
         data,
+        handleInputChange,
         handleTitleChange,
         handleDescriptionChange,
         handlePriceChange,

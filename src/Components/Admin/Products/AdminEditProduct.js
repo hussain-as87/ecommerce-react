@@ -27,6 +27,7 @@ const AdminEditProduct = () => {
         setImages,
         crop,
         subcategoryOptions,
+        handleInputChange,
         handleTitleChange,
         handleDescriptionChange,
         handlePriceChange,
@@ -40,7 +41,7 @@ const AdminEditProduct = () => {
     return (
         <Form onSubmit={handleSubmit}>
             <Row className="justify-content-start">
-                <div className="admin-content-text pb-4">Edit product: <b style={{color:"blue"}}>{data.title}</b></div>
+                <div className="admin-content-text pb-4">Edit product: <b style={{color:"#5591ef"}}>{data.title}</b></div>
                 <Col sm={8}>
                     <div className="text-form pb-2">The images gallery of the product</div>
                     <MultiImageInput
