@@ -118,17 +118,7 @@ const EditProductForm = ({id}) => {
 
     // Convert base64 to file
     function dataURLtoFile(dataUrl, filename) {
-        if (!dataUrl || typeof dataUrl !== 'string') {
-            // Handle the case when dataUrl is not valid
-            return null;
-        }
-
         const arr = dataUrl.split(",");
-        if (arr.length < 2) {
-            // Handle the case when dataUrl is not in the expected format
-            return null;
-        }
-
         const mime = arr[0].match(/:(.*?);/)[1];
         const bstr = atob(arr[1]);
         let n = bstr.length;
@@ -152,8 +142,8 @@ const EditProductForm = ({id}) => {
             brand,
         } = data;
         const formData = new FormData();
-
-        if (images && images.length > 0) {
+        console.log(images)
+        if (Array.isArray(images) && images.length > 0) {
             // Convert base64 image to file
             const imgCover = dataURLtoFile(images[0], Math.random() + ".png");
 
@@ -192,15 +182,14 @@ const EditProductForm = ({id}) => {
                 title: productData.title,
                 description: productData.description,
                 quantity: productData.quantity,
-                price: productData.price ,
+                price: productData.price,
                 imageCover: productData.imageCover,
                 category: productData.category?._id,
                 subCategory: productData.subCategory,
                 brand: productData.brand?._id,
             }));
-            setImages(productData.images);
-            setColors(productData.colors);
-
+            setImages(productData.images || []);
+            setColors(productData.colors || []);
         }
         if (!loading) {
             setImages([]);
