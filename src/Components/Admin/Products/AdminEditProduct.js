@@ -27,6 +27,7 @@ const AdminEditProduct = () => {
         setImages,
         crop,
         subcategoryOptions,
+        handleInputChange,
         handleTitleChange,
         handleDescriptionChange,
         handlePriceChange,
@@ -36,11 +37,13 @@ const AdminEditProduct = () => {
         handleSubcategoryRemove,
         handleBrandChange,
     } = EditProductForm({id});
+
     const handleError = (e) => console.log(e)
     return (
         <Form onSubmit={handleSubmit}>
             <Row className="justify-content-start">
-                <div className="admin-content-text pb-4">Edit product: <b style={{color:"blue"}}>{data.title}</b></div>
+                <div className="admin-content-text pb-4">Edit product: <b style={{color: "#5591ef"}}>{data.title}</b>
+                </div>
                 <Col sm={8}>
                     <div className="text-form pb-2">The images gallery of the product</div>
                     <MultiImageInput
@@ -99,14 +102,15 @@ const AdminEditProduct = () => {
                     <Multiselect
                         className="select input-form-area mt-3"
                         placeholder={subcategoryOptions.length < 1 ? "Subcategory" : ""}
-                        options={Array.isArray(subcategoryOptions) ? subcategoryOptions : []}
-                        selectedValues={data.subCategory}
+                        options={subcategoryOptions || []}
+                        /*selectedValues={data.subCategory}*/
                         onSelect={handleSubcategorySelect}
                         onRemove={handleSubcategoryRemove}
                         displayValue="name"
                         selectionLimit={4}
-                        style={{color: "red"}}
+                        style={{ color: "red" }}
                     />
+
                     <select
                         name="brand"
                         id="brand"
