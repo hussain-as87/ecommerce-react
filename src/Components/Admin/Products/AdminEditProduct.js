@@ -1,17 +1,17 @@
 import React from "react";
-import {Button, Col, Form, Row, Spinner} from "react-bootstrap";
-import {Multiselect} from "multiselect-react-dropdown";
+import { Button, Col, Form, Row, Spinner } from "react-bootstrap";
+import { Multiselect } from "multiselect-react-dropdown";
 import MultiImageInput from "react-multiple-image-input";
-import {CompactPicker} from "react-color";
-import {useParams} from "react-router-dom";
+import { CompactPicker } from "react-color";
+import { useParams } from "react-router-dom";
 
 import add from "../../../assets/images/add.png";
 import EditProductForm from "../../../Controllers/Product/Admin/EditProductForm";
-import CreateProductForm from "../../../Controllers/Product/Admin/CreateProductForm";
 
 const AdminEditProduct = () => {
-    const {id} = useParams();
+    const { id } = useParams();
 
+    // Destructure the values and functions from EditProductForm
     const {
         brands,
         categories,
@@ -36,15 +36,20 @@ const AdminEditProduct = () => {
         handleSubcategorySelect,
         handleSubcategoryRemove,
         handleBrandChange,
-    } = EditProductForm({id});
+    } = EditProductForm({ id });
 
-    const handleError = (e) => console.log(e)
+    // Handle any error that occurs during image handling
+    const handleError = (e) => console.log(e);
+
     return (
         <Form onSubmit={handleSubmit}>
             <Row className="justify-content-start">
-                <div className="admin-content-text pb-4">Edit product: <b style={{color: "#5591ef"}}>{data.title}</b>
+                {/* Display the product title for editing */}
+                <div className="admin-content-text pb-4">
+                    Edit product: <b style={{ color: "#5591ef" }}>{data.title}</b>
                 </div>
                 <Col sm={8}>
+                    {/* Display the images gallery of the product */}
                     <div className="text-form pb-2">The images gallery of the product</div>
                     <MultiImageInput
                         images={images}
@@ -53,8 +58,9 @@ const AdminEditProduct = () => {
                         max={6}
                         handleError={handleError}
                         allowCrop={false}
-                        cropConfig={{crop, ruleOfThirds: true}}
+                        cropConfig={{ crop, ruleOfThirds: true }}
                     />
+                    {/* Input field for the product title */}
                     <input
                         className="input-form d-block mt-3 px-3"
                         type="text"
@@ -62,6 +68,7 @@ const AdminEditProduct = () => {
                         value={data.title}
                         onChange={handleTitleChange}
                     />
+                    {/* Textarea for the product description */}
                     <textarea
                         className="input-form-area p-2 mt-3"
                         rows={4}
@@ -70,6 +77,7 @@ const AdminEditProduct = () => {
                         value={data.description}
                         onChange={handleDescriptionChange}
                     />
+                    {/* Input field for the product price */}
                     <input
                         className="input-form d-block mt-3 px-3"
                         type="number"
@@ -77,6 +85,7 @@ const AdminEditProduct = () => {
                         value={data.price}
                         onChange={handlePriceChange}
                     />
+                    {/* Input field for the available quantity of the product */}
                     <input
                         className="input-form d-block mt-3 px-3"
                         type="number"
@@ -84,6 +93,7 @@ const AdminEditProduct = () => {
                         value={data.quantity}
                         onChange={handleQuantityChange}
                     />
+                    {/* Dropdown for selecting the product category */}
                     <select
                         id="category"
                         name="category"
@@ -99,6 +109,7 @@ const AdminEditProduct = () => {
                                 </option>
                             ))}
                     </select>
+                    {/* Multiselect for selecting the product subcategories */}
                     <Multiselect
                         className="select input-form-area mt-3"
                         placeholder={subcategoryOptions.length < 1 ? "Subcategory" : ""}
@@ -111,6 +122,7 @@ const AdminEditProduct = () => {
                         style={{ color: "red" }}
                     />
 
+                    {/* Dropdown for selecting the product brand */}
                     <select
                         name="brand"
                         id="brand"
@@ -126,36 +138,43 @@ const AdminEditProduct = () => {
                                 </option>
                             ))}
                     </select>
+
+                    {/* Display the available colors of the product */}
                     <div className="text-form mt-3">Available colors of the product</div>
                     <div className="mt-1 d-flex">
+                        {/* Render the selected colors */}
                         {colors.length > 0 &&
                             colors.map((co, index) => (
                                 <div
                                     key={index}
                                     onClick={() => handleRemoveColors(co)}
                                     className="color ms-2 border mt-1"
-                                    style={{backgroundColor: co}}
+                                    style={{ backgroundColor: co }}
                                 ></div>
                             ))}
+                        {/* Show color picker when the add button is clicked */}
                         <img
                             src={add}
                             alt=""
                             onClick={setColorPickerShow}
                             width="30px"
                             height="35px"
-                            style={{cursor: "pointer"}}
+                            style={{ cursor: "pointer" }}
                             className="color ms-2 mt-1"
                         />
-                        {colorPickerShow && <CompactPicker onChangeComplete={handleCreateColors}/>}
+                        {/* Render the color picker component */}
+                        {colorPickerShow && <CompactPicker onChangeComplete={handleCreateColors} />}
                     </div>
                 </Col>
             </Row>
             <Row>
                 <Col sm={8} className="d-flex justify-content-end">
+                    {/* Submit button for saving the changes */}
                     <Button variant="outline-primary" className="d-inline mt-2" type="submit">
                         Submit
+                        {/* Display a spinner while the form is being submitted */}
                         {isPress && (
-                            <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true"/>
+                            <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
                         )}
                     </Button>
                 </Col>
@@ -163,4 +182,5 @@ const AdminEditProduct = () => {
         </Form>
     );
 };
+
 export default AdminEditProduct;
