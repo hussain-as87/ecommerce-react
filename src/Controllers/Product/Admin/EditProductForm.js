@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {updateProduct} from "../../../Redux/Actions/ProductAction";
+import {getProduct, updateProduct} from "../../../Redux/Actions/ProductAction";
 import use_notification from "../../use_notification";
 import IndexCategoryForm from "../../Category/IndexCategoryForm";
 import IndexBrandForm from "../../Brand/IndexBrandForm";
@@ -68,6 +68,7 @@ const EditProductForm = ({id}) => {
             [name]: value
         }));
     };
+
     const handleTitleChange = (e) => {
         setData((prevData) => ({...prevData, title: e.target.value}));
     };
@@ -89,16 +90,25 @@ const EditProductForm = ({id}) => {
         if (e.target.value !== "") {
             try {
                 await dispatch(getSpecificSubcategories(e.target.value));
+                setData(prevData => ({...prevData, subCategory: []}))
             } catch (err) {
                 console.log("Error fetching subcategories:", err);
             }
         }
     };
+    useEffect(() => {
+        if (data.category) {
+            const run = async () => {
+                await dispatch(getSpecificSubcategories(data.category))
+            }
+            run();
+        }
+    }, [data.category, dispatch])
 
     useEffect(() => {
-        if (data.category !== "") {
+        if (data.category) {
             if (subcategories.data) {
-                setSubcategoryOptions(subcategories.data);
+                setSubcategoryOptions(subcategories.data)
             }
         }
     }, [data.category, subcategories.data]);
@@ -106,33 +116,46 @@ const EditProductForm = ({id}) => {
     const handleSubcategorySelect = (selectedList) => {
         setData((prevData) => ({
             ...prevData,
-            subCategory: selectedList,
+            subCategory: [...data.subCategory,selectedList],
         }));
     };
 
     const handleSubcategoryRemove = (selectedList) => {
         setData((prevData) => ({
             ...prevData,
-            subCategory: selectedList,
+            subCategory: [...data.subCategory,selectedList],
         }));
+
     };
 
     const handleBrandChange = (e) => {
         setData((prevData) => ({...prevData, brand: e.target.value}));
     };
 
-    // Convert base64 to file
-    function dataURLtoFile(dataUrl, filename) {
-        const arr = dataUrl.split(",");
-        const mime = arr[0].match(/:(.*?);/)[1];
-        const bstr = atob(arr[1]);
-        let n = bstr.length;
-        const u8arr = new Uint8Array(n);
+    //to convert base 64 to file
+    function dataURLtoFile(dataurl, filename) {
+        var arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]),
+            n = bstr.length,
+            u8arr = new Uint8Array(n);
+
         while (n--) {
             u8arr[n] = bstr.charCodeAt(n);
         }
+
         return new File([u8arr], filename, {type: mime});
     }
+
+    //convert url to file
+    const convertURLtoFile = async (url) => {
+        const response = await fetch(url, {mode: "cors"});
+        const data = await response.blob();
+        const ext = url.split(".").pop();
+        const filename = url.split("/").pop();
+        const metadata = {type: `image/${ext}`};
+        return new File([data], Math.random(), metadata);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -146,19 +169,24 @@ const EditProductForm = ({id}) => {
             brand,
         } = data;
         const formData = new FormData();
-        if (images) {
-            // Convert base64 image to file
-            const imgCover = await dataURLtoFile(images[0], Math.random() + ".png");
-
-            // Convert array of base64 images to files
-            const itemImages = Array.from(Array(Object.keys(images).length).keys()).map(
-                (item, index) => {
-                    return dataURLtoFile(images[index], Math.random() + ".png")
-                }
-            )
-            formData.append("imageCover", imgCover);
-            itemImages.forEach((image) => formData.append("images", image));
+        let imgCover;
+        if (images[0].length <= 1000) {
+            convertURLtoFile(images[0]).then(val => imgCover = val)
+        } else {
+            imgCover = dataURLtoFile(images[0], Math.random() + ".png")
         }
+
+        let itemImages = []
+        //convert array of base 64 image to file
+        Array.from(Array(Object.keys(images).length).keys()).map(
+            (item, index) => {
+                if (images[index].length <= 1000) {
+                    convertURLtoFile(images[index]).then(val => itemImages.push(val))
+                } else {
+                    itemImages.push(dataURLtoFile(images[index], Math.random() + ".png"))
+                }
+            })
+
 
         formData.append("title", title);
         formData.append("description", description);
@@ -170,14 +198,21 @@ const EditProductForm = ({id}) => {
         subCategory.forEach((subCat) =>
             formData.append("subCategory", subCat._id)
         );
-
         colors.map((color) => formData.append("colors", color))
 
-        setLoading(true);
-        await dispatch(updateProduct({id, formData}));
-        setLoading(false);
-        setIsPress(true);
+        setTimeout(() => {
+            formData.append("imageCover", imgCover);
+            itemImages.map((item) => formData.append("images", item))
+        }, 1000);
+        setTimeout(async () => {
+            setLoading(true);
+            await dispatch(updateProduct({id, formData}));
+            setLoading(false);
+            setIsPress(true);
+        }, 1000)
+
     };
+
 
     useEffect(() => {
         if (productData) {
@@ -196,12 +231,14 @@ const EditProductForm = ({id}) => {
             setColors(productData.colors || []);
         }
         if (!loading) {
+
             setImages([]);
             setColors([]);
             setSubcategoryOptions([]);
             setTimeout(() => setIsPress(false), 2000);
             setLoading(true);
             if (response.status === 200) {
+                dispatch(getProduct(id))
                 setData({
                     title: "",
                     description: "",
@@ -214,13 +251,13 @@ const EditProductForm = ({id}) => {
                     subCategory: [],
                     brand: "",
                 });
-                use_notification("The product has been created successfully! 😀", "success");
+                use_notification("The product has been created successfully!", "success");
             } else {
-                use_notification("There are data required! 😔", "error");
+                use_notification("There are data required!", "error");
             }
         }
 
-    }, [loading, dispatch, response, productData]);
+    }, [loading, dispatch, response, productData, id]);
 
     return {
         data,
