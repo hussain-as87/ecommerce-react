@@ -7,7 +7,7 @@ const ProductHomeItemContainer = ({title, btn, path, products, loading, exceptID
         <Container>
             <SubTitle title={title} btn={btn} path={path}/>
             <Row className="my-2 d-flex justify-content-between">
-                {loading === false ? (products.data && products.data.map((product) => {
+                {loading === false ? (products.data && products.data.slice(0,6).map((product) => {
                             if (product._id !== exceptID) {
                                 return <ProductItem product={product} key={product._id}/>
                             }

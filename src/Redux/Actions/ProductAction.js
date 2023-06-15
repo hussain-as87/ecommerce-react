@@ -17,9 +17,9 @@ const token =
  * @return data object
  * @static true
  */
-export const getProducts = ({limit, page, sort, search}) => async (dispatch) => {
+export const getProducts = ({limit, page, sort, search, keyword}) => async (dispatch) => {
     try {
-        const response = await use_index_data( `${url}?limit=${limit}&page=${page}&sort=${sort}&${search}`, {
+        const response = await use_index_data( `${url}?limit=${limit}&page=${page}&keyword=${keyword || ''}&sort=${sort}&${search}`, {
             headers: {Authorization: `Bearer ${token}`},
         });
         dispatch({type: GET_ALL_PRODUCTS, payload: response});

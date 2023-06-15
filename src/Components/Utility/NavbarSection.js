@@ -3,7 +3,9 @@ import logo from "../../assets/images/logo.png"
 import login from "../../assets/images/login.png"
 import cart from "../../assets/images/cart.png"
 
-const NavbarSection = () => {
+const NavbarSection = ({index}) => {
+    const {keyword, onChangeKeyWord} = index
+
     return (<>
         <Navbar className="sticky-top" bg="dark" variant="dark" expand="sm">
             <Container>
@@ -17,9 +19,10 @@ const NavbarSection = () => {
                     <FormControl
                         type="search"
                         placeholder="search here..."
-                        className="me-2
-                        w-100 text-center"
+                        className="me-2 w-100 text-center"
                         aria-label="Search"
+                        value={keyword}
+                        onChange={onChangeKeyWord}
                     />
                     <Nav className="me-auto">
                         <Nav.Link href='/login'
