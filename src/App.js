@@ -1,5 +1,5 @@
 import HomePage from "./Pages/Home/HomePage";
-import {BrowserRouter, Routes, Route} from "react-router-dom"
+import {BrowserRouter, Routes, Route, useNavigate, Navigate} from "react-router-dom"
 import Footer from "./Components/Utility/Footer";
 import NavbarSection from "./Components/Utility/NavbarSection";
 import Login from "./Pages/Auth/Login";
@@ -24,13 +24,16 @@ import UserCreateAddressPage from "./Pages/User/Addresses/UserCreateAddressPage"
 import UserEditAddressPage from "./Pages/User/Addresses/UserEditAddressPage";
 import UserProfilePage from "./Pages/User/UserProfilePage";
 import AdminEditProductPage from "./Pages/Admin/AdminEditProductPage";
+import IndexProductForm from "./Controllers/Product/IndexProductForm";
 
 function App() {
+    const indexProductForm= IndexProductForm()
 
     return (
         <div className="font">
-            <NavbarSection/>
+            <NavbarSection index={indexProductForm}/>
             <BrowserRouter>
+                {indexProductForm.keyword && <Navigate to="/products"/>}
                 <Routes>
                     {/** Landing page routes */}
                     <Route index element={<HomePage/>}/>
@@ -38,7 +41,7 @@ function App() {
                     <Route path="/register" element={<Register/>}/>
                     <Route path="/categories" element={<Categories/>}/>
                     <Route path="/brands" element={<Brands/>}/>
-                    <Route path="/products" element={<Products/>}/>
+                    <Route path="/products" element={<Products index={indexProductForm}/>}/>
                     <Route path="/products/:id" element={<ProductDetails/>}/>
                     <Route path="/cart" element={<CartContent/>}/>
                     <Route path="/order/payment" element={<PaymentMethodType/>}/>

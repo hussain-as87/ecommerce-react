@@ -6,10 +6,15 @@ import {getProducts} from "../../Redux/Actions/ProductAction";
 const IndexProductForm = () => {
     const dispatch = useDispatch();
 
-    const [page, setPage] = useState( 1);
+    const [page, setPage] = useState(1);
     const [search, setSearch] = useState("");
     const [sort, setSort] = useState("");
+    const [keyword, setKeyword] = useState("");
 
+
+    const onChangeKeyWord = (event) => {
+        setKeyword(event.target.value);
+    }
 
     const {products, loading} = useSelector((s) => s.products);
     let pageCount = 0;
@@ -43,9 +48,25 @@ const IndexProductForm = () => {
     }
     useEffect(() => {
         let sortValue = sort !== "" ? sort : "-createdAt"
-        dispatch(getProducts({limit: 12, page: page, sort: sortValue, search: search}));
-    }, [dispatch, page, search, sort]);
-    return {products, loading, pageCount, getPage, search, onChangeSearch, sort, onChangeSort,page};
+
+        setTimeout(async () => {
+            await dispatch(getProducts({limit: 12, page: page, sort: sortValue, search: search, keyword: keyword}));
+        }, 1000)
+
+    }, [dispatch, page, search, sort, keyword]);
+    return {
+        products,
+        loading,
+        pageCount,
+        getPage,
+        search,
+        onChangeSearch,
+        keyword,
+        onChangeKeyWord,
+        sort,
+        onChangeSort,
+        page
+    };
 };
 
 export default IndexProductForm;
