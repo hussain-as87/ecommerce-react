@@ -73,3 +73,4 @@ const NavbarSection = ({ index }) => {
 };
 
 export default NavbarSection;
+
