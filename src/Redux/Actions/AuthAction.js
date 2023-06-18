@@ -1,10 +1,10 @@
 import {use_create_data} from "../../Hooks/ApiDataHook";
-import {ERROR, AUTH_SIGNUP} from "../Types";
+import {ERROR, AUTH_SIGNUP, AUTH_LOGIN} from "../Types";
 
 const url = "/auth";
 
 /**
- * @method GET
+ * @method POST
  * @return data object
  * @static true
  */
@@ -12,6 +12,20 @@ export const signupAction = (formData) => async (dispatch) => {
   try {
     const response =await use_create_data(`${url}/signup`,formData);
     dispatch({ type: AUTH_SIGNUP, payload: response });
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: ERROR, payload: error });
+  }
+};
+/**
+ * @method POST
+ * @return data object
+ * @static true
+ */
+export const loginAction = (formData) => async (dispatch) => {
+  try {
+    const response =await use_create_data(`${url}/login`,formData);
+    dispatch({ type: AUTH_LOGIN, payload: response });
   } catch (error) {
     console.log(error);
     dispatch({ type: ERROR, payload: error });
