@@ -12,7 +12,7 @@ const initialState = {
     products: [],
     loading: true,
 };
-const CategoryReducer = (state = initialState, action) => {
+const ProductReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_PRODUCTS:
             return {...state, products: action.payload, loading: false};
@@ -50,4 +50,4 @@ const CategoryReducer = (state = initialState, action) => {
         default:
             return state;
     }*/
-export default CategoryReducer;
+export default ProductReducer;

@@ -4,7 +4,7 @@ const initialState = {
   brands: [],
   loading: true,
 };
-const CategoryReducer = (state = initialState, action) => {
+const BrandReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_BRANDS:
       return { ...state, brands: action.payload, loading: false };
@@ -17,4 +17,4 @@ const CategoryReducer = (state = initialState, action) => {
   }
 };
 
-export default CategoryReducer;
+export default BrandReducer;
