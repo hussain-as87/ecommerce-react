@@ -6,6 +6,9 @@ import {useNavigate} from "react-router-dom";
 
 export const SignupUser = () => {
     const dispatch = useDispatch()
+    const [isPress, setIsPress] = useState(false)
+    const navigate = useNavigate()
+
     const [data, setData] = useState({
         name: "",
         email: "",
@@ -23,6 +26,7 @@ export const SignupUser = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         try {
+            setIsPress(true)
             dispatch(signupAction(data))
         } catch (error) {
             use_notification("Have an error!", "error")
@@ -31,21 +35,27 @@ export const SignupUser = () => {
     }
     useEffect(() => {
         if (!loading) {
+            setIsPress(false)
             if (signup.status === 201) {
+                localStorage.removeItem('token')
+                localStorage.removeItem('user')
+                localStorage.setItem('token', signup.data.token)
+                localStorage.setItem('user', JSON.stringify(signup.data.data))
                 setData({
                     name: "",
                     email: "",
                     password: "",
                     passwordConfirm: "",
                 })
-                use_notification("Signup successfully!", "success")
+                return navigate("/", {replace: true})
             }
         }
     }, [loading, signup])
-    return {handleSubmit, data, handlerOnChangeInput}
+    return {handleSubmit, data, handlerOnChangeInput, isPress}
 }
 export const LoginUser = () => {
     const dispatch = useDispatch()
+    const [isPress, setIsPress] = useState(false)
     const navigate = useNavigate()
     const [data, setData] = useState({
         email: "",
@@ -62,22 +72,29 @@ export const LoginUser = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         try {
+            setIsPress(true)
             dispatch(loginAction(data))
         } catch (error) {
             use_notification("Have an error!", "error")
             console.log(error)
         }
     }
+
     useEffect(() => {
         if (!loading) {
+            setIsPress(false)
             if (login.status === 200) {
+                localStorage.removeItem('token')
+                localStorage.removeItem('user')
+                localStorage.setItem('token', login.data.token)
+                localStorage.setItem('user', JSON.stringify(login.data.data))
                 setData({
                     email: "",
                     password: "",
                 })
-                navigate("/", {replace: true})
+                return navigate("/", {replace: true})
             }
         }
     }, [loading, login])
-    return {handleSubmit, data, handlerOnChangeInput}
+    return {handleSubmit, data, handlerOnChangeInput, isPress}
 }

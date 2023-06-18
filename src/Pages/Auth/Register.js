@@ -1,9 +1,10 @@
-import {Form, Button, Container, Row, Col} from "react-bootstrap";
+import {Form, Button, Container, Row, Col, Spinner} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {SignupUser} from "../../Controllers/AuthController";
+import React from "react";
 
 const Register = () => {
-    const {data,handleSubmit, handlerOnChangeInput} = SignupUser()
+    const {data,handleSubmit, handlerOnChangeInput,isPress} = SignupUser()
     return (
         <Container style={{minHeight: "450px"}}>
             <Row className="justify-content-center mt-5">
@@ -63,7 +64,13 @@ const Register = () => {
                         </Form.Group>
 
                         <Button variant="outline-primary" type="submit" className="pt-2">
-                            Register
+                            Register  {isPress && (<Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                        />)}
                         </Button>
                     </Form>
                     <label className="mx-auto my-4">
