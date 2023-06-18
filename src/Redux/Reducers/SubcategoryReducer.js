@@ -4,7 +4,7 @@ const initialState = {
     subcategories: [],
     loading: true,
 };
-const CategoryReducer = (state = initialState, action) => {
+const SubcategoryReducer = (state = initialState, action) => {
     switch (action.type) {
         case CREATE_SUBCATEGORY:
             return {...state, subcategories: action.payload, loading: false};
@@ -17,4 +17,4 @@ const CategoryReducer = (state = initialState, action) => {
     }
 };
 
-export default CategoryReducer;
+export default SubcategoryReducer;
