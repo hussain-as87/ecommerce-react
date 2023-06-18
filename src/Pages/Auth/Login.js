@@ -1,9 +1,10 @@
-import {Button, Col, Container, Form, Row} from "react-bootstrap";
+import {Button, Col, Container, Form, Row, Spinner} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {LoginUser} from "../../Controllers/AuthController";
+import React from "react";
 
 const Login = () => {
-    const {data, handlerOnChangeInput, handleSubmit} = LoginUser()
+    const {data, handlerOnChangeInput, handleSubmit, isPress} = LoginUser()
     return (
         <Container style={{minHeight: "450px"}}>
             <Row className="justify-content-md-center mt-5">
@@ -30,7 +31,13 @@ const Login = () => {
                         </Form.Group>
 
                         <Button variant="outline-primary" type="submit" block>
-                            Log In
+                            Log In   {isPress && (<Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                        />)}
                         </Button>
                     </Form>
                     <label className="mx-auto my-4">

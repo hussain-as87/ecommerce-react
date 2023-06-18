@@ -5,6 +5,11 @@ import cart from "../../assets/images/cart.png"
 
 const NavbarSection = ({index}) => {
     const {keyword, onChangeKeyWord} = index
+    const storedUser = localStorage.getItem('user');
+    const parsedUser = JSON.parse(storedUser);
+
+    const username = parsedUser.name;
+    console.log(username);
 
     return (<>
         <Navbar className="sticky-top" bg="dark" variant="dark" expand="sm">
@@ -28,7 +33,7 @@ const NavbarSection = ({index}) => {
                         <Nav.Link href='/login'
                                   className="nav-text d-flex mt-3 justify-content-center">
                             <img src={login} className="login-img" alt="sfvs" width={20} height={20}/>
-                            <p style={{color: "white"}}>login</p>
+                            <p style={{color: "white"}}>{username?username:'login'}</p>
                         </Nav.Link>
                         <Nav.Link href='/cart'
                                   className="nav-text d-flex mt-3 justify-content-center"
