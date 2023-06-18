@@ -1,16 +1,19 @@
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import {LoginUser} from "../../Controllers/AuthController";
 
 const Login = () => {
+    const {data, handlerOnChangeInput, handleSubmit} = LoginUser()
     return (
         <Container style={{minHeight: "450px"}}>
             <Row className="justify-content-md-center mt-5">
-                <Col md={4}>
-                    <Form>
+                <Col md={8} sm={12} xl={6} xs={12}>
+                    <Form onSubmit={handleSubmit}>
                         <h2 className="text-center">Log In</h2>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" />
+                            <Form.Control type="email" placeholder="Enter email" name="email"
+                                          onChange={handlerOnChangeInput} value={data.email}/>
                             <Form.Text className="text-muted">
                                 We'll never share your email with anyone else.
                             </Form.Text>
@@ -18,11 +21,12 @@ const Login = () => {
 
                         <Form.Group controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
+                            <Form.Control type="password" placeholder="Password" name="password"
+                                          onChange={handlerOnChangeInput} value={data.password}/>
                         </Form.Group>
 
                         <Form.Group controlId="formBasicCheckbox">
-                            <Form.Check type="checkbox" label="Remember me" />
+                            <Form.Check type="checkbox" label="Remember me"/>
                         </Form.Group>
 
                         <Button variant="outline-primary" type="submit" block>

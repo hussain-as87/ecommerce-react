@@ -1,13 +1,13 @@
 import {Form, Button, Container, Row, Col} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import {Signup} from "../../Controllers/AuthController";
+import {SignupUser} from "../../Controllers/AuthController";
 
 const Register = () => {
-    const {data,handleSubmit, handlerOnChangeInput} = Signup()
+    const {data,handleSubmit, handlerOnChangeInput} = SignupUser()
     return (
         <Container style={{minHeight: "450px"}}>
             <Row className="justify-content-center mt-5">
-                <Col xs={12} md={6}>
+                <Col xs={12} md={8} sm={12} xl={6}>
                     <h2 className="text-center mb-4">Register</h2>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formBasicName">
@@ -58,7 +58,11 @@ const Register = () => {
                             />
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" className="pt-2">
+                        <Form.Group controlId="formBasicCheckbox">
+                            <Form.Check type="checkbox" label="Remember me"/>
+                        </Form.Group>
+
+                        <Button variant="outline-primary" type="submit" className="pt-2">
                             Register
                         </Button>
                     </Form>
