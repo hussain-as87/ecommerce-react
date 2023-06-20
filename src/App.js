@@ -25,6 +25,9 @@ import UserEditAddressPage from "./Pages/User/Addresses/UserEditAddressPage";
 import UserProfilePage from "./Pages/User/UserProfilePage";
 import AdminEditProductPage from "./Pages/Admin/AdminEditProductPage";
 import IndexProductForm from "./Controllers/Product/IndexProductForm";
+import ForgetPassword from "./Pages/Auth/ForgetPassword";
+import VerifyRestPassword from "./Pages/Auth/VerifyRestPassword";
+import RestPassword from "./Pages/Auth/ResetCodePassword";
 
 function App() {
     const indexProductForm= IndexProductForm()
@@ -39,6 +42,9 @@ function App() {
                     <Route index element={<HomePage/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/register" element={<Register/>}/>
+                    <Route path="/forgotPassword" element={<ForgetPassword/>}/>
+                    <Route path="/verifyResetPassword" element={<VerifyRestPassword/>}/>
+                    <Route path="/resetPassword" element={<RestPassword/>}/>
                     <Route path="/categories" element={<Categories/>}/>
                     <Route path="/brands" element={<Brands/>}/>
                     <Route path="/products" element={<Products index={indexProductForm}/>}/>

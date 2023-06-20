@@ -1,4 +1,4 @@
-import {use_create_data, use_index_data} from "../../Hooks/ApiDataHook";
+import {use_post_data, use_get_data} from "../../Hooks/ApiDataHook";
 import {ERROR, CREATE_CATEGORY, GET_ALL_CATEGORIES} from "../Types";
 
 const url = "/categories";
@@ -12,7 +12,7 @@ const token =
  */
 export const getCategories = (limit,page) => async (dispatch) => {
   try {
-    const response =await use_index_data(url+`?limit=${limit}&page=${page}`, {
+    const response =await use_get_data(url+`?limit=${limit}&page=${page}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch({ type: GET_ALL_CATEGORIES, payload: response });
@@ -28,7 +28,7 @@ export const getCategories = (limit,page) => async (dispatch) => {
  */
 export const createCategory = (formData) => async (dispatch) => {
   try {
-    const response =await use_create_data(url, formData,{
+    const response =await use_post_data(url, formData,{
       headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" },
     });
     dispatch({ type: CREATE_CATEGORY, payload: response ,loading:true});

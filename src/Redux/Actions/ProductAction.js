@@ -1,4 +1,4 @@
-import {use_create_data, use_destroy_data, use_index_data, use_update_data} from "../../Hooks/ApiDataHook";
+import {use_post_data, use_delete_data, use_get_data, use_put_data} from "../../Hooks/ApiDataHook";
 import {
     ERROR,
     GET_ALL_PRODUCTS,
@@ -19,7 +19,7 @@ const token =
  */
 export const getProducts = ({limit, page, sort, search, keyword}) => async (dispatch) => {
     try {
-        const response = await use_index_data( `${url}?limit=${limit}&page=${page}&keyword=${keyword || ''}&sort=${sort}&${search}`, {
+        const response = await use_get_data( `${url}?limit=${limit}&page=${page}&keyword=${keyword || ''}&sort=${sort}&${search}`, {
             headers: {Authorization: `Bearer ${token}`},
         });
         dispatch({type: GET_ALL_PRODUCTS, payload: response});
@@ -35,7 +35,7 @@ export const getProducts = ({limit, page, sort, search, keyword}) => async (disp
  */
 export const getProductsBySold = ({limit, page}) => async (dispatch) => {
     try {
-        const response = await use_index_data( `${url}?limit=${limit}&page=${page}&sort=-sold`, {
+        const response = await use_get_data( `${url}?limit=${limit}&page=${page}&sort=-sold`, {
             headers: {Authorization: `Bearer ${token}`},
         });
         dispatch({type: GET_PRODUCTS_BY_SOLD, payload: response});
@@ -51,7 +51,7 @@ export const getProductsBySold = ({limit, page}) => async (dispatch) => {
  */
 export const destroyProduct = (id) => async (dispatch) => {
     try {
-        const response = await use_destroy_data( `${url}/${id}`, {
+        const response = await use_delete_data( `${url}/${id}`, {
             headers: {Authorization: `Bearer ${token}`},
         });
         dispatch({type: DELETE_PRODUCT, payload: response});
@@ -67,7 +67,7 @@ export const destroyProduct = (id) => async (dispatch) => {
  */
 export const getProductsByCategory = (catId) => async (dispatch) => {
     try {
-        const response = await use_index_data( `${url}?limit=4&page=1&sort=-createdAt&category.name=${catId}`, {
+        const response = await use_get_data( `${url}?limit=4&page=1&sort=-createdAt&category.name=${catId}`, {
             headers: {Authorization: `Bearer ${token}`},
         });
         dispatch({type: GET_PRODUCTS_BY_CATEGORY, payload: response});
@@ -83,7 +83,7 @@ export const getProductsByCategory = (catId) => async (dispatch) => {
  */
 export const getProduct = (id) => async (dispatch) => {
     try {
-        const response = await use_index_data(url + `/${id}`, {
+        const response = await use_get_data(url + `/${id}`, {
             headers: {Authorization: `Bearer ${token}`},
         });
         dispatch({type: GET_PRODUCT, payload: response});
@@ -100,7 +100,7 @@ export const getProduct = (id) => async (dispatch) => {
  */
 export const createProduct = (formData) => async (dispatch) => {
     try {
-        const response = await use_create_data(url, formData, {
+        const response = await use_post_data(url, formData, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "multipart/form-data"
@@ -120,7 +120,7 @@ export const createProduct = (formData) => async (dispatch) => {
  */
 export const updateProduct = ({id, formData}) => async (dispatch) => {
     try {
-        const response = await use_update_data(`${url}/${id}`, formData, {
+        const response = await use_put_data(`${url}/${id}`, formData, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "multipart/form-data"

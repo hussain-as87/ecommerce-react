@@ -9,7 +9,6 @@ import IndexTopSoldProductsForm from "../../Controllers/Product/IndexTopSoldProd
 const HomePage = () => {
     const {products, loading} = IndexHomeProductForm();
     const {soldProducts, loadingS} = IndexTopSoldProductsForm();
-
     return (
         <>
             <Slider/>
