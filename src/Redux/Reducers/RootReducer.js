@@ -4,12 +4,14 @@ import BrandReducer from "./BrandReducer";
 import SubcategoryReducer from "./SubcategoryReducer";
 import ProductReducer from "./ProductReducer";
 import AuthReducer from "./AuthReducer";
+import UserReducer from "./UserReducer";
 
 const RootReducer = combineReducers({
     categories:CategoryReducer,
     brands:BrandReducer,
     subcategories:SubcategoryReducer,
     products:ProductReducer,
-    auth:AuthReducer
+    auth:AuthReducer,
+    users:UserReducer
 })
 export default RootReducer

@@ -46,6 +46,12 @@ const Login = () => {
                             <span style={{cursor: "pointer"}} className="text-danger">click here</span>
                         </Link>
                     </label>
+                    <br/>
+                    <label className="mx-auto my-4">
+                        <Link to="/forgotPassword" style={{textDecoration: 'none'}}>
+                            <span style={{cursor: "pointer"}} className="text-primary">forget the password?</span>
+                        </Link>
+                    </label>
                 </Col>
             </Row>
             <br/>
@@ -59,6 +65,7 @@ const Login = () => {
                     <span style={{cursor: "pointer"}} className="text-danger mx-3">login as user</span>
                 </Link>
             </label>
+
         </Container>
     )
 }

@@ -1,4 +1,4 @@
-import {use_create_data, use_index_data} from "../../Hooks/ApiDataHook";
+import {use_post_data, use_get_data} from "../../Hooks/ApiDataHook";
 import {ERROR, CREATE_SUBCATEGORY, GET_SPECIFIC_SUBCATEGORY} from "../Types";
 
 const url = "/subcategories";
@@ -14,7 +14,7 @@ const token =
  */
 export const getSpecificSubcategories = (category) => async (dispatch) => {
   try {
-    const response =await use_index_data(`/categories/${category}/subcategories`, {
+    const response =await use_get_data(`/categories/${category}/subcategories`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch({ type: GET_SPECIFIC_SUBCATEGORY, payload: response,loading:true });
@@ -30,7 +30,7 @@ export const getSpecificSubcategories = (category) => async (dispatch) => {
  */
 export const createSubcategory = (formData) => async (dispatch) => {
   try {
-    const response =await use_create_data(url, formData,{
+    const response =await use_post_data(url, formData,{
       headers: { Authorization: `Bearer ${token}`},
     });
     dispatch({ type: CREATE_SUBCATEGORY, payload: response ,loading:true});
