@@ -65,23 +65,12 @@ const Login = () => {
                     </Form>
                     <label className="mx-auto my-4">
                         create a new account?{" "}
-                        <Link to="/register" style={{textDecoration: 'none'}}>
+                        <Link to="/singup" style={{textDecoration: 'none'}}>
                             <span style={{cursor: "pointer"}} className="text-danger">click here</span>
                         </Link>
                     </label>
                 </Col>
             </Row>
-            <br/>
-            <br/>
-            <label className="mx-auto my-4">
-                <Link to="/admin/products" style={{textDecoration: 'none'}}>
-                    <span style={{cursor: "pointer"}} className="text-danger">login as admin</span>
-                </Link>
-
-                <Link to="/user/orders" style={{textDecoration: 'none'}}>
-                    <span style={{cursor: "pointer"}} className="text-danger mx-3">login as user</span>
-                </Link>
-            </label>
 
         </Container>
     )
