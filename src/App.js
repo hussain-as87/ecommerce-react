@@ -41,7 +41,7 @@ function App() {
                     {/** Landing page routes */}
                     <Route index element={<HomePage/>}/>
                     <Route path="/login" element={<Login/>}/>
-                    <Route path="/register" element={<Register/>}/>
+                    <Route path="/singup" element={<Register/>}/>
                     <Route path="/forgotPassword" element={<ForgetPassword/>}/>
                     <Route path="/verifyResetPassword" element={<VerifyRestPassword/>}/>
                     <Route path="/resetPassword" element={<RestPassword/>}/>

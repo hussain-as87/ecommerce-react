@@ -53,12 +53,12 @@ const ForgetPassword = () => {
             <br/>
             <br/>
             <label className="mx-auto my-4">
-                <Link to="/admin/products" style={{textDecoration: 'none'}}>
-                    <span style={{cursor: "pointer"}} className="text-danger">login as admin</span>
+                <Link to="/singup" style={{textDecoration: 'none'}}>
+                    <span style={{cursor: "pointer"}} className="text-danger">Create an account</span>
                 </Link>
 
                 <Link to="/login" style={{textDecoration: 'none'}}>
-                    <span style={{cursor: "pointer"}} className="text-danger mx-3">login as user</span>
+                    <span style={{cursor: "pointer"}} className="text-danger mx-3">Login</span>
                 </Link>
             </label>
         </Container>
