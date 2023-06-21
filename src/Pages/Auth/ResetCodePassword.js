@@ -10,27 +10,27 @@ const RestPassword = () => {
             <Row className="justify-content-md-center mt-5">
                 <Col md={8} sm={12} xl={6} xs={12}>
                     <Form onSubmit={handleSubmit}>
-                        <h2 className="text-center">Reset the password</h2>
+                        <h2 className="text-center text-primary">Change Password</h2>
                         <Form.Group controlId="formBasicEmail" className="text-center">
-                            <Form.Label>New password</Form.Label>
+                            <Form.Label>New Password</Form.Label>
                             <Form.Control
                                 type="password"
                                 name="newPassword"
                                 style={{textAlign: "center"}}
                                 required
-                                placeholder="New password"
+                                placeholder="○○○○○○○○○○"
                                 onChange={handlerOnChangeInput} value={data.newPassword}
                             />
                         </Form.Group>
 
                         <Form.Group controlId="formBasicEmail" className="text-center">
-                            <Form.Label>Confirm</Form.Label>
+                            <Form.Label>Confirm New Password</Form.Label>
                             <Form.Control
                                 type="password"
                                 name="newPasswordConfirm"
                                 style={{textAlign: "center"}}
                                 required
-                                placeholder="Confirm new password"
+                                placeholder="○○○○○○○○○○"
                                 onChange={handlerOnChangeInput} value={data.newPasswordConfirm}
                             />
                         </Form.Group>
@@ -58,6 +58,17 @@ const RestPassword = () => {
                     </Form>
                 </Col>
             </Row>
+            <br/>
+            <br/>
+            <label className="mx-auto my-4">
+                <Link to="/admin/products" style={{textDecoration: 'none'}}>
+                    <span style={{cursor: "pointer"}} className="text-danger">login as admin</span>
+                </Link>
+
+                <Link to="/login" style={{textDecoration: 'none'}}>
+                    <span style={{cursor: "pointer"}} className="text-danger mx-3">login as user</span>
+                </Link>
+            </label>
         </Container>
     )
 }

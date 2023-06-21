@@ -1,11 +1,10 @@
-import React, {useState} from 'react'
-import {Col, Container, FormControl, Row} from 'react-bootstrap'
+import React from 'react'
+import {Col, Container, Row} from 'react-bootstrap'
 import ProductItemContainer from "../../Components/Product/ProductHomeItemContainer";
 import Pagination from "../../Components/Utility/Pagination";
 import CategoryHeader from "../../Components/Category/CategoryHeader";
 import SearchResultCount from "../../Components/Utility/SearchResultCount";
 import SidebarFilter from "../../Components/Utility/SidebarFilter";
-import IndexProductForm from "../../Controllers/Product/IndexProductForm";
 
 const Products = ({index}) => {
     const {
