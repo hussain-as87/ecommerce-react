@@ -4,33 +4,45 @@ import {LoginUser} from "../../Controllers/AuthController";
 import React from "react";
 
 const Login = () => {
-    const {data, handlerOnChangeInput, handleSubmit, isPress} = LoginUser()
+    const {data, handlerOnChangeInput, handleSubmit, isPress, errors} = LoginUser()
     return (
         <Container style={{minHeight: "450px"}}>
             <Row className="justify-content-md-center mt-5">
                 <Col md={8} sm={12} xl={6} xs={12}>
                     <Form onSubmit={handleSubmit}>
                         <h2 className="text-center text-primary">Log In</h2>
-                        <Form.Group controlId="formBasicEmail" className="text-center">
+                        <Form.Group controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
                             <Form.Control
                                 type="email"
                                 placeholder="example@name.com"
                                 name="email"
+                                className={errors.some(error => error.param === "email") && 'is-invalid'}
                                 onChange={handlerOnChangeInput}
                                 value={data.email}
                                 style={{textAlign: "center"}}
-                                required
                             />
-                           {/* <Form.Text className="text-muted">
-                                We'll never share your email with anyone else.
-                            </Form.Text>*/}
+                            {errors.some(error => error.param === "email") &&
+                                <Form.Text className="text-danger">
+                                    {errors.find(error => error.param === "email").msg}
+                                </Form.Text>
+                            }
                         </Form.Group>
 
-                        <Form.Group controlId="formBasicPassword" className="text-center">
+                        <Form.Group controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="○○○○○○○○○○" name="password"
-                                          style={{textAlign: "center"}}   onChange={handlerOnChangeInput} value={data.password}/>
+                            <Form.Control type="password"
+                                          placeholder="○○○○○○○○○○"
+                                          name="password"
+                                          className={errors.some(error => error.param === "password") && 'is-invalid'}
+                                          style={{textAlign: "center"}} onChange={handlerOnChangeInput}
+                                          value={data.password}
+                            />
+                            {errors.some(error => error.param === "password") &&
+                                <Form.Text className="text-danger">
+                                    {errors.find(error => error.param === "password").msg}
+                                </Form.Text>
+                            }
                         </Form.Group>
 
                         <Form.Group controlId="formBasicCheckbox">
@@ -44,22 +56,20 @@ const Login = () => {
                                 className="mt-3"
                                 disabled={isPress}
                             >
-                                {isPress ? (
-                                    <Spinner
-                                        as="span"
-                                        animation="border"
-                                        size="sm"
-                                        role="status"
-                                        aria-hidden="true"
-                                    />
-                                ) : (
-                                    "Login"
-                                )}
+                                Login {isPress &&
+                                <Spinner
+                                    as="span"
+                                    animation="border"
+                                    size="sm"
+                                    role="status"
+                                    aria-hidden="true"
+                                />}
                             </Button><br/>
                             <label className="mx-auto my-4">
-                                <Link to="/forgotPassword" style={{textDecoration: 'none'}}>
-                                    <span style={{cursor: "pointer"}} className="text-primary">forget the password?</span>
-                                </Link>
+                                <a href="/forgotPassword" style={{textDecoration: 'none'}}>
+                                    <span style={{cursor: "pointer"}}
+                                          className="text-primary">forget the password?</span>
+                                </a>
                             </label>
                         </div>
                     </Form>

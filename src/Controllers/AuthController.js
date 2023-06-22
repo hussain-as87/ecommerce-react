@@ -17,7 +17,7 @@ export const SignupUser = () => {
     const dispatch = useDispatch()
     const [isPress, setIsPress] = useState(false)
     const navigate = useNavigate()
-
+    const [errors, setErrors] = useState([]);
     const [data, setData] = useState({
         name: "",
         email: "",
@@ -31,18 +31,37 @@ export const SignupUser = () => {
             [name]: value,
         }));
     }
+
+    const handleClassNameChange = (event) => {
+        const {name} = event.target
+        const element = event.target
+
+        // Modify the className based on the name
+        if (errors.some(error => error.param === name)) {
+            element.classList.add(' is-invalid');
+        } else {
+            element.classList.remove(' is-invalid');
+        }
+
+    }
     const {signup, loading} = useSelector((state) => state.auth)
+    const {error} = useSelector((state) => state.auth)
     const handleSubmit = (e) => {
         e.preventDefault()
         try {
             setIsPress(true)
             dispatch(signupAction(data))
         } catch (error) {
+            console.log(error.message); // Other types of errors
             use_notification("Have an error!", "error")
-            console.log(error)
         }
     }
     useEffect(() => {
+        if (error.response?.data.errors) {
+            console.log(error.response.data.errors); // Validation errors will be in the response data
+            setErrors(error.response.data.errors); //set errors with response data
+            setIsPress(false)
+        }
         if (!loading) {
             setIsPress(false)
             if (signup.status === 201) {
@@ -59,8 +78,8 @@ export const SignupUser = () => {
                 return navigate("/", {replace: true})
             }
         }
-    }, [loading, signup])
-    return {handleSubmit, data, handlerOnChangeInput, isPress}
+    }, [loading, signup, error])
+    return {handleSubmit, data, handlerOnChangeInput, isPress, errors}
 }
 /**
  * @description  login
@@ -68,6 +87,7 @@ export const SignupUser = () => {
 export const LoginUser = () => {
     const dispatch = useDispatch()
     const [isPress, setIsPress] = useState(false)
+    const [errors, setErrors] = useState([]);
     const navigate = useNavigate()
     const [data, setData] = useState({
         email: "",
@@ -81,6 +101,8 @@ export const LoginUser = () => {
         }));
     }
     const {login, loading} = useSelector((state) => state.auth)
+    const {error} = useSelector((state) => state.auth)
+
     const handleSubmit = (e) => {
         e.preventDefault()
         try {
@@ -93,6 +115,11 @@ export const LoginUser = () => {
     }
 
     useEffect(() => {
+        if (error.response?.data.errors) {
+            console.log(error.response.data.errors); // Validation errors will be in the response data
+            setErrors(error.response.data.errors); //set errors with response data
+            setIsPress(false)
+        }
         if (!loading) {
             setIsPress(false)
             if (login.status === 200) {
@@ -107,8 +134,8 @@ export const LoginUser = () => {
                 return navigate("/", {replace: true})
             }
         }
-    }, [loading, login])
-    return {handleSubmit, data, handlerOnChangeInput, isPress}
+    }, [loading, login, error])
+    return {handleSubmit, data, handlerOnChangeInput, isPress, errors}
 }
 /**
  * @description  forget password
@@ -116,6 +143,8 @@ export const LoginUser = () => {
 export const ForgetPasswordUser = () => {
     const dispatch = useDispatch()
     const [isPress, setIsPress] = useState(false)
+    const [errors, setErrors] = useState([]);
+
     const navigate = useNavigate()
     const [data, setData] = useState({
         email: "",
@@ -127,6 +156,7 @@ export const ForgetPasswordUser = () => {
         });
     }
     const {forgetPassword, loading} = useSelector((state) => state.auth)
+    const {error} = useSelector((state) => state.auth)
     const handleSubmit = (e) => {
         e.preventDefault()
         try {
@@ -139,10 +169,15 @@ export const ForgetPasswordUser = () => {
     }
 
     useEffect(() => {
+        if (error.response?.data.errors) {
+            console.log(error.response.data.errors); // Validation errors will be in the response data
+            setErrors(error.response.data.errors); //set errors with response data
+            setIsPress(false)
+        }
         if (!loading) {
             setIsPress(false)
             if (forgetPassword.status === 200) {
-                localStorage.setItem('email',data.email)
+                localStorage.setItem('email', data.email)
                 setData({
                     email: "",
                 })
@@ -150,8 +185,8 @@ export const ForgetPasswordUser = () => {
                 return navigate('/verifyResetPassword')
             }
         }
-    }, [loading, forgetPassword])
-    return {handleSubmit, data, handlerOnChangeInput, isPress}
+    }, [loading, forgetPassword, error])
+    return {handleSubmit, data, handlerOnChangeInput, isPress, errors}
 }
 
 /**
@@ -160,6 +195,8 @@ export const ForgetPasswordUser = () => {
 export const VerifyRestPasswordUser = () => {
     const dispatch = useDispatch()
     const [isPress, setIsPress] = useState(false)
+    const [errors, setErrors] = useState([]);
+
     const navigate = useNavigate()
     const [data, setData] = useState({
         resetCode: "",
@@ -171,6 +208,7 @@ export const VerifyRestPasswordUser = () => {
         });
     }
     const {verifyRestPassword, loading} = useSelector((state) => state.auth)
+    const {error} = useSelector((state) => state.auth)
     const handleSubmit = (e) => {
         e.preventDefault()
         try {
@@ -183,6 +221,11 @@ export const VerifyRestPasswordUser = () => {
     }
 
     useEffect(() => {
+        if (error.response?.data.errors) {
+            console.log(error.response.data.errors); // Validation errors will be in the response data
+            setErrors(error.response.data.errors); //set errors with response data
+            setIsPress(false)
+        }
         if (!loading) {
             setIsPress(false)
             if (verifyRestPassword.status === 200) {
@@ -193,8 +236,8 @@ export const VerifyRestPasswordUser = () => {
                 return navigate('/resetPassword')
             }
         }
-    }, [loading, verifyRestPassword])
-    return {handleSubmit, data, handlerOnChangeInput, isPress}
+    }, [loading, verifyRestPassword, error])
+    return {handleSubmit, data, handlerOnChangeInput, isPress, errors}
 }
 
 /**
@@ -203,6 +246,8 @@ export const VerifyRestPasswordUser = () => {
 export const RestPasswordUser = () => {
     const dispatch = useDispatch()
     const [isPress, setIsPress] = useState(false)
+    const [errors, setErrors] = useState([]);
+
     const navigate = useNavigate()
     const [data, setData] = useState({
         email: "",
@@ -218,6 +263,7 @@ export const RestPasswordUser = () => {
         }));
     }
     const {restPassword, loading} = useSelector((state) => state.auth)
+    const {error} = useSelector((state) => state.auth)
     const handleSubmit = (e) => {
         e.preventDefault()
         try {
@@ -230,6 +276,11 @@ export const RestPasswordUser = () => {
     }
 
     useEffect(() => {
+        if (error.response?.data.errors) {
+            console.log(error.response.data.errors); // Validation errors will be in the response data
+            setErrors(error.response.data.errors); //set errors with response data
+            setIsPress(false)
+        }
         if (!loading) {
             setIsPress(false)
             if (restPassword.status === 200) {
@@ -244,6 +295,6 @@ export const RestPasswordUser = () => {
                 return navigate('/')
             }
         }
-    }, [loading, restPassword])
-    return {handleSubmit, data, handlerOnChangeInput, isPress}
+    }, [loading, restPassword, error])
+    return {handleSubmit, data, handlerOnChangeInput, isPress, errors}
 }

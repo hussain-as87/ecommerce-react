@@ -12,6 +12,8 @@ const CreateProductForm = () => {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isPress, setIsPress] = useState(false);
+    const [errors, setErrors] = useState([]);
+
     const [colorPickerShow, setColorPickerShow] = useState(false);
     const [colors, setColors] = useState([]);
     const [subcategoryOptions, setSubcategoryOptions] = useState([]);
@@ -33,7 +35,8 @@ const CreateProductForm = () => {
     const {categories} = IndexCategoryForm();
     const {brands} = IndexBrandForm();
     const {subcategories} = useSelector((state) => state.subcategories);
-
+    const {error} = useSelector((state) => state.products)
+    console.log(error)
     const handleCreateColors = (color) => {
         if (colors.includes(color.hex)) {
             setColorPickerShow(!colorPickerShow);
@@ -162,6 +165,11 @@ const CreateProductForm = () => {
     };
 
     useEffect(() => {
+        if (error.response?.data.errors) {
+            console.log(error.response.data.errors); // Validation errors will be in the response data
+            setErrors(error.response.data.errors); //set errors with response data
+            setIsPress(false)
+        }
         if (!loading) {
             setImages([]);
             setColors([]);
@@ -187,7 +195,7 @@ const CreateProductForm = () => {
             }
         }
 
-    }, [loading, dispatch, response]);
+    }, [loading, dispatch, response, error]);
 
     return {
         data,
@@ -212,6 +220,7 @@ const CreateProductForm = () => {
         colorPickerShow,
         handleCreateColors,
         colors,
+        errors
     };
 };
 

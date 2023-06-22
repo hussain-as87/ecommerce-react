@@ -3,7 +3,7 @@ import {Button, Col, Container, Form, Row, Spinner} from "react-bootstrap";
 import {ForgetPasswordUser} from "../../Controllers/AuthController";
 import {Link} from "react-router-dom";
 const ForgetPassword = () => {
-    const {data, handlerOnChangeInput, handleSubmit, isPress} = ForgetPasswordUser();
+    const {data, handlerOnChangeInput, handleSubmit, isPress, errors} = ForgetPasswordUser();
 
     return (
         <Container style={{minHeight: "450px"}}>
@@ -11,20 +11,22 @@ const ForgetPassword = () => {
                 <Col md={8} sm={12} xl={6} xs={12}>
                     <Form onSubmit={handleSubmit}>
                         <h2 className="text-center text-primary">Confirm Email Address</h2>
-                        <Form.Group controlId="formBasicEmail" className="text-center">
+                        <Form.Group controlId="formBasicEmail">
                            {/* <Form.Label>Email address</Form.Label>*/}
                             <Form.Control
                                 type="email"
                                 placeholder="example@name.com"
                                 name="email"
+                                className={errors.some(error => error.param === "email") && 'is-invalid'}
                                 onChange={handlerOnChangeInput}
                                 value={data.email}
                                 style={{textAlign: "center"}}
-                                required
                             />
-                            <Form.Text className="text-info">
-                                enter your email address to check if it's exits and send the reset code for you.
-                            </Form.Text>
+                            {errors.some(error => error.param === "email") &&
+                                <Form.Text className="text-danger">
+                                    {errors.find(error => error.param === "email").msg}
+                                </Form.Text>
+                            }
                         </Form.Group>
 
                         <div className="text-center">
@@ -34,7 +36,7 @@ const ForgetPassword = () => {
                                 className="mt-3"
                                 disabled={isPress}
                             >
-                                {isPress ? (
+                                Submit {isPress &&
                                     <Spinner
                                         as="span"
                                         animation="border"
@@ -42,9 +44,7 @@ const ForgetPassword = () => {
                                         role="status"
                                         aria-hidden="true"
                                     />
-                                ) : (
-                                    "Submit"
-                                )}
+                                }
                             </Button>
                         </div>
                     </Form>

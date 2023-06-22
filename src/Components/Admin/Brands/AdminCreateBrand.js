@@ -1,11 +1,10 @@
-import {Button, Col, Row, Spinner} from "react-bootstrap";
+import {Button, Col, Row, Spinner, Form} from "react-bootstrap";
 import React from "react";
 import CreateBrandForm from "../../../Controllers/Brand/Admin/CreateBrandForm";
 
 const AdminCreateBrand = () => {
-    const {name, onChangeName, img, handleSubmit, isPress, onChangeImage} = CreateBrandForm();
-
-    return (<>
+    const {name, onChangeName, img, handleSubmit, isPress, onChangeImage, errors} = CreateBrandForm();
+    return (<Form onSubmit={handleSubmit}>
         <Row className="justify-content-start">
             <div className="admin-content-text pb-4">Create new brand</div>
             <Col sm={8}>
@@ -20,21 +19,36 @@ const AdminCreateBrand = () => {
                             style={{cursor: "pointer"}}
                         />
                     </label>
-                    <input type="file" name="image" onChange={onChangeImage} id="upload-image"/>
+                    <input type="file" name="image" onChange={onChangeImage} id="upload-image"
+                           className={errors.some(error => error.param === "image") && 'is-invalid'}
+                    />
+                    {errors.some(error => error.param === "image") &&
+                        <Form.Text className="text-danger">
+                            {errors.find(error => error.param === "image").msg}
+                        </Form.Text>
+                    }
                 </div>
-                <input
-                    onChange={onChangeName}
-                    type="text"
-                    className="input-form d-block mt-3 px-3"
-                    placeholder="the name pf the brand"
-                    value={name}
-                />
+                <br/>
+                <Form.Group>
+                    <Form.Control type="text"
+                                  placeholder="the name of the brand"
+                                  name="name"
+                                  className={errors.some(error => error.param === "name") && 'is-invalid'}
+                                  onChange={onChangeName}
+                                  value={name}/>
+                    {errors.some(error => error.param === "name") &&
+                        <Form.Text className="text-danger">
+                            {errors.find(error => error.param === "name").msg}
+                        </Form.Text>
+                    }
+                </Form.Group>
+
             </Col>
         </Row>
         <Row>
             <Col sm={8} className="d-flex justify-content-end">
                 <Button
-                    onClick={handleSubmit}
+                    type="submit"
                     variant="outline-primary"
                     className="d-inline mt-2"
                 >
@@ -49,6 +63,6 @@ const AdminCreateBrand = () => {
                 </Button>
             </Col>
         </Row>
-    </>)
+    </Form>)
 }
 export default AdminCreateBrand

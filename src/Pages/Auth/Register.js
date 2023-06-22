@@ -4,59 +4,78 @@ import {SignupUser} from "../../Controllers/AuthController";
 import React from "react";
 
 const Register = () => {
-    const {data, handleSubmit, handlerOnChangeInput, isPress} = SignupUser()
+    const {data, handleSubmit, handlerOnChangeInput, isPress, errors} = SignupUser()
     return (
         <Container style={{minHeight: "450px"}}>
             <Row className="justify-content-center mt-5">
                 <Col xs={12} md={8} sm={12} xl={6}>
                     <h2 className="text-center mb-4 text-primary">Signup</h2>
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group controlId="formBasicName" className="text-center">
+                        <Form.Group controlId="formBasicName">
                             <Form.Label>Name</Form.Label>
                             <Form.Control
                                 type="text"
                                 name="name"
+                                className={errors.some(error => error.param === "name") && 'is-invalid'}
                                 value={data.name}
                                 placeholder="example name"
-                                required
                                 onChange={handlerOnChangeInput}
                                 style={{textAlign: "center"}}
                             />
+                            {errors.some(error => error.param === "name") &&
+                                <Form.Text className="text-danger">
+                                    {errors.find(error => error.param === "name").msg}
+                                </Form.Text>
+                            }
                         </Form.Group>
 
-                        <Form.Group controlId="formBasicEmail" className="text-center">
+                        <Form.Group controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
                             <Form.Control
                                 type="email"
                                 placeholder="example@name.com"
                                 name="email"
+                                className={errors.some(error => error.param === "email") && 'is-invalid'}
                                 onChange={handlerOnChangeInput}
                                 value={data.email}
                                 style={{textAlign: "center"}}
-                                required
                             />
-                            {/* <Form.Text className="text-muted">
-                                We'll never share your email with anyone else.
-                            </Form.Text>*/}
+                            {errors.some(error => error.param === "email") &&
+                                <Form.Text className="text-danger">
+                                    {errors.find(error => error.param === "email").msg}
+                                </Form.Text>
+                            }
+
                         </Form.Group>
 
-                        <Form.Group controlId="formBasicPassword" className="text-center">
+                        <Form.Group controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" placeholder="○○○○○○○○○○" name="password"
+                                          className={errors.some(error => error.param === "password") && 'is-invalid'}
                                           style={{textAlign: "center"}} onChange={handlerOnChangeInput}
                                           value={data.password}/>
+                            {errors.some(error => error.param === "password") &&
+                                <Form.Text className="text-danger">
+                                    {errors.find(error => error.param === "password").msg}
+                                </Form.Text>
+                            }
                         </Form.Group>
 
-                        <Form.Group controlId="formBasicConfirmPassword" className="text-center">
+                        <Form.Group controlId="formBasicConfirmPassword">
                             <Form.Label>Confirm Password</Form.Label>
                             <Form.Control
                                 type="password"
                                 name="passwordConfirm"
+                                className={errors.some(error => error.param === "passwordConfirm") && 'is-invalid'}
                                 value={data.passwordConfirm}
                                 placeholder="○○○○○○○○○○"
-                                required
                                 onChange={handlerOnChangeInput} style={{textAlign: "center"}}
                             />
+                            {errors.some(error => error.param === "passwordConfirm") &&
+                                <Form.Text className="text-danger">
+                                    {errors.find(error => error.param === "passwordConfirm").msg}
+                                </Form.Text>
+                            }
                         </Form.Group>
 
                         <Form.Group controlId="formBasicCheckbox">
@@ -68,19 +87,16 @@ const Register = () => {
                                 variant="outline-primary"
                                 type="submit"
                                 className="mt-3"
-                                disabled={isPress}
+                                /*disabled={isPress}*/
                             >
-                                {isPress ? (
-                                    <Spinner
-                                        as="span"
-                                        animation="border"
-                                        size="sm"
-                                        role="status"
-                                        aria-hidden="true"
-                                    />
-                                ) : (
-                                    "Signup"
-                                )}
+                                Signup {isPress &&
+                                <Spinner
+                                    as="span"
+                                    animation="border"
+                                    size="sm"
+                                    role="status"
+                                    aria-hidden="true"
+                                />}
                             </Button>
                         </div>
                     </Form>

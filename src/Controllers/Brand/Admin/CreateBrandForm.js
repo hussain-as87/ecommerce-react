@@ -10,6 +10,8 @@ const CreateBrandForm = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isPress, setIsPress] = useState(false);
+    const [errors, setErrors] = useState([]);
+
     const dispatch = useDispatch();
 
     const onChangeImage = (e) => {
@@ -25,6 +27,7 @@ const CreateBrandForm = () => {
         }
     };
     const response = useSelector(state => state.brands.brands)
+    const {error} = useSelector((state) => state.brands)
 
     const onChangeName = (e) => {
         e.persist()
@@ -45,8 +48,12 @@ const CreateBrandForm = () => {
             console.log(error)
         }
     };
-
     useEffect(() => {
+        if (error.data?.errors) {
+            console.log(error.data.errors); // Validation errors will be in the response data
+            setErrors(error.data.errors); //set errors with response data
+            setIsPress(false)
+        }
         if (!loading) {
             setName("");
             setImg(avatar);
@@ -55,13 +62,11 @@ const CreateBrandForm = () => {
             setLoading(true);
             if (response.status === 201) {
                 use_notification("The brand has been created successfully! 😀", "success");
-            } else {
-                use_notification("The name is required! 😔", "error");
             }
         }
-    }, [loading]);
+    }, [loading, error, response]);
 
-    return {name, onChangeName, img, handleSubmit, isPress, onChangeImage};
+    return {name, onChangeName, img, handleSubmit, isPress, onChangeImage, errors};
 };
 
 export default CreateBrandForm;
