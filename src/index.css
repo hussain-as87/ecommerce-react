@@ -699,7 +699,7 @@ body {
   color: white !important;
   font-size: 16px !important;
   font-weight: bold  !important;
-  margin-top: -9px;
+  margin-top: 15px;
 }
 .dropdown-menu {
   background-color: #212529 !important;
@@ -713,3 +713,15 @@ body {
   color: #212529 !important;
   background-color: white !important;
 }
+
+.beautiful-input {
+  /* ... Your existing styles ... */
+  transition: all 0.9s ease-in-out;
+  transform-style: preserve-3d;
+}
+
+.beautiful-input:focus,
+.beautiful-input.focus {
+  transform: translateZ(20px) rotateX(20deg);
+}
+

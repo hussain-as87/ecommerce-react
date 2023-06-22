@@ -16,6 +16,7 @@ const NavbarSection = ({index}) => {
         e.preventDefault();
         localStorage.removeItem("user");
         localStorage.removeItem("token");
+        window.location.reload();
     };
     useEffect(() => {
         setUserData(parsedUser || {});
@@ -33,34 +34,37 @@ const NavbarSection = ({index}) => {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <FormControl
                             type="search"
-                            placeholder="search for something...🔍"
-                            className="me-2 w-100 text-center"
+                            placeholder="Search for something... 🔍"
+                            className="me-2 w-100 text-center beautiful-input"
                             aria-label="Search"
                             value={keyword}
                             onChange={onChangeKeyWord}
+                            onFocus={(e) => e.target.classList.add('focus')}
+                            onBlur={(e) => e.target.classList.remove('focus')}
                         />
                         <Nav className="me-auto">
-                            <Nav.Link
-                                href="/login"
-                                className="nav-text d-flex mt-3 justify-content-center"
-                            >
-                                <img src={login} className="login-img" alt="sfvs" width={20} height={20}/>
-                                <p style={{color: "white"}}>
-                                    {userData.name ? (
-                                        <NavDropdown title={userData.name} id="basic-nav-dropdown">
-                                            {userData.role === "admin" ? (<NavDropdown.Item href="/admin/products">Control
-                                                Panel</NavDropdown.Item>) : (
-                                                <NavDropdown.Item href="/user/profile">Profile</NavDropdown.Item>)}
-                                            <NavDropdown.Divider/>
-                                            <NavDropdown.Item onClick={logout} className="text-danger">
-                                                Logout
-                                            </NavDropdown.Item>
-                                        </NavDropdown>
-                                    ) : (
-                                        "Login"
-                                    )}
-                                </p>
-                            </Nav.Link>
+                            {userData.name ? (
+                                <NavDropdown title={userData.name} id="basic-nav-dropdown">
+                                    <NavDropdown.Item href="/user/profile">Profile</NavDropdown.Item>
+                                    {userData.role === "admin" && <NavDropdown.Item href="/admin/products">Control
+                                        Panel</NavDropdown.Item> }
+                                    <NavDropdown.Divider/>
+                                    <NavDropdown.Item onClick={logout} className="text-danger">
+                                        Logout
+                                    </NavDropdown.Item>
+                                </NavDropdown>
+                            ) : (
+                                <Nav.Link
+                                    href="/login"
+                                    className="nav-text d-flex mt-3 justify-content-center"
+                                >
+                                    <img src={login} className="login-img" alt="sfvs" width={20} height={20}/>
+                                    <p style={{color: "white"}}>
+                                        Login
+                                    </p>
+                                </Nav.Link>
+                            )}
+
                             <Nav.Link
                                 href="/cart"
                                 className="nav-text d-flex mt-3 justify-content-center"

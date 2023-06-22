@@ -1,12 +1,12 @@
 import React from 'react';
 import {Row, Col, Spinner, Form, Button} from 'react-bootstrap';
-import {GetLoggedUser} from '../../Controllers/UserController';
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import {ChangeUserPassword, GetLoggedUser} from '../../Controllers/UserController';
+import {faEdit} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const UserProfile = () => {
     const {user, loading} = GetLoggedUser();
-
+    const {handleSubmit, handlerOnChangeInput, isPress} = ChangeUserPassword()
     return (
         <div>
             <h2 className="admin-content-text">Profile</h2>
@@ -16,8 +16,9 @@ const UserProfile = () => {
                     <div className="user-address-card my-3 px-2">
                         <Row className="d-flex justify-content-between pt-2">
                             <Col xs={12} className="d-flex">
-                                    <div className="p-2">Name:</div>
-                                <div className="p-1 item-delete-edit">{user.data.name}{''}  <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon></div>
+                                <div className="p-2">Name:</div>
+                                <div className="p-1 item-delete-edit">{user.data.name}{''} <FontAwesomeIcon
+                                    icon={faEdit}></FontAwesomeIcon></div>
                             </Col>
                             <Col xs={12} className="d-flex">
                                 <div className="p-2">Phone number:</div>
@@ -35,7 +36,7 @@ const UserProfile = () => {
                             <Col xs={10} sm={8} md={8} className="mx-auto">
                                 <h2 className="text-center text-dark">Change Password</h2>
                                 <hr/>
-                                <Form>
+                                <Form onSubmit={handleSubmit}>
                                     <Form.Group className="text-center">
                                         <Form.Label>Old Password</Form.Label>
                                         <Form.Control
@@ -43,6 +44,7 @@ const UserProfile = () => {
                                             name="currentPassword"
                                             placeholder="○○○○○○○○○"
                                             style={{textAlign: 'center'}}
+                                            onChange={handlerOnChangeInput}
                                         />
                                         <Form.Text></Form.Text>
                                     </Form.Group>
@@ -54,6 +56,7 @@ const UserProfile = () => {
                                             name="password"
                                             placeholder="○○○○○○○○○"
                                             style={{textAlign: 'center'}}
+                                            onChange={handlerOnChangeInput}
                                         />
                                         <Form.Text></Form.Text>
                                     </Form.Group>
@@ -65,6 +68,7 @@ const UserProfile = () => {
                                             name="passwordConfirm"
                                             placeholder="○○○○○○○○○"
                                             style={{textAlign: 'center'}}
+                                            onChange={handlerOnChangeInput}
                                         />
                                         <Form.Text></Form.Text>
                                     </Form.Group>
@@ -74,7 +78,7 @@ const UserProfile = () => {
                                             type="submit"
                                             className="mt-3"
                                         >
-                                            {/* {isPress ? (
+                                            {isPress ? (
                                                 <Spinner
                                                     as="span"
                                                     animation="border"
@@ -83,8 +87,7 @@ const UserProfile = () => {
                                                     aria-hidden="true"
                                                 />
                                             ) : (
-                                                "*/}Submit
-                                            {/*" )}*/}
+                                                "Submit")}
                                         </Button>
                                     </div>
                                 </Form>

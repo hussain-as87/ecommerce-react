@@ -9,8 +9,7 @@ import {
 } from "../Types";
 
 const url = "/products";
-const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzNiYjMzOWMyMjA4YzcxNWE5NTBkNmMiLCJpYXQiOjE2ODYwMzg1OTcsImV4cCI6MTY5MzgxNDU5N30.EiXvpt92eRmmfPeXgIR7haGNJpdjTmESUyjKg5l0slw";
+const token = localStorage.getItem('token') || "";
 
 /**
  * @method GET
@@ -19,9 +18,7 @@ const token =
  */
 export const getProducts = ({limit, page, sort, search, keyword}) => async (dispatch) => {
     try {
-        const response = await use_get_data( `${url}?limit=${limit}&page=${page}&keyword=${keyword || ''}&sort=${sort}&${search}`, {
-            headers: {Authorization: `Bearer ${token}`},
-        });
+        const response = await use_get_data( `${url}?limit=${limit}&page=${page}&keyword=${keyword || ''}&sort=${sort}&${search}`);
         dispatch({type: GET_ALL_PRODUCTS, payload: response});
     } catch (error) {
         console.log(error);
@@ -35,9 +32,7 @@ export const getProducts = ({limit, page, sort, search, keyword}) => async (disp
  */
 export const getProductsBySold = ({limit, page}) => async (dispatch) => {
     try {
-        const response = await use_get_data( `${url}?limit=${limit}&page=${page}&sort=-sold`, {
-            headers: {Authorization: `Bearer ${token}`},
-        });
+        const response = await use_get_data( `${url}?limit=${limit}&page=${page}&sort=-sold` );
         dispatch({type: GET_PRODUCTS_BY_SOLD, payload: response});
     } catch (error) {
         console.log(error);
@@ -83,9 +78,7 @@ export const getProductsByCategory = (catId) => async (dispatch) => {
  */
 export const getProduct = (id) => async (dispatch) => {
     try {
-        const response = await use_get_data(url + `/${id}`, {
-            headers: {Authorization: `Bearer ${token}`},
-        });
+        const response = await use_get_data(url + `/${id}`);
         dispatch({type: GET_PRODUCT, payload: response});
     } catch (error) {
         console.log(error);
