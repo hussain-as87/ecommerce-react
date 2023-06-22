@@ -2,8 +2,7 @@ import {use_post_data, use_get_data} from "../../Hooks/ApiDataHook";
 import {ERROR, CREATE_CATEGORY, GET_ALL_CATEGORIES} from "../Types";
 
 const url = "/categories";
-const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzNiYjMzOWMyMjA4YzcxNWE5NTBkNmMiLCJpYXQiOjE2ODYwMzg1OTcsImV4cCI6MTY5MzgxNDU5N30.EiXvpt92eRmmfPeXgIR7haGNJpdjTmESUyjKg5l0slw";
+const token = localStorage.getItem('token') || "";
 
 /**
  * @method GET
@@ -12,9 +11,7 @@ const token =
  */
 export const getCategories = (limit,page) => async (dispatch) => {
   try {
-    const response =await use_get_data(url+`?limit=${limit}&page=${page}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response =await use_get_data(url+`?limit=${limit}&page=${page}`);
     dispatch({ type: GET_ALL_CATEGORIES, payload: response });
   } catch (error) {
     console.log(error);
