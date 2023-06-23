@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import avatar from "../../../assets/images/avatar.png";
 import {useDispatch, useSelector} from "react-redux";
-import { createCategory } from "../../../Redux/Actions/CategoryAction";
+import {createCategory} from "../../../Redux/Actions/CategoryAction";
 import use_notification from "../../use_notification";
 
 const CreateCategoryForm = () => {
     const [img, setImg] = useState(avatar);
     const [name, setName] = useState("");
+    const [errors, setErrors] = useState([]);
+
     const [selectedFile, setSelectedFile] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isPress, setIsPress] = useState(false);
@@ -25,6 +27,7 @@ const CreateCategoryForm = () => {
         }
     };
     const response = useSelector(state => state.categories.categories)
+    const {error} = useSelector((state) => state.categories)
     const onChangeName = (e) => {
         e.persist()
         setName(e.target.value);
@@ -46,6 +49,11 @@ const CreateCategoryForm = () => {
     };
 
     useEffect(() => {
+        if (error.data?.errors) {
+            console.log(error.data.errors); // Validation errors will be in the response data
+            setErrors(error.data.errors); //set errors with response data
+            setIsPress(false)
+        }
         if (!loading) {
             setName("");
             setImg(avatar);
@@ -53,15 +61,13 @@ const CreateCategoryForm = () => {
             setTimeout(() => setIsPress(false), 2000);
             setLoading(true);
             console.log(response)
-            if (response.status === 201){
+            if (response.status === 201) {
                 use_notification("The category has been created successfully! 😀", "success");
-            }else {
-                 use_notification("The data is required! 😔", "error");
             }
         }
-    }, [loading,response]);
+    }, [loading, response, error]);
 
-    return {name, onChangeName, img, handleSubmit, isPress, onChangeImage};
+    return {name, onChangeName, img, handleSubmit, isPress, onChangeImage, errors};
 };
 
 export default CreateCategoryForm;

@@ -1,21 +1,23 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getProduct, updateProduct } from "../../../Redux/Actions/ProductAction";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {getProduct, updateProduct} from "../../../Redux/Actions/ProductAction";
 import use_notification from "../../use_notification";
 import IndexCategoryForm from "../../Category/IndexCategoryForm";
 import IndexBrandForm from "../../Brand/IndexBrandForm";
-import { getSpecificSubcategories } from "../../../Redux/Actions/SubcategoryAction";
+import {getSpecificSubcategories} from "../../../Redux/Actions/SubcategoryAction";
 import ShowProductForm from "../ShowProductForm";
 
-const EditProductForm = ({ id }) => {
+const EditProductForm = ({id}) => {
     const dispatch = useDispatch();
-    const { product } = ShowProductForm(id); // Retrieve the product data using the provided ID
+    const {product} = ShowProductForm(id); // Retrieve the product data using the provided ID
     const productData = product ? product.data : []; // Extract the data from the product, or set it as an empty array if not available
 
     // State variables
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isPress, setIsPress] = useState(false);
+    const [errors, setErrors] = useState([]);
+
     const [colorPickerShow, setColorPickerShow] = useState(false);
     const [colors, setColors] = useState([]);
     const [subcategoryOptions, setSubcategoryOptions] = useState([]);
@@ -23,8 +25,8 @@ const EditProductForm = ({ id }) => {
     const [data, setData] = useState({
         title: "",
         description: "",
-        quantity: 0,
-        price: 0,
+        quantity: "",
+        price: "",
         colors: [],
         imageCover: "",
         images: [],
@@ -34,11 +36,11 @@ const EditProductForm = ({ id }) => {
     });
 
     const response = useSelector((state) => state.products.ProductE);
-    const { categories } = IndexCategoryForm();
-    const { brands } = IndexBrandForm();
-
+    const {categories} = IndexCategoryForm();
+    const {brands} = IndexBrandForm();
+    const {error} = useSelector((state) => state.products)
     // Retrieve subcategories from the Redux store
-    const { subcategories } = useSelector((state) => state.subcategories);
+    const {subcategories} = useSelector((state) => state.subcategories);
 
     // Add color to the colors array
     const handleCreateColors = (color) => {
@@ -64,7 +66,7 @@ const EditProductForm = ({ id }) => {
 
     // Update the data state based on input change
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setData((prevData) => ({
             ...prevData,
             [name]: value,
@@ -72,27 +74,27 @@ const EditProductForm = ({ id }) => {
     };
 
     const handleTitleChange = (e) => {
-        setData((prevData) => ({ ...prevData, title: e.target.value }));
+        setData((prevData) => ({...prevData, title: e.target.value}));
     };
 
     const handleDescriptionChange = (e) => {
-        setData((prevData) => ({ ...prevData, description: e.target.value }));
+        setData((prevData) => ({...prevData, description: e.target.value}));
     };
 
     const handlePriceChange = (e) => {
-        setData((prevData) => ({ ...prevData, price: e.target.value }));
+        setData((prevData) => ({...prevData, price: e.target.value}));
     };
 
     const handleQuantityChange = (e) => {
-        setData((prevData) => ({ ...prevData, quantity: e.target.value }));
+        setData((prevData) => ({...prevData, quantity: e.target.value}));
     };
 
     const handleCategoryChange = async (e) => {
-        setData((prevData) => ({ ...prevData, category: e.target.value }));
+        setData((prevData) => ({...prevData, category: e.target.value}));
         if (e.target.value !== "") {
             try {
                 await dispatch(getSpecificSubcategories(e.target.value));
-                setData((prevData) => ({ ...prevData, subCategory: [] }));
+                setData((prevData) => ({...prevData, subCategory: []}));
             } catch (err) {
                 console.log("Error fetching subcategories:", err);
             }
@@ -125,7 +127,7 @@ const EditProductForm = ({ id }) => {
     };
 
     const handleBrandChange = (e) => {
-        setData((prevData) => ({ ...prevData, brand: e.target.value }));
+        setData((prevData) => ({...prevData, brand: e.target.value}));
     };
 
     // Convert base64 to a File object
@@ -140,16 +142,16 @@ const EditProductForm = ({ id }) => {
             u8arr[n] = bstr.charCodeAt(n);
         }
 
-        return new File([u8arr], filename, { type: mime });
+        return new File([u8arr], filename, {type: mime});
     }
 
     // Convert URL to a File object
     const convertURLtoFile = async (url) => {
-        const response = await fetch(url, { mode: "cors" });
+        const response = await fetch(url, {mode: "cors"});
         const data = await response.blob();
         const ext = url.split(".").pop();
         const filename = url.split("/").pop();
-        const metadata = { type: `image/${ext}` };
+        const metadata = {type: `image/${ext}`};
         return new File([data], Math.random(), metadata);
     };
 
@@ -203,13 +205,18 @@ const EditProductForm = ({ id }) => {
         }, 1000);
         setTimeout(async () => {
             setLoading(true);
-            await dispatch(updateProduct({ id, formData }));
+            await dispatch(updateProduct({id, formData}));
             setLoading(false);
             setIsPress(true);
         }, 1000);
     };
 
     useEffect(() => {
+        if (error.response?.data.errors) {
+            console.log(error.response.data.errors); // Validation errors will be in the response data
+            setErrors(error.response.data.errors); //set errors with response data
+            setIsPress(false)
+        }
         if (productData) {
             setData((prevState) => ({
                 ...prevState,
@@ -236,8 +243,8 @@ const EditProductForm = ({ id }) => {
                 setData({
                     title: "",
                     description: "",
-                    quantity: 0,
-                    price: 0,
+                    quantity: "",
+                    price: "",
                     colors: [],
                     imageCover: "",
                     images: [],
@@ -253,7 +260,7 @@ const EditProductForm = ({ id }) => {
                 use_notification("There are data required!", "error");
             }
         }
-    }, [loading, dispatch, response, productData, id]);
+    }, [loading, dispatch, response, productData, id, error]);
 
     return {
         data,
@@ -279,6 +286,7 @@ const EditProductForm = ({ id }) => {
         colorPickerShow,
         handleCreateColors,
         colors,
+        errors
     };
 };
 

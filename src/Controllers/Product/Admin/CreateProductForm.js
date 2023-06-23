@@ -12,6 +12,8 @@ const CreateProductForm = () => {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isPress, setIsPress] = useState(false);
+    const [errors, setErrors] = useState([]);
+
     const [colorPickerShow, setColorPickerShow] = useState(false);
     const [colors, setColors] = useState([]);
     const [subcategoryOptions, setSubcategoryOptions] = useState([]);
@@ -19,8 +21,8 @@ const CreateProductForm = () => {
     const [data, setData] = useState({
         title: "",
         description: "",
-        quantity: 0,
-        price: 0,
+        quantity: "",
+        price: "",
         colors: [],
         imageCover: "",
         images: [],
@@ -33,7 +35,8 @@ const CreateProductForm = () => {
     const {categories} = IndexCategoryForm();
     const {brands} = IndexBrandForm();
     const {subcategories} = useSelector((state) => state.subcategories);
-
+    const {error} = useSelector((state) => state.products)
+    console.log(error)
     const handleCreateColors = (color) => {
         if (colors.includes(color.hex)) {
             setColorPickerShow(!colorPickerShow);
@@ -131,17 +134,22 @@ const CreateProductForm = () => {
             subCategory,
             brand,
         } = data;
-
-        // Convert base64 image to file
-        const imgCover = dataURLtoFile(images[0], Math.random() + ".png");
-
-        // Convert array of base64 images to files
-        const itemImages = Array.from(Array(Object.keys(images).length).keys()).map(
-            (item, index) => {
-                return dataURLtoFile(images[index], Math.random() + ".png")
-            }
-        )
         const formData = new FormData();
+
+        if (images > 0) { // Convert base64 image to file
+            const imgCover = dataURLtoFile(images[0], Math.random() + ".png");
+
+            // Convert array of base64 images to files
+            const itemImages = Array.from(Array(Object.keys(images).length).keys()).map(
+                (item, index) => {
+                    return dataURLtoFile(images[index], Math.random() + ".png")
+                }
+            )
+            formData.append("imageCover", imgCover);
+            itemImages.forEach((image) => formData.append("images", image));
+            return
+        }
+
         formData.append("title", title);
         formData.append("description", description);
         formData.append("quantity", quantity);
@@ -151,8 +159,6 @@ const CreateProductForm = () => {
         subCategory.forEach((subCat) =>
             formData.append("subCategory", subCat._id)
         );
-        formData.append("imageCover", imgCover);
-        itemImages.forEach((image) => formData.append("images", image));
         colors.map((color) => formData.append("colors", color))
 
         setLoading(true);
@@ -162,6 +168,11 @@ const CreateProductForm = () => {
     };
 
     useEffect(() => {
+        if (error.data?.errors) {
+            console.log(error.data.errors); // Validation errors will be in the response data
+            setErrors(error.data.errors); //set errors with response data
+            setIsPress(false)
+        }
         if (!loading) {
             setImages([]);
             setColors([]);
@@ -172,8 +183,8 @@ const CreateProductForm = () => {
                 setData({
                     title: "",
                     description: "",
-                    quantity: 0,
-                    price: 0,
+                    quantity: "",
+                    price: "",
                     colors: [],
                     imageCover: "",
                     images: [],
@@ -182,12 +193,10 @@ const CreateProductForm = () => {
                     brand: "",
                 });
                 use_notification("The product has been created successfully! 😀", "success");
-            } else {
-                use_notification("There are data required! 😔", "error");
             }
         }
 
-    }, [loading, dispatch, response]);
+    }, [loading, dispatch, response, error]);
 
     return {
         data,
@@ -212,6 +221,7 @@ const CreateProductForm = () => {
         colorPickerShow,
         handleCreateColors,
         colors,
+        errors
     };
 };
 

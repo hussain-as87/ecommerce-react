@@ -11,6 +11,7 @@ import {
 const initialState = {
     products: [],
     loading: true,
+    error:[]
 };
 const ProductReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -29,7 +30,7 @@ const ProductReducer = (state = initialState, action) => {
         case DELETE_PRODUCT:
             return {...state, productD: action.payload, loadingD: false};
         case ERROR:
-            return {...state, products: action.payload, loading: true};
+            return {...state, error: action.payload, loading: true};
         default:
             return state;
     }

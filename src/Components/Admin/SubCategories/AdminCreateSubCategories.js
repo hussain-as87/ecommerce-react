@@ -1,4 +1,4 @@
-import {Button, Col, Row, Spinner} from "react-bootstrap";
+import {Button, Col, Row, Spinner, Form, FloatingLabel} from "react-bootstrap";
 import React from "react";
 import CreateSubcategoryForm from "../../../Controllers/Subcategory/Admin/CreateSubcategoryForm";
 
@@ -10,28 +10,57 @@ const AdminCreateSubCategories = () => {
         onChangeCategory,
         handleSubmit,
         isPress,
-        categories
+        categories,
+        errors
     } = CreateSubcategoryForm()
     return (<>
         <Row className="justify-content-start">
             <div className="admin-content-text pb-4">Create new subcategory</div>
             <Col sm={8}>
-                <input className="input-form d-block mt-3 px-3"
-                       value={name}
-                       onChange={onChangeName}
-                       type="text" placeholder="the name of the subcategory"
-                />
-                <select id="category" name="category"
-                        value={category}
-                        onChange={onChangeCategory}
-                        className="select input-form-area mt-3 px-2">
-                    <option value="">choose the category</option>
-                    {categories.data && (categories.data.map((cate) => (
-                        <option key={cate._id} value={cate._id}>{cate.name}</option>
-                    )))}
-                </select>
+                <Form.Group>
+                    <FloatingLabel controlId="name" label="Name">
+                        <Form.Control
+                            id="name"
+                            className={errors.some(error => error.param === "name") && 'is-invalid'}
+                            name="name"
+                            value={name}
+                            onChange={onChangeName}
+                            type="text" placeholder="the name of the subcategory"
+                        />
+                        {errors.some(error => error.param === "name") &&
+                            <Form.Text className="text-danger">
+                                {errors.find(error => error.param === "name").msg}
+                            </Form.Text>}
+                    </FloatingLabel>
+                </Form.Group>
+                <br/>
+                <Form.Group>
+                    <FloatingLabel controlId="category" label="Category">
+                        <Form.Select
+                            id="category"
+                            name="category"
+                            value={category}
+                            onChange={onChangeCategory}
+                            className={errors.some(error => error.param === "category") && 'is-invalid'}
+                        >
+                            <option value="val">Choose category</option>
+                            {categories &&
+                                categories.data.map((cate) => (
+                                    <option value={cate._id} key={cate._id}>
+                                        {cate.name}
+                                    </option>
+                                ))}
+                        </Form.Select>
+                        {errors.some(error => error.param === "category") &&
+                            <Form.Text className="text-danger">
+                                {errors.find(error => error.param === "category").msg}
+                            </Form.Text>}
+                    </FloatingLabel>
+                </Form.Group>
+
             </Col>
         </Row>
+        <br/>
         <Row>
             <Col sm={8} className="d-flex justify-content-end">
                 <Button
