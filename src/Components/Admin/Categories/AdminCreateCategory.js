@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col, Row, Spinner, Form} from "react-bootstrap";
+import {Button, Col, Row, Spinner, Form, FloatingLabel} from "react-bootstrap";
 import CreateCategoryForm from "../../../Controllers/Category/Admin/CreateCategoryForm";
 
 const AdminCreateCategory = () => {
@@ -31,17 +31,21 @@ const AdminCreateCategory = () => {
                 </div>
                 <br/>
                 <Form.Group>
-                    <Form.Control type="text"
-                                  placeholder="the name of the category"
-                                  name="name"
-                                  className={errors.some(error => error.param === "name") && 'is-invalid'}
-                                  onChange={onChangeName}
-                                  value={name}/>
-                    {errors.some(error => error.param === "name") &&
-                        <Form.Text className="text-danger">
-                            {errors.find(error => error.param === "name").msg}
-                        </Form.Text>
-                    }
+                    <FloatingLabel controlId="name" label="Name">
+                        <Form.Control
+                            id="name"
+                            type="text"
+                            placeholder="the name of the category"
+                            name="name"
+                            className={errors.some(error => error.param === "name") && 'is-invalid'}
+                            onChange={onChangeName}
+                            value={name}/>
+                        {errors.some(error => error.param === "name") &&
+                            <Form.Text className="text-danger">
+                                {errors.find(error => error.param === "name").msg}
+                            </Form.Text>
+                        }
+                    </FloatingLabel>
                 </Form.Group>
             </Col>
         </Row>

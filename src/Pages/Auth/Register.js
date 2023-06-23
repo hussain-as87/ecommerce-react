@@ -1,4 +1,4 @@
-import {Form, Button, Container, Row, Col, Spinner} from "react-bootstrap";
+import {Form, Button, Container, Row, Col, Spinner, FloatingLabel} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {SignupUser} from "../../Controllers/AuthController";
 import React from "react";
@@ -12,72 +12,83 @@ const Register = () => {
                     <h2 className="text-center mb-4 text-primary">Signup</h2>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formBasicName">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="name"
-                                className={errors.some(error => error.param === "name") && 'is-invalid'}
-                                value={data.name}
-                                placeholder="example name"
-                                onChange={handlerOnChangeInput}
-                                style={{textAlign: "center"}}
-                            />
-                            {errors.some(error => error.param === "name") &&
-                                <Form.Text className="text-danger">
-                                    {errors.find(error => error.param === "name").msg}
-                                </Form.Text>
-                            }
+                            <FloatingLabel controlId="name" label="Name">
+                                <Form.Control
+                                    id="name"
+                                    type="text"
+                                    name="name"
+                                    className={errors.some(error => error.param === "name") && 'is-invalid'}
+                                    value={data.name}
+                                    placeholder="example name"
+                                    onChange={handlerOnChangeInput}
+                                    style={{textAlign: "center"}}
+                                />
+                                {errors.some(error => error.param === "name") &&
+                                    <Form.Text className="text-danger">
+                                        {errors.find(error => error.param === "name").msg}
+                                    </Form.Text>
+                                }
+                            </FloatingLabel>
                         </Form.Group>
-
+                        <br/>
                         <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control
-                                type="email"
-                                placeholder="example@name.com"
-                                name="email"
-                                className={errors.some(error => error.param === "email") && 'is-invalid'}
-                                onChange={handlerOnChangeInput}
-                                value={data.email}
-                                style={{textAlign: "center"}}
-                            />
-                            {errors.some(error => error.param === "email") &&
-                                <Form.Text className="text-danger">
-                                    {errors.find(error => error.param === "email").msg}
-                                </Form.Text>
-                            }
+                            <FloatingLabel controlId="email" label="Email-Address">
+                                <Form.Control
+                                    id="email"
+                                    type="email"
+                                    placeholder="example@name.com"
+                                    name="email"
+                                    className={errors.some(error => error.param === "email") && 'is-invalid'}
+                                    onChange={handlerOnChangeInput}
+                                    value={data.email}
+                                    style={{textAlign: "center"}}
+                                />
+                                {errors.some(error => error.param === "email") &&
+                                    <Form.Text className="text-danger">
+                                        {errors.find(error => error.param === "email").msg}
+                                    </Form.Text>
+                                }
+                            </FloatingLabel>
 
                         </Form.Group>
-
+                        <br/>
                         <Form.Group controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="○○○○○○○○○○" name="password"
-                                          className={errors.some(error => error.param === "password") && 'is-invalid'}
-                                          style={{textAlign: "center"}} onChange={handlerOnChangeInput}
-                                          value={data.password}/>
-                            {errors.some(error => error.param === "password") &&
-                                <Form.Text className="text-danger">
-                                    {errors.find(error => error.param === "password").msg}
-                                </Form.Text>
-                            }
+                            <FloatingLabel controlId="password" label="Password">
+                                <Form.Control
+                                    id="password"
+                                    type="password"
+                                    placeholder="○○○○○○○○○○"
+                                    name="password"
+                                    className={errors.some(error => error.param === "password") && 'is-invalid'}
+                                    style={{textAlign: "center"}} onChange={handlerOnChangeInput}
+                                    value={data.password}/>
+                                {errors.some(error => error.param === "password") &&
+                                    <Form.Text className="text-danger">
+                                        {errors.find(error => error.param === "password").msg}
+                                    </Form.Text>
+                                }
+                            </FloatingLabel>
                         </Form.Group>
-
+                        <br/>
                         <Form.Group controlId="formBasicConfirmPassword">
-                            <Form.Label>Confirm Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                name="passwordConfirm"
-                                className={errors.some(error => error.param === "passwordConfirm") && 'is-invalid'}
-                                value={data.passwordConfirm}
-                                placeholder="○○○○○○○○○○"
-                                onChange={handlerOnChangeInput} style={{textAlign: "center"}}
-                            />
-                            {errors.some(error => error.param === "passwordConfirm") &&
-                                <Form.Text className="text-danger">
-                                    {errors.find(error => error.param === "passwordConfirm").msg}
-                                </Form.Text>
-                            }
+                            <FloatingLabel controlId="passwordConfirm" label="Password Confirm">
+                                <Form.Control
+                                    id="passwordConfirm"
+                                    type="password"
+                                    name="passwordConfirm"
+                                    className={errors.some(error => error.param === "passwordConfirm") && 'is-invalid'}
+                                    value={data.passwordConfirm}
+                                    placeholder="○○○○○○○○○○"
+                                    onChange={handlerOnChangeInput} style={{textAlign: "center"}}
+                                />
+                                {errors.some(error => error.param === "passwordConfirm") &&
+                                    <Form.Text className="text-danger">
+                                        {errors.find(error => error.param === "passwordConfirm").msg}
+                                    </Form.Text>
+                                }
+                            </FloatingLabel>
                         </Form.Group>
-
+                        <br/>
                         <Form.Group controlId="formBasicCheckbox">
                             <Form.Check type="checkbox" label="Remember me"/>
                         </Form.Group>

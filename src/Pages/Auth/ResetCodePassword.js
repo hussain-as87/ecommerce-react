@@ -1,4 +1,4 @@
-import {Button, Col, Container, Form, Row, Spinner} from "react-bootstrap";
+import {Button, Col, Container, FloatingLabel, Form, Row, Spinner} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {RestPasswordUser} from "../../Controllers/AuthController";
 import React from "react";
@@ -12,37 +12,41 @@ const RestPassword = () => {
                     <Form onSubmit={handleSubmit}>
                         <h2 className="text-center text-primary">Change Password</h2>
                         <Form.Group controlId="formBasicPassword">
-                            <Form.Label>New Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                name="newPassword"
-                                className={errors.some(error => error.param === "newPassword") && 'is-invalid'}
-                                style={{textAlign: "center"}}
-                                placeholder="○○○○○○○○○○"
-                                onChange={handlerOnChangeInput} value={data.newPassword}
-                            />
-                            {errors.some(error => error.param === "newPassword") &&
-                                <Form.Text className="text-danger">
-                                    {errors.find(error => error.param === "newPassword").msg}
-                                </Form.Text>
-                            }
+                            <FloatingLabel controlId="newPassword" label="New Password">
+                                <Form.Control
+                                    id="newPassword"
+                                    type="password"
+                                    name="newPassword"
+                                    className={errors.some(error => error.param === "newPassword") && 'is-invalid'}
+                                    style={{textAlign: "center"}}
+                                    placeholder="○○○○○○○○○○"
+                                    onChange={handlerOnChangeInput} value={data.newPassword}
+                                />
+                                {errors.some(error => error.param === "newPassword") &&
+                                    <Form.Text className="text-danger">
+                                        {errors.find(error => error.param === "newPassword").msg}
+                                    </Form.Text>
+                                }
+                            </FloatingLabel>
                         </Form.Group>
-
+                        <br/>
                         <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Confirm New Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                name="newPasswordConfirm"
-                                className={errors.some(error => error.param === "newPasswordConfirm") && 'is-invalid'}
-                                style={{textAlign: "center"}}
-                                placeholder="○○○○○○○○○○"
-                                onChange={handlerOnChangeInput} value={data.newPasswordConfirm}
-                            />
-                            {errors.some(error => error.param === "newPasswordConfirm") &&
-                                <Form.Text className="text-danger">
-                                    {errors.find(error => error.param === "newPasswordConfirm").msg}
-                                </Form.Text>
-                            }
+                            <FloatingLabel controlId="newPasswordConfirm" label="New Password Confirm">
+                                <Form.Control
+                                    id="newPasswordConfirm"
+                                    type="password"
+                                    name="newPasswordConfirm"
+                                    className={errors.some(error => error.param === "newPasswordConfirm") && 'is-invalid'}
+                                    style={{textAlign: "center"}}
+                                    placeholder="○○○○○○○○○○"
+                                    onChange={handlerOnChangeInput} value={data.newPasswordConfirm}
+                                />
+                                {errors.some(error => error.param === "newPasswordConfirm") &&
+                                    <Form.Text className="text-danger">
+                                        {errors.find(error => error.param === "newPasswordConfirm").msg}
+                                    </Form.Text>
+                                }
+                            </FloatingLabel>
                         </Form.Group>
 
                         <div className="text-center">

@@ -161,7 +161,7 @@ const AdminEditProduct = () => {
                         <Multiselect
                             id="subcategory"
                             className={"form-control select" + errors.some(error => error.param === "subcategory") && 'is-invalid'}
-                            placeholder={subcategoryOptions.length < 1 ? "Subcategory" : ""}
+                            placeholder={subcategoryOptions.length < 1 && "Subcategory"}
                             options={Array.isArray(subcategoryOptions) ? subcategoryOptions : []}
                             selectedValues={data.subCategory}
                             onSelect={handleSubcategorySelect}

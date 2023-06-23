@@ -1,4 +1,4 @@
-import {Button, Col, Container, Form, Row, Spinner} from "react-bootstrap";
+import {Button, Col, Container, FloatingLabel, Form, Row, Spinner} from "react-bootstrap";
 import {VerifyRestPasswordUser} from "../../Controllers/AuthController";
 import React from "react";
 import {Link} from "react-router-dom";
@@ -12,8 +12,9 @@ const VerifyRestPassword = () => {
                     <Form onSubmit={handleSubmit}>
                         <h2 className="text-center text-primary">Verify The Reset Code</h2>
                         <Form.Group controlId="formBasicCode">
-                            {/* <Form.Label>Reset Code</Form.Label>*/}
-                            <Form.Control
+                           <FloatingLabel controlId="resetCode" label="Reset Code">
+                                <Form.Control
+                                    id="resetCode"
                                 style={{textAlign: "center"}}
                                 type="text"
                                 placeholder="◉◉◉◉◉◉"
@@ -29,6 +30,7 @@ const VerifyRestPassword = () => {
                                     {errors.find(error => error.param === "resetCode").msg}
                                 </Form.Text>
                             }
+                            </FloatingLabel>
                         </Form.Group>
 
                         <div className="text-center">

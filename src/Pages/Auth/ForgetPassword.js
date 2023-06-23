@@ -1,7 +1,8 @@
 import React from "react";
-import {Button, Col, Container, Form, Row, Spinner} from "react-bootstrap";
+import {Button, Col, Container, FloatingLabel, Form, Row, Spinner} from "react-bootstrap";
 import {ForgetPasswordUser} from "../../Controllers/AuthController";
 import {Link} from "react-router-dom";
+
 const ForgetPassword = () => {
     const {data, handlerOnChangeInput, handleSubmit, isPress, errors} = ForgetPasswordUser();
 
@@ -12,21 +13,23 @@ const ForgetPassword = () => {
                     <Form onSubmit={handleSubmit}>
                         <h2 className="text-center text-primary">Confirm Email Address</h2>
                         <Form.Group controlId="formBasicEmail">
-                           {/* <Form.Label>Email address</Form.Label>*/}
-                            <Form.Control
-                                type="email"
-                                placeholder="example@name.com"
-                                name="email"
-                                className={errors.some(error => error.param === "email") && 'is-invalid'}
-                                onChange={handlerOnChangeInput}
-                                value={data.email}
-                                style={{textAlign: "center"}}
-                            />
-                            {errors.some(error => error.param === "email") &&
-                                <Form.Text className="text-danger">
-                                    {errors.find(error => error.param === "email").msg}
-                                </Form.Text>
-                            }
+                            <FloatingLabel controlId="email" label="Email-Address">
+                                <Form.Control
+                                    id="email"
+                                    type="email"
+                                    placeholder="example@name.com"
+                                    name="email"
+                                    className={errors.some(error => error.param === "email") && 'is-invalid'}
+                                    onChange={handlerOnChangeInput}
+                                    value={data.email}
+                                    style={{textAlign: "center"}}
+                                />
+                                {errors.some(error => error.param === "email") &&
+                                    <Form.Text className="text-danger">
+                                        {errors.find(error => error.param === "email").msg}
+                                    </Form.Text>
+                                }
+                            </FloatingLabel>
                         </Form.Group>
 
                         <div className="text-center">
@@ -37,14 +40,14 @@ const ForgetPassword = () => {
                                 disabled={isPress}
                             >
                                 Submit {isPress &&
-                                    <Spinner
-                                        as="span"
-                                        animation="border"
-                                        size="sm"
-                                        role="status"
-                                        aria-hidden="true"
-                                    />
-                                }
+                                <Spinner
+                                    as="span"
+                                    animation="border"
+                                    size="sm"
+                                    role="status"
+                                    aria-hidden="true"
+                                />
+                            }
                             </Button>
                         </div>
                     </Form>

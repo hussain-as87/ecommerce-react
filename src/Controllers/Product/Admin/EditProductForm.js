@@ -25,8 +25,8 @@ const EditProductForm = ({id}) => {
     const [data, setData] = useState({
         title: "",
         description: "",
-        quantity: 0,
-        price: 0,
+        quantity: "",
+        price: "",
         colors: [],
         imageCover: "",
         images: [],
@@ -243,8 +243,8 @@ const EditProductForm = ({id}) => {
                 setData({
                     title: "",
                     description: "",
-                    quantity: 0,
-                    price: 0,
+                    quantity: "",
+                    price: "",
                     colors: [],
                     imageCover: "",
                     images: [],
