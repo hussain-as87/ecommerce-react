@@ -15,10 +15,10 @@ const HomePage = () => {
             <HomeCategory/>
             <ProductHomeItemContainer title="Top Sold Products" btn="More" path="/products"
                                       products={soldProducts}
-                                      loading={loadingS}/>
+                                      loading={loadingS} />
             <DiscountSection/>
             <ProductHomeItemContainer title="Most Products" btn="More" path="/products" products={products}
-                                      loading={loading}/>
+                                      loading={loading} />
             <BrandFeatured title="Brands" btn="More"/>
         </>);
 };

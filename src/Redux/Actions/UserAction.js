@@ -1,6 +1,5 @@
 import {use_get_data, use_put_data} from "../../Hooks/ApiDataHook";
 import {CHANGE_USER_PASSWORD, ERROR, GET_LOGGED_USER} from "../Types";
-import {GetLoggedUser} from "../../Controllers/UserController";
 
 const url = "/users";
 const token = localStorage.getItem('token') || "";

@@ -57,7 +57,7 @@ export const ChangeUserPassword = () => {
                 return navigate('/login')
             }
         }
-    }, [changePassword.status, loading])
+    }, [changePassword.status, loading, navigate])
 
     return {changePassword, loading, handleSubmit, handlerOnChangeInput, isPress}
 }

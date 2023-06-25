@@ -1,33 +1,19 @@
 import {
-    AUTH_FORGET_PASSWORD,
-    AUTH_LOGIN,
-    AUTH_REST_PASSWORD,
-    AUTH_SIGNUP,
-    AUTH_VERiFY_REST_PASSWORD,
-    ERROR
+    ERROR, LOGGED_USER_WISHLIST, WISHLIST
 } from "../Types";
 
 const initialState = {
-    signup: [],
-    login: [],
-    forgetPassword: [],
-    verifyRestPassword: [],
-    restPassword: [],
+    wishlist: [],
+    loggedUserWishlist: [],
     error: [],
     loading: true,
 };
 const AuthReducer = (state = initialState, action) => {
     switch (action.type) {
-        case AUTH_SIGNUP:
-            return {...state, signup: action.payload, loading: false};
-        case AUTH_LOGIN:
-            return {...state, login: action.payload, loading: false};
-        case AUTH_FORGET_PASSWORD:
-            return {...state, forgetPassword: action.payload, loading: false};
-        case AUTH_VERiFY_REST_PASSWORD:
-            return {...state, verifyRestPassword: action.payload, loading: false};
-        case AUTH_REST_PASSWORD:
-            return {...state, restPassword: action.payload, loading: false};
+        case WISHLIST:
+            return {...state, wishlist: action.payload, loading: false};
+        case LOGGED_USER_WISHLIST:
+            return {...state, loggedUserWishlist: action.payload, loading: false};
         case ERROR:
             return {...state, error: action.payload, loading: true};
         default:

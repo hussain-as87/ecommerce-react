@@ -131,7 +131,7 @@ export const LoginUser = () => {
                     email: "",
                     password: "",
                 })
-                return navigate("/", {replace: true})
+                return window.location.pathname = "/"
             }
         }
     }, [loading, login, error])
