@@ -5,11 +5,11 @@ import { getProductsByCategory} from "../../Redux/Actions/ProductAction";
 const IndexCategoryProductsForm = (id) => {
     const dispatch = useDispatch()
 
-    const {categoryProducts, loadingCP} = useSelector((state) => state.products)
+    const {productsByCategory, loading} = useSelector((state) => state.products)
 
     useEffect(() => {
         dispatch(getProductsByCategory(id))
     }, [id, dispatch])
-    return {categoryProducts, loadingCP}
+    return {categoryProducts:productsByCategory, loadingCP:loading}
 }
 export default IndexCategoryProductsForm

@@ -1,5 +1,5 @@
 import {use_post_data, use_get_data} from "../../Hooks/ApiDataHook";
-import {ERROR, CREATE_SUBCATEGORY, GET_SPECIFIC_SUBCATEGORY} from "../Types";
+import { CREATE_SUBCATEGORY, GET_SPECIFIC_SUBCATEGORY, SG1_ERROR, SC_ERROR} from "../Types";
 
 const url = "/subcategories";
 const token = localStorage.getItem('token') || "";
@@ -19,7 +19,7 @@ export const getSpecificSubcategories = (category) => async (dispatch) => {
     dispatch({ type: GET_SPECIFIC_SUBCATEGORY, payload: response,loading:true });
   } catch (error) {
     console.log(error);
-    dispatch({ type: ERROR, payload: error });
+    dispatch({ type: SG1_ERROR, payload: error });
   }
 };
 /**
@@ -35,6 +35,6 @@ export const createSubcategory = (formData) => async (dispatch) => {
     dispatch({ type: CREATE_SUBCATEGORY, payload: response ,loading:true});
   } catch (error) {
     console.log(error);
-    dispatch({ type: ERROR, payload: error.response });
+    dispatch({ type: SC_ERROR, payload: error.response });
   }
 };

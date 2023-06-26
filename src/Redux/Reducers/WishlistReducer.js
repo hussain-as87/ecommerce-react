@@ -1,11 +1,12 @@
 import {
-    ERROR, LOGGED_USER_WISHLIST, WISHLIST
+    ERROR, LOGGED_USER_WISHLIST, W_ERROR, WISHLIST, WLU_ERROR
 } from "../Types";
 
 const initialState = {
     wishlist: [],
     loggedUserWishlist: [],
-    error: [],
+    wishlist_error: [],
+    loggedUserWishlist_error: [],
     loading: true,
 };
 const WishlistReducer = (state = initialState, action) => {
@@ -14,8 +15,10 @@ const WishlistReducer = (state = initialState, action) => {
             return {...state, wishlist: action.payload, loading: false};
         case LOGGED_USER_WISHLIST:
             return {...state, loggedUserWishlist: action.payload, loading: false};
-        case ERROR:
-            return {...state, error: action.payload, loading: true};
+        case W_ERROR:
+            return {...state, wishlist_error: action.payload, loading: true};
+        case WLU_ERROR:
+            return {...state, loggedUserWishlist_error: action.payload, loading: true};
         default:
             return state;
     }

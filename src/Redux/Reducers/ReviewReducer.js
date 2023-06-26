@@ -6,8 +6,8 @@ import {
 const initialState = {
     reviews: [],
     create: [],
-    rg_error: [],
-    rc_error: [],
+    reviews_error: [],
+    create_error: [],
     rg_loading: true,
     rc_loading: true,
 };
@@ -18,9 +18,9 @@ const ReviewReducer = (state = initialState, action) => {
         case CREATE_REVIEW:
             return {...state, create: action.payload, rc_loading: false};
         case RG_ERROR:
-            return {...state, rg_error: action.payload, loading: true};
+            return {...state, reviews_error: action.payload, loading: false};
         case RC_ERROR:
-            return {...state, rc_error: action.payload, loading: true};
+            return {...state, create_error: action.payload, loading: false};
         default:
             return state;
     }

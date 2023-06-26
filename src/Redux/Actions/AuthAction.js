@@ -1,11 +1,10 @@
 import {use_post_data, use_put_data} from "../../Hooks/ApiDataHook";
 import {
-    ERROR,
     AUTH_SIGNUP,
     AUTH_LOGIN,
     AUTH_FORGET_PASSWORD,
     AUTH_VERiFY_REST_PASSWORD,
-    AUTH_REST_PASSWORD
+    AUTH_REST_PASSWORD, AS_ERROR, AL_ERROR, AF_ERROR, AV_ERROR, AR_ERROR
 } from "../Types";
 
 const url = "/auth";
@@ -21,7 +20,7 @@ export const signupAction = (formData) => async (dispatch) => {
         dispatch({type: AUTH_SIGNUP, payload: response});
     } catch (error) {
         console.log(error);
-        dispatch({type: ERROR, payload: error});
+        dispatch({type: AS_ERROR, payload: error});
     }
 };
 /**
@@ -35,7 +34,7 @@ export const loginAction = (formData) => async (dispatch) => {
         dispatch({type: AUTH_LOGIN, payload: response});
     } catch (error) {
         console.log(error);
-        dispatch({type: ERROR, payload: error});
+        dispatch({type: AL_ERROR, payload: error});
     }
 };
 
@@ -50,7 +49,7 @@ export const forgetPasswordAction = (formData) => async (dispatch) => {
         dispatch({type: AUTH_FORGET_PASSWORD, payload: response});
     } catch (error) {
         console.log(error);
-        dispatch({type: ERROR, payload: error});
+        dispatch({type: AF_ERROR, payload: error});
     }
 };
 /**
@@ -64,7 +63,7 @@ export const verifyRestPasswordAction = (formData) => async (dispatch) => {
         dispatch({type: AUTH_VERiFY_REST_PASSWORD, payload: response});
     } catch (error) {
         console.log(error);
-        dispatch({type: ERROR, payload: error});
+        dispatch({type: AV_ERROR, payload: error});
     }
 };
 /**
@@ -78,7 +77,7 @@ export const restPasswordAction = (formData) => async (dispatch) => {
         dispatch({type: AUTH_REST_PASSWORD, payload: response});
     } catch (error) {
         console.log(error);
-        dispatch({type: ERROR, payload: error});
+        dispatch({type: AR_ERROR, payload: error});
     }
 };
 

@@ -4,10 +4,8 @@ import CreateSubcategoryForm from "../../../Controllers/Subcategory/Admin/Create
 
 const AdminCreateSubCategories = () => {
     const {
-        name,
-        onChangeName,
-        category,
-        onChangeCategory,
+        data,
+        handlerOnChangeInput,
         handleSubmit,
         isPress,
         categories,
@@ -23,8 +21,8 @@ const AdminCreateSubCategories = () => {
                             id="name"
                             className={errors.some(error => error.param === "name") && 'is-invalid'}
                             name="name"
-                            value={name}
-                            onChange={onChangeName}
+                            value={data.name}
+                            onChange={handlerOnChangeInput}
                             type="text" placeholder="the name of the subcategory"
                         />
                         {errors.some(error => error.param === "name") &&
@@ -39,13 +37,12 @@ const AdminCreateSubCategories = () => {
                         <Form.Select
                             id="category"
                             name="category"
-                            value={category}
-                            onChange={onChangeCategory}
+                            value={data.category}
+                            onChange={handlerOnChangeInput}
                             className={errors.some(error => error.param === "category") && 'is-invalid'}
                         >
                             <option value="val">Choose category</option>
-                            {categories &&
-                                categories.data.map((cate) => (
+                            {categories?.data?.map((cate) => (
                                     <option value={cate._id} key={cate._id}>
                                         {cate.name}
                                     </option>

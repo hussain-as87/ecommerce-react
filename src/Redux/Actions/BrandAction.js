@@ -1,5 +1,5 @@
 import {use_get_data, use_post_data} from "../../Hooks/ApiDataHook";
-import {ERROR, GET_ALL_BRANDS, CREATE_BRAND} from "../Types";
+import {GET_ALL_BRANDS, CREATE_BRAND, BC_ERROR, BG_ERROR} from "../Types";
 
 const url = "/brands";
 const token = localStorage.getItem('token') || "";
@@ -15,7 +15,7 @@ export const getBrands = (limit,page) => async (dispatch) => {
     dispatch({ type: GET_ALL_BRANDS, payload: response });
   } catch (error) {
     console.log(error);
-    dispatch({ type: ERROR, payload: error });
+    dispatch({ type: BG_ERROR, payload: error });
   }
 };
 /**
@@ -31,6 +31,6 @@ export const createBrand = (formData) => async (dispatch) => {
     dispatch({ type: CREATE_BRAND, payload: response ,loading:true});
   } catch (error) {
     console.log(error);
-    dispatch({ type: ERROR, payload: error.response });
+    dispatch({ type: BC_ERROR, payload: error.response });
   }
 };

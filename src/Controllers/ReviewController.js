@@ -28,7 +28,7 @@ export const CreateReview = () => {
         title: "",
         ratings: 0
     })
-    const {create, rc_error} = useSelector((state) => state.reviews)
+    const {create, create_error} = useSelector((state) => state.reviews)
 
     const handlerOnChangeInput = (event) => {
         const {name, value} = event.target
@@ -44,13 +44,13 @@ export const CreateReview = () => {
         await dispatch(createReviewAction({id, formData: data}));
     }
     useEffect(() => {
-        if (rc_error.data?.errors) {
-            const productError = rc_error.data.errors.find((error) => error.param === 'product');
+        if (create_error.data?.errors) {
+            const productError = create_error.data.errors.find((error) => error.param === 'product');
             if (productError) {
                 use_notification(productError.msg, 'error');
                 return;
             }
-            setErrors(rc_error.data.errors); //set errors with response data
+            setErrors(create_error.data.errors); //set errors with response data
             setIsPress(false)
         }
         if (create.status === 201) {
@@ -58,6 +58,6 @@ export const CreateReview = () => {
             setData({title: '', ratings: 0})
             use_notification("the review added successfully!", "success")
         }
-    }, [create?.status, rc_error?.data?.errors])
+    }, [create?.status, create_error?.data?.errors])
     return {handlerOnChangeInput, handlerOnChangeRating, handleSubmit, isPress, data, errors}
 }
