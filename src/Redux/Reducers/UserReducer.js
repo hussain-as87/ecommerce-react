@@ -1,10 +1,12 @@
-import {ERROR, GET_ALL_USERS, GET_LOGGED_USER, CHANGE_USER_PASSWORD} from "../Types";
+import { GET_ALL_USERS, GET_LOGGED_USER, CHANGE_USER_PASSWORD, UG_ERROR, LUG_ERROR, UCP_ERROR} from "../Types";
 
 const initialState = {
     user: [],
     users: [],
     changePassword: [],
-    error: [],
+    user_error: [],
+    users_error: [],
+    changePassword_error: [],
     loading: true,
 };
 const AuthReducer = (state = initialState, action) => {
@@ -15,8 +17,12 @@ const AuthReducer = (state = initialState, action) => {
             return {...state, users: action.payload, loading: false};
         case CHANGE_USER_PASSWORD:
             return {...state, changePassword: action.payload, loading: false};
-        case ERROR:
-            return {...state, error: action.payload, loading: true};
+        case LUG_ERROR:
+            return {...state, user_error: action.payload, loading: false};
+        case UG_ERROR:
+            return {...state, users_error: action.payload, loading: false};
+        case UCP_ERROR:
+            return {...state, changePassword_error: action.payload, loading: false};
         default:
             return state;
     }

@@ -35,10 +35,10 @@ const EditProductForm = ({id}) => {
         brand: "",
     });
 
-    const response = useSelector((state) => state.products.ProductE);
+    const response = useSelector((state) => state.products.edit);
     const {categories} = IndexCategoryForm();
     const {brands} = IndexBrandForm();
-    const {error} = useSelector((state) => state.products)
+    const {edit_error} = useSelector((state) => state.products)
     // Retrieve subcategories from the Redux store
     const {subcategories} = useSelector((state) => state.subcategories);
 
@@ -108,15 +108,15 @@ const EditProductForm = ({id}) => {
             };
             run();
         }
-    }, [data.category, dispatch]);
+    }, [data?.category, dispatch]);
 
     useEffect(() => {
-        if (data.category) {
-            if (subcategories.data) {
+        if (data?.category) {
+            if (subcategories?.data) {
                 setSubcategoryOptions(subcategories.data);
             }
         }
-    }, [data.category, subcategories.data]);
+    }, [data?.category, subcategories?.data]);
 
     const handleSubcategorySelect = (selectedList) => {
         setSelectedSubcategoryOptions(selectedList)
@@ -212,9 +212,9 @@ const EditProductForm = ({id}) => {
     };
 
     useEffect(() => {
-        if (error.response?.data.errors) {
-            console.log(error.response.data.errors); // Validation errors will be in the response data
-            setErrors(error.response.data.errors); //set errors with response data
+        if (edit_error.response?.data.errors) {
+            console.log(edit_error.response.data.errors); // Validation errors will be in the response data
+            setErrors(edit_error.response.data.errors); //set errors with response data
             setIsPress(false)
         }
         if (productData) {
@@ -233,12 +233,13 @@ const EditProductForm = ({id}) => {
             setSelectedSubcategoryOptions(productData.subCategory || []);
         }
         if (!loading) {
-            setImages([]);
-            setColors([]);
-            setSelectedSubcategoryOptions([]);
-            setTimeout(() => setIsPress(false), 2000);
-            setLoading(true);
+
             if (response.status === 200) {
+                setImages([]);
+                setColors([]);
+                setSelectedSubcategoryOptions([]);
+                setTimeout(() => setIsPress(false), 2000);
+                setLoading(true);
                 dispatch(getProduct(id));
                 setData({
                     title: "",
@@ -260,7 +261,7 @@ const EditProductForm = ({id}) => {
                 use_notification("There are data required!", "error");
             }
         }
-    }, [loading, dispatch, response, productData, id, error]);
+    }, [loading, dispatch, response, productData, id, edit_error]);
 
     return {
         data,

@@ -1,4 +1,4 @@
-import { ERROR, LOGGED_USER_WISHLIST, WISHLIST} from "../Types";
+import {LOGGED_USER_WISHLIST, W_ERROR, WISHLIST, WLU_ERROR} from "../Types";
 import {use_delete_data, use_get_data, use_post_data} from "../../Hooks/ApiDataHook";
 
 const url = "/wishlist";
@@ -12,7 +12,7 @@ export const addProductToWishlistAction =  (formData) => async (dispatch) => {
         dispatch({ type: WISHLIST, payload: response ,loading:true});
     } catch (error) {
         console.log(error);
-        dispatch({ type: ERROR, payload: error.response });
+        dispatch({ type: W_ERROR, payload: error.response });
     }
 };
 export const removeProductToWishlistAction = (id) => async (dispatch) => {
@@ -23,7 +23,7 @@ export const removeProductToWishlistAction = (id) => async (dispatch) => {
         dispatch({type: WISHLIST, payload: response, loading: true});
     } catch (error) {
         console.log(error)
-        dispatch({type: ERROR, payload: error});
+        dispatch({type: W_ERROR, payload: error});
     }
 }
 export const loggedUserWishlistAction = () => async (dispatch) => {
@@ -34,6 +34,6 @@ export const loggedUserWishlistAction = () => async (dispatch) => {
         dispatch({type: LOGGED_USER_WISHLIST, payload: response, loading: true});
     } catch (error) {
         console.log(error)
-        dispatch({type: ERROR, payload: error});
+        dispatch({type: WLU_ERROR, payload: error});
     }
 }

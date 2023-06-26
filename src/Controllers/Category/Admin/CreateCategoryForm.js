@@ -26,12 +26,14 @@ const CreateCategoryForm = () => {
             setSelectedFile(file);
         }
     };
-    const response = useSelector(state => state.categories.categories)
-    const {error} = useSelector((state) => state.categories)
+    const response = useSelector(state => state.categories.create)
+    const {create_error} = useSelector((state) => state.categories)
     const onChangeName = (e) => {
-        e.persist()
+        e.preventDefault()
         setName(e.target.value);
+        setErrors([])
     };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -49,23 +51,22 @@ const CreateCategoryForm = () => {
     };
 
     useEffect(() => {
-        if (error.data?.errors) {
-            console.log(error.data.errors); // Validation errors will be in the response data
-            setErrors(error.data.errors); //set errors with response data
+        if (create_error.data?.errors) {
+            console.log(create_error.data.errors); // Validation errors will be in the response data
+            setErrors(create_error.data.errors); //set errors with response data
             setIsPress(false)
         }
         if (!loading) {
-            setName("");
-            setImg(avatar);
-            setSelectedFile(null);
-            setTimeout(() => setIsPress(false), 2000);
-            setLoading(true);
-            console.log(response)
             if (response.status === 201) {
+                setName("");
+                setImg(avatar);
+                setSelectedFile(null);
+                setTimeout(() => setIsPress(false), 2000);
+                setLoading(true);
                 use_notification("The category has been created successfully! 😀", "success");
             }
         }
-    }, [loading, response, error]);
+    }, [loading, response, create_error]);
 
     return {name, onChangeName, img, handleSubmit, isPress, onChangeImage, errors};
 };

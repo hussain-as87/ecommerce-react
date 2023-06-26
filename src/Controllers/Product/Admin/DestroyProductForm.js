@@ -7,7 +7,6 @@ import {toast} from "react-toastify";
 
 const DestroyProductForm = (id) => {
     const dispatch = useDispatch();
-    const {loadingD} = useSelector((state) => state.products);
     const currentPage = useSelector((state) => state.products.products.paginationResult?.currentPage);
     const deleteHandler = (e) => {
         e.preventDefault();
