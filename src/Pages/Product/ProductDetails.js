@@ -26,7 +26,7 @@ const ProductDetails = () => {
             <CategoryHeader/>
             <Container>
                 <ProductDetailsContainer product={product} loading={loading}/>
-                <RateContainer/>
+                <RateContainer product={product} productId={id}/>
                 <ProductHomeItemContainer title="Suggestion products" products={categoryProducts} loading={loadingCP}
                                           btn="More" path="/products" exceptID={product?.data?._id}/>
             </Container>
