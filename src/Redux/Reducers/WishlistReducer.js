@@ -8,7 +8,7 @@ const initialState = {
     error: [],
     loading: true,
 };
-const AuthReducer = (state = initialState, action) => {
+const WishlistReducer = (state = initialState, action) => {
     switch (action.type) {
         case WISHLIST:
             return {...state, wishlist: action.payload, loading: false};
@@ -21,4 +21,4 @@ const AuthReducer = (state = initialState, action) => {
     }
 };
 
-export default AuthReducer;
+export default WishlistReducer;
