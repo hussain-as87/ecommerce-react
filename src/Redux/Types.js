@@ -24,6 +24,12 @@ export const GET_ALL_USERS = "GET_ALL_USERS"
 export const CHANGE_USER_PASSWORD = "CHANGE_USER_PASSWORD"
 export const WISHLIST = "WISHLIST"
 export const LOGGED_USER_WISHLIST = "LOGGED_USER_WISHLIST"
+export const EDIT_REVIEW = "EDIT_REVIEW"
+export const DELETE_REVIEW = "DELETE_REVIEW"
+export const GET_REVIEW = "GET_REVIEW"
+
+
+
 
 /*ERRORS TYPES*/
 export const AS_ERROR = "AS_ERROR"
@@ -52,4 +58,6 @@ export const UCP_ERROR = "UCP_ERROR"
 export const W_ERROR = "W_ERROR"
 export const WLU_ERROR = "WLU_ERROR"
 
-
+export const RE_ERROR = "RE_ERROR"
+export const RD_ERROR = "RD_ERROR"
+export const RG1_ERROR = "RG1_ERROR"
