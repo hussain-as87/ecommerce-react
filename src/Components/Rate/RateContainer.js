@@ -24,10 +24,7 @@ const RateContainer = ({productId, product}) => {
                 </Col>
             </Row>
             <RatePost/>
-            {
-                !rg_loading ? (reviews.data && reviews.data.map(review => (<RateItem review={review}/>))) : (
-                    <Spinner variant="primary" animation="border"></Spinner>)
-            }
+            {reviews?.data?.map(review =><RateItem review={review}/>)}
             {
                 pageCount > 1 && (<Pagination pageCount={pageCount} onPress={getPage}/>)
             }
