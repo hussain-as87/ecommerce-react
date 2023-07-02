@@ -3,7 +3,7 @@ import {Button, Col, FloatingLabel, Form, Row} from 'react-bootstrap';
 import ReactStars from "react-rating-stars-component";
 import {CreateReview} from "../../Controllers/ReviewController";
 import {GetLoggedUser} from "../../Controllers/UserController";
-import {Send} from "react-bootstrap-icons";
+import {Send, SendCheck} from "react-bootstrap-icons";
 
 const RatePost = () => {
     const {user: lu} = GetLoggedUser()
@@ -46,7 +46,7 @@ const RatePost = () => {
                         </FloatingLabel>
                         <div className="d-flex justify-content-end al py-1">
                             <Button type="submit" variant="outline-primary"
-                                    className="px-3 py-2 text-center d-inline"><Send /></Button>
+                                    className="px-3 py-2 text-center d-inline"><SendCheck /></Button>
                         </div>
                     </Col>
                 </Row>

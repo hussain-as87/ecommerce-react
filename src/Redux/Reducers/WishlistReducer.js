@@ -1,5 +1,5 @@
 import {
-    ERROR, LOGGED_USER_WISHLIST, W_ERROR, WISHLIST, WLU_ERROR
+     LOGGED_USER_WISHLIST, W_ERROR, WISHLIST, WLU_ERROR
 } from "../Types";
 
 const initialState = {

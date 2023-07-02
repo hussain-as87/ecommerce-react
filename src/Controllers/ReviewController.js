@@ -24,7 +24,7 @@ export const GetReviews = (productId) => {
     }
     useEffect(() => {
         dispatch(getReviewsAction(productId))
-    }, [productId,dispatch])
+    }, [productId, dispatch])
     return {reviews, rg_loading, pageCount, getPage}
 }
 export const CreateReview = () => {
@@ -85,7 +85,7 @@ export const EditReview = (id) => {
 
     useEffect(() => {
         dispatch(getReviewAction(id));
-    }, [dispatch, id]);
+    }, [showModal, dispatch, id]);
 
     useEffect(() => {
         if (review?.data) {
@@ -141,7 +141,7 @@ export const DestroyReview = (id) => {
             buttons: [
                 {
                     label: "Yes",
-                    style:{backgroundColor:'red'},
+                    style: {backgroundColor: 'red'},
                     onClick: async () => {
                         await dispatch(destroyReviewAction(id));
                         await dispatch(getReviewsAction(parms.id));
@@ -149,7 +149,7 @@ export const DestroyReview = (id) => {
                     },
                 },
                 {
-                    style:{backgroundColor:'#969696'},
+                    style: {backgroundColor: '#969696'},
                     label: "No",
                     onClick: () => {
                     },

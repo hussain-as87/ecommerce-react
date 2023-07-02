@@ -9,18 +9,18 @@ import {
 const ProductWishlist = ({productId}) => {
     const dispatch = useDispatch();
     const [data, setData] = useState({
-        productId: productId
+        productId: productId,
     });
     const [isProductInWishlist, setIsProductInWishlist] = useState(false);
-
     useEffect(() => {
         dispatch(loggedUserWishlistAction());
-    }, []); // Empty dependency array ensures this effect is called only once
-
-    const {loggedUserWishlist, wishlist} = useSelector((state) => state.wishlist);
+    }, [productId])
+    const {loggedUserWishlist} = useSelector((state) => state.wishlist);
+    const result = loggedUserWishlist?.data?.some((item) => item._id === productId);
 
     const handleToggleWishlist = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        setIsProductInWishlist(!isProductInWishlist);
         if (isProductInWishlist) {
             // Remove product from wishlist
             await dispatch(removeProductToWishlistAction(productId));
@@ -28,14 +28,15 @@ const ProductWishlist = ({productId}) => {
             // Add product to wishlist
             await dispatch(addProductToWishlistAction(data));
         }
-        // Refresh the wishlist data
-        await dispatch(loggedUserWishlistAction());
+
     };
+
     useEffect(() => {
         setData((prevData) => ({...prevData, productId: productId}));
-        const result = loggedUserWishlist?.data?.some(item => item._id === productId)
-        setIsProductInWishlist(result)
-    }, [productId, loggedUserWishlist]);
+        setIsProductInWishlist(result);
+    }, [dispatch, result, productId]);
+
+
     return {handleToggleWishlist, isProductInWishlist, loggedUserWishlist};
 };
 
