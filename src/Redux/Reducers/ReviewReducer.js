@@ -38,11 +38,11 @@ const ReviewReducer = (state = initialState, action) => {
         case RC_ERROR:
             return {...state, create_error: action.payload, loading: false};
         case RE_ERROR:
-            return {...state, create_error: action.payload, loading: false};
+            return {...state, edit_error: action.payload, loading: false};
         case RG1_ERROR:
-            return {...state, create_error: action.payload, loading: false};
+            return {...state, review_error: action.payload, loading: false};
         case RD_ERROR:
-            return {...state, create_error: action.payload, loading: false};
+            return {...state, delete_error: action.payload, loading: false};
         default:
             return state;
     }

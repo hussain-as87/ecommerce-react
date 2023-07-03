@@ -27,8 +27,14 @@ export const LOGGED_USER_WISHLIST = "LOGGED_USER_WISHLIST"
 export const EDIT_REVIEW = "EDIT_REVIEW"
 export const DELETE_REVIEW = "DELETE_REVIEW"
 export const GET_REVIEW = "GET_REVIEW"
-
-
+/*
+* coupons
+* */
+export const GET_ALL_COUPONS = "GET_COUPONS"
+export const GET_COUPON = "GET_COUPON"
+export const CREATE_COUPON = "CREATE_COUPON"
+export const EDIT_COUPON = "EDIT_COUPON"
+export const DELETE_COUPON = "DELETE_COUPON"
 
 
 /*ERRORS TYPES*/
@@ -57,7 +63,14 @@ export const UG_ERROR = "UG_ERROR"
 export const UCP_ERROR = "UCP_ERROR"
 export const W_ERROR = "W_ERROR"
 export const WLU_ERROR = "WLU_ERROR"
-
 export const RE_ERROR = "RE_ERROR"
 export const RD_ERROR = "RD_ERROR"
 export const RG1_ERROR = "RG1_ERROR"
+/*
+* coupons
+* */
+export const COG_ERROR = "COG_ERROR"
+export const COG1_ERROR = "COG1_ERROR"
+export const COC_ERROR = "COC_ERROR"
+export const COE_ERROR = "COE_ERROR"
+export const COD_ERROR = "COD_ERROR"

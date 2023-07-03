@@ -28,6 +28,8 @@ import IndexProductForm from "./Controllers/Product/IndexProductForm";
 import ForgetPassword from "./Pages/Auth/ForgetPassword";
 import VerifyRestPassword from "./Pages/Auth/VerifyRestPassword";
 import RestPassword from "./Pages/Auth/ResetCodePassword";
+import AdminCreateCouponPage from "./Pages/Admin/AdminCreateCouponPage";
+
 
 function App() {
     const indexProductForm= IndexProductForm()
@@ -61,6 +63,7 @@ function App() {
                     <Route path="/admin/brands/create" element={<AdminCreateBrandPage/>}/>
                     <Route path="/admin/categories/create" element={<AdminCreateCategoryPage/>}/>
                     <Route path="/admin/subcategories/create" element={<AdminCreateSubCategoryPage/>}/>
+                    <Route path="/admin/coupons/create" element={<AdminCreateCouponPage/>}/>
 
                     {/** User dashboard routes*/}
                     <Route path="/user/orders" element={<UserOrdersPage/>}/>
