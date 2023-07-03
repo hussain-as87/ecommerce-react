@@ -1,19 +1,20 @@
 import React, {useRef} from 'react'
-import {Row, Col, Form, FloatingLabel, Button} from 'react-bootstrap'
+import {Row, Col, Form, FloatingLabel, Button, Container, Card, Spinner} from 'react-bootstrap'
 import AdminCouponCard from "./AdminCoupnCard";
 import {CreateCoupon, GetCoupons} from "../../../Controllers/CouponController";
 import Pagination from "../../Utility/Pagination";
+import {Check2Circle} from "react-bootstrap-icons";
 
 const AdminAddCoupon = () => {
     const dateRef = useRef();
     const {data, errors, handlerOnChangeInput, handleSubmit, isPress} = CreateCoupon()
     const {coupons, getPage, loading, pageCount} = GetCoupons()
     return (
-        <>
-            <Form onSubmit={handleSubmit}>
-                <Row className="justify-content-start ">
-                    <div className="admin-content-text pb-4">Create new coupon</div>
-                    <Col sm={8}>
+        <Container>
+            <Card className="">
+                <Card.Body>
+                    <Card.Title className="">Create Coupon</Card.Title>
+                    <Form onSubmit={handleSubmit}>
                         <Form.Group>
                             <FloatingLabel controlId="name" label="Name">
                                 <Form.Control
@@ -70,17 +71,26 @@ const AdminAddCoupon = () => {
                                 }
                             </FloatingLabel>
                         </Form.Group>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col sm={8} className="d-flex justify-content-end py-2">
-                        <Button type="submit" variant="outline-primary">Submit</Button>
-                    </Col>
-                </Row>
+                            <Button
+                            type="submit"
+                            variant="outline-primary"
+                            className="mt-2"
+                        >
+                            <Check2Circle size={20}/>
+                            {isPress && (<Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            />)}
+                        </Button>
 
-            </Form>
-            <Row>
-                <Col sm={8} className="">
+                    </Form>
+                </Card.Body>
+            </Card>
+            <Card className="mt-2">
+                <Card.Body>
                     {coupons ? (coupons?.data?.map((item, index) => {
                         return (
                             <>
@@ -90,9 +100,9 @@ const AdminAddCoupon = () => {
                     })) : <h6>There is no coupons!</h6>
                     }
                     {pageCount > 1 && <Pagination pageCount={pageCount} onPress={getPage}/>}
-                </Col>
-            </Row>
-        </>
+                </Card.Body>
+            </Card>
+        </Container>
     )
 }
 

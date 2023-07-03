@@ -29,6 +29,7 @@ import ForgetPassword from "./Pages/Auth/ForgetPassword";
 import VerifyRestPassword from "./Pages/Auth/VerifyRestPassword";
 import RestPassword from "./Pages/Auth/ResetCodePassword";
 import AdminCreateCouponPage from "./Pages/Admin/AdminCreateCouponPage";
+import Layout from "./Pages/Admin/Layout";
 
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
                     <Route path="/order/payment" element={<PaymentMethodType/>}/>
 
                     {/** Admin dashboard routes*/}
+                    <Route path="/admin/" element={<Layout/>}/>
                     <Route path="/admin/products" element={<AdminProductsPage/>}/>
                     <Route path="/admin/orders" element={<AdminOrdersPage/>}/>
                     <Route path="/admin/orders/:id" element={<AdminOrderDetailsPage/>}/>
