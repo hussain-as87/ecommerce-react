@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col, FloatingLabel, Form, Row, Spinner} from "react-bootstrap";
+import {Button, Card, Col, Container, FloatingLabel, Form, Row, Spinner} from "react-bootstrap";
 import {Multiselect} from "multiselect-react-dropdown";
 import MultiImageInput from "react-multiple-image-input";
 import {CompactPicker} from "react-color";
@@ -7,6 +7,7 @@ import {useParams} from "react-router-dom";
 
 import add from "../../../assets/images/add.png";
 import EditProductForm from "../../../Controllers/Product/Admin/EditProductForm";
+import {Check2Circle} from "react-bootstrap-icons";
 
 const AdminEditProduct = () => {
     const {id} = useParams();
@@ -43,10 +44,11 @@ const AdminEditProduct = () => {
     const handleError = (e) => console.log(e);
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <Row className="justify-content-start">
-                <div className="admin-content-text pb-4">Create new product</div>
-                <Col sm={8}>
+        <Container>
+            <Card className="">
+                <Card.Body>
+                    <Card.Title className="">Edit Product</Card.Title>
+                    <Form onSubmit={handleSubmit}>
                     <MultiImageInput
                         images={images}
                         setImages={setImages}
@@ -222,19 +224,24 @@ const AdminEditProduct = () => {
                         />
                         {colorPickerShow && <CompactPicker onChangeComplete={handleCreateColors}/>}
                     </div>
-                </Col>
-            </Row>
-            <Row>
-                <Col sm={8} className="d-flex justify-content-end">
-                    <Button variant="outline-primary" className="d-inline mt-2" type="submit">
-                        Submit
-                        {isPress && (
-                            <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true"/>
-                        )}
-                    </Button>
-                </Col>
-            </Row>
-        </Form>
+                <Button
+                            type="submit"
+                            variant="outline-primary"
+                            className="mt-2 justify-content-end d-flex"
+                        >
+                            <Check2Circle size={20}/>
+                            {isPress && (<Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            />)}
+                        </Button>
+                    </Form>
+                </Card.Body>
+            </Card>
+        </Container>
     );
 };
 

@@ -1,21 +1,19 @@
 import React from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Row, Col} from 'react-bootstrap'
 import AdminSideBar from "../../Components/Admin/AdminSideBar";
 import AdminAddCoupon from "../../Components/Admin/Coupons/AdminAddCoupon";
 
 const AdminCreateCouponPage = () => {
     return (
-        <Container>
-            <Row className='py-3'>
-                <Col sm="3" xs="2" md="2">
-                    <AdminSideBar/>
-                </Col>
+        <Row className='py-3'>
+            <Col sm="4" xs="3" md="3">
+                <AdminSideBar/>
+            </Col>
 
-                <Col sm="9" xs="10" md="10">
-                   <AdminAddCoupon />
-                </Col>
-            </Row>
-        </Container>
+            <Col sm="8" xs="9" md="9">
+                <AdminAddCoupon/>
+            </Col>
+        </Row>
     )
 }
 
