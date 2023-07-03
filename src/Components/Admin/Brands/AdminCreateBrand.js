@@ -4,7 +4,8 @@ import CreateBrandForm from "../../../Controllers/Brand/Admin/CreateBrandForm";
 
 const AdminCreateBrand = () => {
     const {name, onChangeName, img, handleSubmit, isPress, onChangeImage, errors} = CreateBrandForm();
-    return (<Form onSubmit={handleSubmit}>
+    return (
+        <Form onSubmit={handleSubmit}>
         <Row className="justify-content-start">
             <div className="admin-content-text pb-4">Create new brand</div>
             <Col sm={8}>
