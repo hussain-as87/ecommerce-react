@@ -27,7 +27,7 @@ const NavbarSection = ({index}) => {
                 <Container>
                     <Navbar.Brand>
                         <a href="/">
-                            <img src={logo} className="logo" alt="sdfsdf" width={50}/>
+                            <img src={logo} className="logo" alt="sdfsdf" width={100}/>
                         </a>
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>

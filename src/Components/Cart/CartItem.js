@@ -2,6 +2,7 @@ import React from 'react'
 import { Col,Row } from 'react-bootstrap'
 import mobile from '../../assets/images/mobile.png'
 import deleteIcon from '../../assets/images/delete.png'
+import {DashCircle, PlusCircle, StarFill, Trash2} from "react-bootstrap-icons";
 const CartItem = () => {
     return (
         <Col xs="12" className="cart-item-body my-2 d-flex px-2">
@@ -11,15 +12,14 @@ const CartItem = () => {
                     <Col sm="12" className=" d-flex flex-row justify-content-between">
                         <div className="d-inline pt-2 cat-text">electronic</div>
                         <div className="d-flex pt-2 " style={{ cursor: "pointer" }}>
-                            <img src={deleteIcon} alt="" width="20px" height="24px" />
-                            <div className="cat-text d-inline me-2">remove</div>
+                            <Trash2 size={20} className="text-danger"/>
                         </div>
                     </Col>
                 </Row>
                 <Row className="justify-content-center mt-2">
                     <Col sm="12" className=" d-flex flex-row justify-content-start">
                         <div className="d-inline pt-2 cat-title">iPhone XR with 128GB memory and supports 4G LTE technology with VIS application</div>
-                        <div className="d-inline pt-2 cat-rate me-2">4.5</div>
+                        <div className="d-inline pt-2 cat-rate me-2 m-1">4.5</div><StarFill size={35} className="text-warning"/>
                     </Col>
                 </Row>
                 <Row>
@@ -39,12 +39,14 @@ const CartItem = () => {
                 <Row className="justify-content-between">
                     <Col sm="12" className=" d-flex flex-row justify-content-between">
                         <div className="d-inline pt-2 d-flex">
-                            <div className="cat-text  d-inline">quantity</div>
+                            <div className="cat-text  d-inline me-2">quantity</div>
+                            <DashCircle size={20} />
                             <input
                                 className="mx-2 "
                                 type="number"
-                                style={{ width: "40px", height: "25px" }}
+                                style={{ width: "30px", height: "25px" }}
                             />
+                            <PlusCircle size={20}/>
                         </div>
                         <div className="d-inline pt-2 barnd-text">3000 pounds</div>
                     </Col>

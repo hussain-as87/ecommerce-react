@@ -8,14 +8,14 @@ const CartContent = () => {
           <div className='cart-title mt-4'>Cart</div>
       </Row>
       <Row className='d-flex justify-content-center'>
-          <Col xs="12" md="9">
+          <Col xs={12} sm={12} md={8} xl={8}>
               <CartItem />
               <CartItem />
               <CartItem />
               <CartItem />
           </Col>
 
-          <Col xs="6" md="3">
+          <Col xs={12} sm={12} md={4} xl={4}>
               <CartCheckout />
           </Col>
       </Row>
