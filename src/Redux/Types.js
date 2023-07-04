@@ -36,6 +36,13 @@ export const CREATE_COUPON = "CREATE_COUPON"
 export const EDIT_COUPON = "EDIT_COUPON"
 export const DELETE_COUPON = "DELETE_COUPON"
 
+export const GET_ALL_CARTS = "GET_ALL_CARTS"
+export const APPlY_COUPON_CART = "APPlY_COUPON_CART"
+export const CREATE_CART = "CREATE_CART"
+export const EDIT_CART = "EDIT_CART"
+export const DELETE_CART = "DELETE_CART"
+export const CLEAR_CART = "CLEAR_CART"
+
 
 /*ERRORS TYPES*/
 export const AS_ERROR = "AS_ERROR"
@@ -74,3 +81,12 @@ export const COG1_ERROR = "COG1_ERROR"
 export const COC_ERROR = "COC_ERROR"
 export const COE_ERROR = "COE_ERROR"
 export const COD_ERROR = "COD_ERROR"
+/*
+* cart
+* */
+export const CAG_ERROR = "CAG_ERROR"
+export const CAAC_ERROR = "CAAC_ERROR"
+export const CAC_ERROR = "CAC_ERROR"
+export const CAE_ERROR = "CAE_ERROR"
+export const CAD_ERROR = "CAD_ERROR"
+export const CACL_ERROR = "CACL_ERROR"
