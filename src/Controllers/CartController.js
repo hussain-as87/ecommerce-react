@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {
     createCartItemAction,
@@ -15,7 +15,8 @@ import {toast} from "react-toastify";
 export const GetCartItems = () => {
     const dispatch = useDispatch();
     const [page, setPage] = useState(1);
-    const {carts, rg_loading} = useSelector((state) => state.carts)
+    const [itemsCount, setItemsCount] = useState(1);
+    const {carts, loading} = useSelector((state) => state.carts)
     let pageCount = 0;
     if (carts.paginationResult)
         pageCount = carts.paginationResult.numberOfPages
@@ -23,20 +24,19 @@ export const GetCartItems = () => {
         await setPage(page)
     }
     useEffect(() => {
-        dispatch(getCartItemsAction({page: page, limit: 2}))
-    }, [dispatch, page])
-    return {carts, rg_loading, pageCount, getPage}
+        dispatch(getCartItemsAction({page: page, limit: 4}))
+        setItemsCount(carts?.numberCartItems)
+    }, [carts?.numberCartItems, dispatch, page])
+    return {carts, loading, pageCount, getPage, itemsCount}
 }
-export const CreateCartItem = () => {
+export const CreateCartItem = (productId) => {
     const dispatch = useDispatch();
     const [isPress, setIsPress] = useState(false)
-    const [errors, setErrors] = useState([])
     const [data, setData] = useState({
-        productId: "",
+        productId: productId,
         color: ""
     })
     const {create, create_error} = useSelector((state) => state.carts)
-
     const handlerOnChangeInput = (event) => {
         const {name, value} = event.target
         setData((prevData) => ({...prevData, [name]: value}));
@@ -45,58 +45,39 @@ export const CreateCartItem = () => {
         event.preventDefault()
         setIsPress(true)
         await dispatch(createCartItemAction(data));
-        await dispatch(getCartItemsAction())
+        await dispatch(getCartItemsAction({limit: 500, page: 1}));
     }
     useEffect(() => {
-        if (create_error.data?.errors) {
-            setErrors(create_error.data.errors); //set errors with response data
-            setIsPress(false)
-        }
-        if (create.status === 201) {
+        if (create.status === 200) {
             setIsPress(false)
             setData({productId: "", color: ""})
             use_notification("Successfully added!", "success")
+        } else if (create_error?.data) {
+            const createError = create_error?.data?.errors[0].msg;
+            const errorMessage = createError > 1 ? createError.join(', ') : createError;
+            use_notification(errorMessage, "error")
+            setIsPress(false)
         }
-    }, [create?.status, create_error?.data?.errors])
-    return {handlerOnChangeInput, handleSubmit, isPress, data, errors}
+    }, [create.status, create_error?.data, create_error?.data?.errors])
+
+    return {handlerOnChangeInput, handleSubmit, isPress, data}
 }
-export const EditCartItem = (id) => {
+export const EditCartItemsQuantity = (id, quantity) => {
     const dispatch = useDispatch();
-    const [isPress, setIsPress] = useState(false);
-    const [errors, setErrors] = useState([]);
     const [data, setData] = useState({
-        quantity: 1,
+        quantity: quantity,
     });
-    const {edit, edit_error} = useSelector((state) => state.carts);
-
-    useEffect(() => {
-
-        if (edit_error.data?.errors) {
-
-            setErrors(edit_error.data.errors); //set errors with response data
-            setIsPress(false);
-        }
-    }, [edit_error?.data?.errors]);
 
     const handlerOnChangeInput = (event) => {
         const {name, value} = event.target;
         setData((prevData) => ({...prevData, [name]: value}));
     };
 
-    const UpdateHandler = async (event) => {
-        event.preventDefault();
-        setIsPress(true);
-        await dispatch(editCartItemAction({id, formData: data}));
-        await dispatch(getCartItemsAction());
-    };
-
     useEffect(() => {
-        if (edit.status === 200) {
-            setIsPress(false);
-            use_notification('Successfully updated!', 'success');
-        }
-    }, [dispatch, edit?.status]);
-    return {handlerOnChangeInput, UpdateHandler, isPress, data, errors};
+        dispatch(editCartItemAction({id, formData: data}));
+        dispatch(getCartItemsAction({limit: 4, page: 1}));
+    }, [data]);
+    return {handlerOnChangeInput, data, setData};
 }
 export const ApplyCouponOnCart = () => {
     const dispatch = useDispatch();
@@ -147,7 +128,7 @@ export const DestroyCartItem = (id) => {
                     style: {backgroundColor: 'red'},
                     onClick: async () => {
                         await dispatch(destroyCartItemAction(id));
-                        await dispatch(getCartItemsAction());
+                        await dispatch(getCartItemsAction({limit: 4, page: 1}));
                         use_notification("Successfully deleted!", "success");
                     },
                 },
@@ -173,7 +154,7 @@ export const DestroyCartItem = (id) => {
 }
 export const ClearCartItems = () => {
     const dispatch = useDispatch();
-    const deleteHandler = (e) => {
+    const clearHandler = (e) => {
         e.preventDefault();
         confirmAlert({
             title: "Confirm Delete",
@@ -184,8 +165,8 @@ export const ClearCartItems = () => {
                     style: {backgroundColor: 'red'},
                     onClick: async () => {
                         await dispatch(clearCartItemsAction());
-                        await dispatch(getCartItemsAction());
                         use_notification("Successfully deleted!", "success");
+                        window.location.reload();
                     },
                 },
                 {
@@ -206,5 +187,5 @@ export const ClearCartItems = () => {
         };
     }, [dispatch]);
 
-    return {deleteHandler};
+    return {clearHandler};
 }

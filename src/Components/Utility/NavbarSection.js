@@ -1,10 +1,11 @@
 import React from "react";
-import {Container, Navbar, Nav, FormControl, NavDropdown} from "react-bootstrap";
+import {Container, Navbar, Nav, FormControl, NavDropdown, Badge} from "react-bootstrap";
 import logo from "../../assets/images/logo.png"
 import login from "../../assets/images/login.png"
-import cart from "../../assets/images/cart.png"
 import {useEffect, useState} from "react";
 import {GetLoggedUser} from "../../Controllers/UserController";
+import {Cart} from "react-bootstrap-icons";
+import {GetCartItems} from "../../Controllers/CartController";
 
 const NavbarSection = ({index}) => {
     const {keyword, onChangeKeyWord} = index;
@@ -21,6 +22,7 @@ const NavbarSection = ({index}) => {
     useEffect(() => {
         setUserData(parsedUser || {});
     }, [parsedUser]);
+    const {carts, itemsCount} = GetCartItems()
     return (
         <>
             <Navbar className="sticky-top" bg="dark" variant="dark" expand="sm">
@@ -47,7 +49,7 @@ const NavbarSection = ({index}) => {
                                 <NavDropdown title={userData.name} id="basic-nav-dropdown">
                                     <NavDropdown.Item href="/user/profile">Profile</NavDropdown.Item>
                                     {userData.role === "admin" && <NavDropdown.Item href="/admin/products">Control
-                                        Panel</NavDropdown.Item> }
+                                        Panel</NavDropdown.Item>}
                                     <NavDropdown.Divider/>
                                     <NavDropdown.Item onClick={logout} className="text-danger">
                                         Logout
@@ -65,13 +67,24 @@ const NavbarSection = ({index}) => {
                                 </Nav.Link>
                             )}
 
-                            <Nav.Link
-                                href="/cart"
-                                className="nav-text d-flex mt-3 justify-content-center"
-                                style={{color: "white"}}
-                            >
-                                <img src={cart} className="login-img" alt="sfvs" width={20} height={20}/>
-                                <p style={{color: "white"}}>cart</p>
+                            <Nav.Link href="/cart" className="nav-text d-flex mt-3 justify-content-center"
+                                      style={{color: 'white'}}>
+                                <div style={{position: 'relative'}}>
+                                    <Cart size={25}/>
+
+                                        <Badge pill bg="danger" className="text-center" style={{
+                                            position: 'absolute',
+                                            top: '-8px',
+                                            right: '-8px',
+                                            width: '20px',
+                                            height: '20px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center'
+                                        }}>   {itemsCount || 0}
+                                        </Badge>
+                                </div>
+                                <p style={{color: 'white', marginLeft: '5px'}}></p>
                             </Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
