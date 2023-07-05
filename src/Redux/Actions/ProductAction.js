@@ -86,7 +86,7 @@ export const getProductsByCategory = (catId) => async (dispatch) => {
  */
 export const getProduct = (id) => async (dispatch) => {
     try {
-        const response = await use_get_data(url + `/${id}`);
+        const response = await use_get_data(`${url}/${id}`);
         dispatch({type: GET_PRODUCT, payload: response});
     } catch (error) {
         console.log(error);

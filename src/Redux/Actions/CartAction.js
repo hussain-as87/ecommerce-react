@@ -18,7 +18,7 @@ const token = localStorage.getItem('token') || "";
  */
 export const getCartItemsAction = ({limit, page}) => async (dispatch) => {
     try {
-        const response = await use_get_data(`${url}?limit=${limit}&page=${page}&sort=-updatedAt`, {
+        const response = await use_get_data(`${url}?limit=${limit}&page=${page}`, {
             headers: {Authorization: `Bearer ${token}`},
         });
         dispatch({type: GET_ALL_CARTS, payload: response, loading: true});
