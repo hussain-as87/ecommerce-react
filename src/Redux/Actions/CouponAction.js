@@ -13,9 +13,9 @@ const token = localStorage.getItem('token') || "";
  * @return data object
  * @static true
  */
-export const getCouponsAction = ({limit,page}) => async (dispatch) => {
+export const getCouponsAction = ({limit,page,name}) => async (dispatch) => {
     try {
-        const response = await use_get_data(`${url}?limit=${limit}&page=${page}&sort=-updatedAt`,{
+        const response = await use_get_data(`${url}?limit=${limit||2}&page=${page||1}&sort=-updatedAt&name=${name||''}`,{
             headers: {Authorization: `Bearer ${token}`},
         });
         dispatch({type: GET_ALL_COUPONS, payload: response, loading: true});

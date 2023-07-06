@@ -27,6 +27,15 @@ export const GetCoupons = () => {
     }, [dispatch, page])
     return {coupons, loading, pageCount, getPage}
 }
+export const GetCoupon = (id) => {
+    const dispatch = useDispatch();
+    const {coupon} = useSelector((state) => state.coupons)
+
+    useEffect(() => {
+        dispatch(getCouponAction(id))
+    }, [dispatch, id])
+    return {coupon}
+}
 export const CreateCoupon = () => {
     const dispatch = useDispatch();
     const [isPress, setIsPress] = useState(false)
