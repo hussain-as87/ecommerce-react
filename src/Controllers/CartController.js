@@ -11,6 +11,7 @@ import {
 import use_notification from "./use_notification";
 import {confirmAlert} from "react-confirm-alert";
 import {toast} from "react-toastify";
+import {getCouponAction, getCouponsAction} from "../Redux/Actions/CouponAction";
 
 export const GetCartItems = () => {
     const dispatch = useDispatch();
@@ -83,10 +84,12 @@ export const ApplyCouponOnCart = () => {
     const dispatch = useDispatch();
     const [isPress, setIsPress] = useState(false);
     const [errors, setErrors] = useState([]);
+    const [discountValue, setDiscountValue] = useState(null);
     const [data, setData] = useState({
         coupon: ''
     });
     const {ApplyCoupon, ApplyCoupon_error} = useSelector((state) => state.carts);
+    const {coupons} = useSelector((state) => state.coupons);
 
     useEffect(() => {
         if (ApplyCoupon_error.data?.errors) {
@@ -94,7 +97,10 @@ export const ApplyCouponOnCart = () => {
             setIsPress(false);
         }
     }, [ApplyCoupon_error?.data?.errors]);
-
+    useEffect(() => {
+        dispatch(getCouponsAction({name: data?.coupon}))
+        setDiscountValue(coupons.result === 1 ? coupons.data[0].discount : 0)
+    }, [coupons.data, coupons.result, data?.coupon, dispatch])
     const handlerOnChangeInput = (event) => {
         const {name, value} = event.target;
         setData((prevData) => ({...prevData, [name]: value}));
@@ -104,7 +110,7 @@ export const ApplyCouponOnCart = () => {
         event.preventDefault();
         setIsPress(true);
         await dispatch(applyCouponOnCartAction(data));
-        await dispatch(getCartItemsAction());
+        await dispatch(getCartItemsAction({limit: 500, page: 1}));
     };
 
     useEffect(() => {
@@ -113,7 +119,7 @@ export const ApplyCouponOnCart = () => {
             use_notification('successfully updated!', 'success');
         }
     }, [dispatch, ApplyCoupon?.status]);
-    return {handlerOnChangeInput, applyHandler, isPress, data, errors};
+    return {handlerOnChangeInput, applyHandler, isPress, data, errors, discountValue};
 }
 export const DestroyCartItem = (id) => {
     const dispatch = useDispatch();

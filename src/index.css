@@ -418,7 +418,7 @@ body {
   box-sizing: border-box;
   height: 46px;
   width: 90%;
-  border: 1px solid #979797;
+  border: 1px solid #5591ef;
   font-family: "Almarai";
   font-size: 12px;
   font-weight: normal;
@@ -433,7 +433,7 @@ body {
   padding-right: 10px;
   padding-left: 10px !important;
   border-radius: 0 !important;
-  background-color: #272727;
+  background-color: #5591ef;
   color: #ffff !important;
   font-family: "Almarai";
   font-size: 12px;
