@@ -25,6 +25,12 @@ import UserEditAddressPage from "./Pages/User/Addresses/UserEditAddressPage";
 import UserProfilePage from "./Pages/User/UserProfilePage";
 import AdminEditProductPage from "./Pages/Admin/AdminEditProductPage";
 import IndexProductForm from "./Controllers/Product/IndexProductForm";
+import ForgetPassword from "./Pages/Auth/ForgetPassword";
+import VerifyRestPassword from "./Pages/Auth/VerifyRestPassword";
+import RestPassword from "./Pages/Auth/ResetCodePassword";
+import AdminCreateCouponPage from "./Pages/Admin/AdminCreateCouponPage";
+import Layout from "./Pages/Admin/Layout";
+
 
 function App() {
     const indexProductForm= IndexProductForm()
@@ -38,7 +44,10 @@ function App() {
                     {/** Landing page routes */}
                     <Route index element={<HomePage/>}/>
                     <Route path="/login" element={<Login/>}/>
-                    <Route path="/register" element={<Register/>}/>
+                    <Route path="/singup" element={<Register/>}/>
+                    <Route path="/forgotPassword" element={<ForgetPassword/>}/>
+                    <Route path="/verifyResetPassword" element={<VerifyRestPassword/>}/>
+                    <Route path="/resetPassword" element={<RestPassword/>}/>
                     <Route path="/categories" element={<Categories/>}/>
                     <Route path="/brands" element={<Brands/>}/>
                     <Route path="/products" element={<Products index={indexProductForm}/>}/>
@@ -47,6 +56,7 @@ function App() {
                     <Route path="/order/payment" element={<PaymentMethodType/>}/>
 
                     {/** Admin dashboard routes*/}
+                    <Route path="/admin/" element={<Layout/>}/>
                     <Route path="/admin/products" element={<AdminProductsPage/>}/>
                     <Route path="/admin/orders" element={<AdminOrdersPage/>}/>
                     <Route path="/admin/orders/:id" element={<AdminOrderDetailsPage/>}/>
@@ -55,6 +65,7 @@ function App() {
                     <Route path="/admin/brands/create" element={<AdminCreateBrandPage/>}/>
                     <Route path="/admin/categories/create" element={<AdminCreateCategoryPage/>}/>
                     <Route path="/admin/subcategories/create" element={<AdminCreateSubCategoryPage/>}/>
+                    <Route path="/admin/coupons/create" element={<AdminCreateCouponPage/>}/>
 
                     {/** User dashboard routes*/}
                     <Route path="/user/orders" element={<UserOrdersPage/>}/>

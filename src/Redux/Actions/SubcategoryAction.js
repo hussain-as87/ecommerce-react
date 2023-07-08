@@ -1,9 +1,8 @@
-import {use_create_data, use_index_data} from "../../Hooks/ApiDataHook";
-import {ERROR, CREATE_SUBCATEGORY, GET_SPECIFIC_SUBCATEGORY} from "../Types";
+import {use_post_data, use_get_data} from "../../Hooks/ApiDataHook";
+import { CREATE_SUBCATEGORY, GET_SPECIFIC_SUBCATEGORY, SG1_ERROR, SC_ERROR} from "../Types";
 
 const url = "/subcategories";
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzNiYjMzOWMyMjA4YzcxNWE5NTBkNmMiLCJpYXQiOjE2ODYwMzg1OTcsImV4cCI6MTY5MzgxNDU5N30.EiXvpt92eRmmfPeXgIR7haGNJpdjTmESUyjKg5l0slw";
+const token = localStorage.getItem('token') || "";
 
 
 
@@ -14,13 +13,13 @@ const token =
  */
 export const getSpecificSubcategories = (category) => async (dispatch) => {
   try {
-    const response =await use_index_data(`/categories/${category}/subcategories`, {
+    const response =await use_get_data(`/categories/${category}/subcategories`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch({ type: GET_SPECIFIC_SUBCATEGORY, payload: response,loading:true });
   } catch (error) {
     console.log(error);
-    dispatch({ type: ERROR, payload: error });
+    dispatch({ type: SG1_ERROR, payload: error });
   }
 };
 /**
@@ -30,12 +29,12 @@ export const getSpecificSubcategories = (category) => async (dispatch) => {
  */
 export const createSubcategory = (formData) => async (dispatch) => {
   try {
-    const response =await use_create_data(url, formData,{
+    const response =await use_post_data(url, formData,{
       headers: { Authorization: `Bearer ${token}`},
     });
     dispatch({ type: CREATE_SUBCATEGORY, payload: response ,loading:true});
   } catch (error) {
     console.log(error);
-    dispatch({ type: ERROR, payload: error.response });
+    dispatch({ type: SC_ERROR, payload: error.response });
   }
 };

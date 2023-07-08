@@ -39,7 +39,6 @@ const IndexProductForm = () => {
 
     };
 
-
     const onChangeSort = (value) => {
         setSort(value)
     }
@@ -53,7 +52,7 @@ const IndexProductForm = () => {
             await dispatch(getProducts({limit: 12, page: page, sort: sortValue, search: search, keyword: keyword}));
         }, 1000)
 
-    }, [dispatch, page, search, sort, keyword]);
+    }, [page, search, sort, keyword]);
     return {
         products,
         loading,

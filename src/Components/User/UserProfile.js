@@ -1,66 +1,111 @@
-import React from 'react'
-import { Row, Col } from 'react-bootstrap'
-import deleteIcon from '../../assets/images/delete.png'
+import React from 'react';
+import {Row, Col, Spinner, Form, Button} from 'react-bootstrap';
+import {ChangeUserPassword, GetLoggedUser} from '../../Controllers/UserController';
+import {faEdit} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
 const UserProfile = () => {
+    const {user, loading} = GetLoggedUser();
+    const {handleSubmit, handlerOnChangeInput, isPress} = ChangeUserPassword()
     return (
         <div>
-            <div className="admin-content-text">Profile</div>
-            <div className="user-address-card my-3 px-2">
-                <Row className="d-flex justify-content-between pt-2">
-                    <Col xs="6" className="d-flex">
-                        <div className="p-2">Name:</div>
-                        <div className="p-1 item-delete-edit">Ahmed abdallah</div>
-                    </Col>
-                    <Col xs="6" className="d-flex justify-content-end">
-                        <div className="d-flex mx-2">
-                            <img
-                                alt=""
-                                className="ms-1 mt-2"
-                                src={deleteIcon}
-                                height="17px"
-                                width="15px"
-                            />
-                            <p className="item-delete-edit"> Edit</p>
-                        </div>
-                    </Col>
-                </Row>
+            <h2 className="admin-content-text">Profile</h2>
 
-                <Row className="">
-                    <Col xs="12" className="d-flex">
-                        <div className="p-2">Phone number:</div>
-                        <div className="p-1 item-delete-edit">0122314324</div>
-                    </Col>
-                </Row>
-                <Row className="">
-                    <Col xs="12" className="d-flex">
-                        <div className="p-2">Email-Address:</div>
-                        <div className="p-1 item-delete-edit">ahmed@gmail.com</div>
-                    </Col>
-                </Row>
-                <Row className="mt-5">
-                    <Col xs="10" sm="8" md="6" className="">
-                        <div className="admin-content-text">Password</div>
-                        <input
-                            type="password"
-                            className="input-form d-block mt-1 px-3"
-                            placeholder="enter the old password"
-                        />
-                        <input
-                            type="password"
-                            className="input-form d-block mt-3 px-3"
-                            placeholder="enter the new password"
-                        />
-                    </Col>
-                </Row>
+            {!loading ? (
+                user && (
+                    <div className="user-address-card my-3 px-2">
+                        <Row className="d-flex justify-content-between pt-2">
+                            <Col xs={12} className="d-flex">
+                                <div className="p-2">Name:</div>
+                                <div className="p-1 item-delete-edit">{user.data.name}{''} <FontAwesomeIcon
+                                    icon={faEdit}></FontAwesomeIcon></div>
+                            </Col>
+                            <Col xs={12} className="d-flex">
+                                <div className="p-2">Phone number:</div>
+                                <div className="p-1 item-delete-edit">
+                                    {user.data.phone || 'No Phone Number'}
+                                </div>
+                            </Col>
+                            <Col xs={12} className="d-flex">
+                                <div className="p-2">Email-Address:</div>
+                                <div className="p-1 item-delete-edit">{user.data.email}</div>
+                            </Col>
+                        </Row>
 
-                <Row>
-                    <Col xs="10" sm="8" md="6" className="d-flex justify-content-end ">
-                        <button className="btn-save d-inline mt-2 ">Submit</button>
-                    </Col>
-                </Row>
-            </div>
+                        <Row className="mt-5">
+                            <Col xs={10} sm={8} md={8} className="mx-auto">
+                                <h2 className="text-center text-dark">Change Password</h2>
+                                <hr/>
+                                <Form onSubmit={handleSubmit}>
+                                    <Form.Group className="text-center">
+                                        <Form.Label>Old Password</Form.Label>
+                                        <Form.Control
+                                            type="password"
+                                            name="currentPassword"
+                                            placeholder="○○○○○○○○○"
+                                            style={{textAlign: 'center'}}
+                                            onChange={handlerOnChangeInput}
+                                        />
+                                        <Form.Text></Form.Text>
+                                    </Form.Group>
+
+                                    <Form.Group className="text-center">
+                                        <Form.Label>New Password</Form.Label>
+                                        <Form.Control
+                                            type="password"
+                                            name="password"
+                                            placeholder="○○○○○○○○○"
+                                            style={{textAlign: 'center'}}
+                                            onChange={handlerOnChangeInput}
+                                        />
+                                        <Form.Text></Form.Text>
+                                    </Form.Group>
+
+                                    <Form.Group className="text-center">
+                                        <Form.Label>Confirm New Password</Form.Label>
+                                        <Form.Control
+                                            type="password"
+                                            name="passwordConfirm"
+                                            placeholder="○○○○○○○○○"
+                                            style={{textAlign: 'center'}}
+                                            onChange={handlerOnChangeInput}
+                                        />
+                                        <Form.Text></Form.Text>
+                                    </Form.Group>
+                                    <div className="text-center">
+                                        <Button
+                                            variant="outline-primary"
+                                            type="submit"
+                                            className="mt-3"
+                                        >
+                                            {isPress ? (
+                                                <Spinner
+                                                    as="span"
+                                                    animation="border"
+                                                    size="sm"
+                                                    role="status"
+                                                    aria-hidden="true"
+                                                />
+                                            ) : (
+                                                "Submit")}
+                                        </Button>
+                                    </div>
+                                </Form>
+                            </Col>
+                        </Row>
+                    </div>
+                )
+            ) : (
+                <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                />
+            )}
         </div>
-    )
-}
+    );
+};
 
-export default UserProfile
+export default UserProfile;

@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import avatar from "../../../assets/images/avatar.png";
 import {useDispatch, useSelector} from "react-redux";
-import { createCategory } from "../../../Redux/Actions/CategoryAction";
+import {createCategory} from "../../../Redux/Actions/CategoryAction";
 import use_notification from "../../use_notification";
 
 const CreateCategoryForm = () => {
     const [img, setImg] = useState(avatar);
     const [name, setName] = useState("");
+    const [errors, setErrors] = useState([]);
+
     const [selectedFile, setSelectedFile] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isPress, setIsPress] = useState(false);
@@ -24,11 +26,14 @@ const CreateCategoryForm = () => {
             setSelectedFile(file);
         }
     };
-    const response = useSelector(state => state.categories.categories)
+    const response = useSelector(state => state.categories.create)
+    const {create_error} = useSelector((state) => state.categories)
     const onChangeName = (e) => {
-        e.persist()
+        e.preventDefault()
         setName(e.target.value);
+        setErrors([])
     };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -46,22 +51,24 @@ const CreateCategoryForm = () => {
     };
 
     useEffect(() => {
+        if (create_error.data?.errors) {
+            console.log(create_error.data.errors); // Validation errors will be in the response data
+            setErrors(create_error.data.errors); //set errors with response data
+            setIsPress(false)
+        }
         if (!loading) {
-            setName("");
-            setImg(avatar);
-            setSelectedFile(null);
-            setTimeout(() => setIsPress(false), 2000);
-            setLoading(true);
-            console.log(response)
-            if (response.status === 201){
+            if (response.status === 201) {
+                setName("");
+                setImg(avatar);
+                setSelectedFile(null);
+                setTimeout(() => setIsPress(false), 2000);
+                setLoading(true);
                 use_notification("The category has been created successfully! 😀", "success");
-            }else {
-                 use_notification("The data is required! 😔", "error");
             }
         }
-    }, [loading,response]);
+    }, [loading, response, create_error]);
 
-    return {name, onChangeName, img, handleSubmit, isPress, onChangeImage};
+    return {name, onChangeName, img, handleSubmit, isPress, onChangeImage, errors};
 };
 
 export default CreateCategoryForm;
