@@ -16,7 +16,7 @@ const Products = ({index}) => {
     } = index
     return (
         <div style={{minHeight: '670px'}}>
-            <CategoryHeader/>
+            <CategoryHeader onChangeSearch={onChangeSearch}/>
             <Container>
                 <SearchResultCount title={`results ${products && products.result}`} sort={sort}
                                    onChangeSort={onChangeSort}/>

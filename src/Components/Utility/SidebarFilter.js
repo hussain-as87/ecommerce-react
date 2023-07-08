@@ -16,7 +16,7 @@ const SidebarFilter = ({search,onChangeSearch}) => {
                         <Form.Group>
                             <Form.Label>Category</Form.Label>
                             <Form.Check type="checkbox" label="All" value="" onClick={onChangeSearch} />
-                            {categories && categories.data && categories.data.map((cate) => (
+                            {categories?.data?.map((cate) => (
                                 <Form.Check key={cate._id} type="checkbox" label={cate.name} value={`category=${cate._id}`} onClick={onChangeSearch} />
                             ))}
                         </Form.Group>
