@@ -41,6 +41,8 @@ const ProductText = ({product}) => {
                             />
                         </label>
                     ))}
+                    <div className="m-2 cat-text d-inline">Quantity available : {product?.quantity} </div>
+
                 </Col>
             </Row>
 
@@ -54,7 +56,9 @@ const ProductText = ({product}) => {
             </Row>
             <Row className="mt-4">
                 <Col md="12" className="py-2">
-                    <div className="product-price d-inline px-3 py-3 border bg-info">{product.price} $</div>
+                    <div className="product-price d-inline px-3 py-3 border bg-info"> {product?.priceAfterDiscount >= 1 ?
+                        (<div><span style={{ textDecorationLine: 'line-through' }}>{product?.price}</span> {product?.priceAfterDiscount}</div>)
+                        : product?.price} $</div>
                     <div className="product-cart-add px-3 py-3 d-inline mx-3" onClick={handleSubmit}>Add to cart <CartPlus size={20}/></div>
                 </Col>
             </Row>

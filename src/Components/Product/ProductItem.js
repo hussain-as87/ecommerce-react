@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import WishlistController from "../../Controllers/WishlistController";
 import {Heart, HeartFill, StarFill} from "react-bootstrap-icons"
 
-const ProductItem = ({product: {_id, imageCover, title, ratingsAverage, price}}) => {
+const ProductItem = ({product: {_id, imageCover, title, ratingsAverage, price, priceAfterDiscount}}) => {
     const {handleToggleWishlist, isProductInWishlist} = WishlistController({productId: _id});
     const HeartIcon = isProductInWishlist ? HeartFill : Heart;
     return (
@@ -39,7 +39,11 @@ const ProductItem = ({product: {_id, imageCover, title, ratingsAverage, price}})
                             </div>}
 
                             <div className="d-flex">
-                                <div className="card-price">{price}</div>
+                                <div className="card-price">
+                                    {priceAfterDiscount >= 1 ?
+                                        (<div><span style={{ textDecorationLine: 'line-through' }}>{price}</span> {priceAfterDiscount}</div>)
+                                        : price}
+                                </div>
                                 <div className="card-currency mx-1">$</div>
                             </div>
                         </div>
