@@ -1,11 +1,10 @@
-import React from 'react';
-import { Container, Row, Col, Form } from 'react-bootstrap';
+import React from 'react'
+import {Container, Row, Col} from 'react-bootstrap'
 import IndexCategoryForm from "../../Controllers/Category/IndexCategoryForm";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
-const CategoryHeader = ({ onChangeSearch }) => {
-    const { categories } = IndexCategoryForm();
-
+const CategoryHeader = ({onChangeSearch}) => {
+    const {categories} = IndexCategoryForm();
     return (
         <div className="cat-header">
             <Container>
@@ -25,9 +24,8 @@ const CategoryHeader = ({ onChangeSearch }) => {
                                 <input
                                     type="checkbox"
                                     value={`category=${cate._id}`}
-                                    className="checkbox-input cat-text-header"
-                                    key={cate._id}
                                     onClick={onChangeSearch}
+                                    className="checkbox-input"
                                 />
                                 {cate.name}
                             </label>
@@ -37,7 +35,7 @@ const CategoryHeader = ({ onChangeSearch }) => {
                 </Row>
             </Container>
         </div>
-    );
-};
+    )
+}
 
-export default CategoryHeader;
+export default CategoryHeader

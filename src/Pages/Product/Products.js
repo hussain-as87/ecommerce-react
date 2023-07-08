@@ -15,12 +15,12 @@ const Products = ({index}) => {
     } = index
     return (
         <div style={{minHeight: '670px'}}>
-            <CategoryHeader onChangeSearch={onChangeSearch}/>
+            <CategoryHeader  onChangeSearch={onChangeSearch}/>
             <Container>
                 <SearchResultCount title={`results ${products && products.result}`} sort={sort}
                                    onChangeSort={onChangeSort}/>
                 <Row className='d-flex flex-row'>
-                   
+
                     <Col sm="2" xs="2" md="1" className='d-flex py-2'>
                         <SidebarFilter search={search} onChangeSearch={onChangeSearch}/>
                     </Col>
