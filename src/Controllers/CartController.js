@@ -88,6 +88,7 @@ export const EditCartItemsQuantity = (id, quantity) => {
         dispatch(getCartItemsAction({limit: 4, page: 1}));
     }, [data, dispatch, id]);
     return {handlerOnChangeInput, data, inc,dec};
+
 }
 export const ApplyCouponOnCart = () => {
     const dispatch = useDispatch();
