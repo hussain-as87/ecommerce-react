@@ -27,7 +27,7 @@ export const GetCartItems = () => {
     useEffect(() => {
         dispatch(getCartItemsAction({page: page, limit: 4}))
         setItemsCount(carts?.numberCartItems)
-    }, [carts?.numberCartItems, dispatch, page])
+    }, [carts, dispatch, page])
     return {carts, loading, pageCount, getPage, itemsCount}
 }
 export const CreateCartItem = (productId) => {
@@ -68,6 +68,15 @@ export const EditCartItemsQuantity = (id, quantity) => {
     const [data, setData] = useState({
         quantity: quantity,
     });
+    const inc = (e) => {
+        e.preventDefault();
+        setData((prevData) => ({ ...prevData, quantity: prevData.quantity + 1 }));
+    };
+
+    const dec = (e) => {
+        e.preventDefault();
+        setData((prevData) => ({ ...prevData, quantity: prevData.quantity - 1 }));
+    };
 
     const handlerOnChangeInput = (event) => {
         const {name, value} = event.target;
@@ -78,7 +87,8 @@ export const EditCartItemsQuantity = (id, quantity) => {
         dispatch(editCartItemAction({id, formData: data}));
         dispatch(getCartItemsAction({limit: 4, page: 1}));
     }, [data, dispatch, id]);
-    return {handlerOnChangeInput, data, setData};
+    return {handlerOnChangeInput, data, inc,dec};
+
 }
 export const ApplyCouponOnCart = () => {
     const dispatch = useDispatch();

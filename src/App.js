@@ -57,13 +57,9 @@ function App() {
                     <Route path="/products" element={<Products index={indexProductForm}/>}/>
                     <Route path="/products/:id" element={<ProductDetails/>}/>
                     <Route path="/cart" element={<CartContent/>}/>
-                    <Route path="/order/paymethoud" element={
-                        <ProtectedRoute auth={isUser}>
-                            <PaymentMethodType/>
-                        </ProtectedRoute>
-                    }/>
 
-                    <Route element={<ProtectedRoute auth={isAdmin}/>}> <Route path="/admin/" element={<Layout/>}/>
+                    <Route element={<ProtectedRoute auth={isAdmin}/>}>
+                        <Route path="/admin/" element={<Layout/>}/>
                         <Route path="/admin/products" element={<AdminProductsPage/>}/>
                         <Route path="/admin/orders" element={<AdminOrdersPage/>}/>
                         <Route path="/admin/orders/:id" element={<AdminOrderDetailsPage/>}/>
@@ -76,6 +72,7 @@ function App() {
                     </Route>
 
                     <Route element={<ProtectedRoute auth={isUser}/>}>
+                        <Route path="/order/paymethod" element={<PaymentMethodType/>}/
                         <Route path="/user/orders" element={<UserOrdersPage/>}/>
                         <Route path="/user/favorites" element={<UserFavoritesPage/>}/>
                         <Route path="/user/addresses" element={<UserAddressesPage/>}/>

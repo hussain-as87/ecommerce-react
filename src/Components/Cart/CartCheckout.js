@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Row, Col, Button, Form, Card} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import {ApplyCouponOnCart, ClearCartItems, GetCartItems} from "../../Controllers/CartController";
@@ -9,6 +9,12 @@ const CartCheckout = () => {
     const {handlerOnChangeInput, errors, data, applyHandler, discountValue} = ApplyCouponOnCart()
     const isInvalidCoupon = errors.some(error => error.param === "coupon");
     const {carts} = GetCartItems()
+
+    useEffect(() => {
+        let total = carts?.data?.totalPriceAfterDiscount || carts?.data?.totalCartPrice;
+        localStorage.setItem('totalPrice', total);
+    }, [carts])
+
     return (
         <Row className="my-1 d-flex justify-content-center pt-3">
             <Col xs={12} className="d-flex flex-column">
@@ -35,10 +41,14 @@ const CartCheckout = () => {
                     </Card.Body>
                 </Card>
 
-                <Link to="/order/payment" className="product-cart-add d-inline" style={{textDecoration: "none"}}>
-                    <Button className="product-cart-add w-100 px-2"><BagCheck size={22}/> Checkout </Button>
+                <Link to="/order/paymethod" className="d-inline" style={{textDecoration: 'none'}}>
+                    <Button className="w-100 px-2">
+                        <BagCheck size={22}/> Checkout
+                    </Button>
                 </Link>
-                <Button variant="danger" onClick={clearHandler} className="mt-2"> <CartX size={22}/>Clear Cart</Button>
+                <Button variant="danger" onClick={clearHandler} className="mt-2">
+                    <CartX size={22}/> Clear Cart
+                </Button>
             </Col>
         </Row>
     );
