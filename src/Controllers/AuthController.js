@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useState} from "react";
 import {
     forgetPasswordAction,
     loginAction,
@@ -8,7 +8,7 @@ import {
     verifyRestPasswordAction,
 } from "../Redux/Actions/AuthAction";
 import use_notification from "./use_notification";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 /**
  * @description  signup
@@ -25,7 +25,7 @@ export const SignupUser = () => {
         passwordConfirm: "",
     });
     const handlerOnChangeInput = (event) => {
-        const { name, value } = event.target;
+        const {name, value} = event.target;
         setData((prevData) => ({
             ...prevData,
             [name]: value,
@@ -33,7 +33,7 @@ export const SignupUser = () => {
     };
 
     const handleClassNameChange = (event) => {
-        const { name } = event.target;
+        const {name} = event.target;
         const element = event.target;
 
         // Modify the className based on the name
@@ -43,7 +43,7 @@ export const SignupUser = () => {
             element.classList.remove(" is-invalid");
         }
     };
-    const { signup, loading, signup_error: error } = useSelector(
+    const {signup, loading, signup_error: error} = useSelector(
         (state) => state.auth
     );
     const handleSubmit = (e) => {
@@ -57,9 +57,8 @@ export const SignupUser = () => {
         }
     };
     useEffect(() => {
-        if (error.response?.data.errors) {
-            console.log(error.response.data.errors); // Validation errors will be in the response data
-            setErrors(error.response.data.errors); //set errors with response data
+        if (error?.data?.errors) {
+            setErrors(error.data.errors); //set errors with response data
             setIsPress(false);
         }
         if (!loading) {
@@ -75,11 +74,11 @@ export const SignupUser = () => {
                     password: "",
                     passwordConfirm: "",
                 });
-                return navigate("/", { replace: true });
+                return navigate("/", {replace: true});
             }
         }
     }, [loading, signup, error]);
-    return { handleSubmit, data, handlerOnChangeInput, isPress, errors };
+    return {handleSubmit, data, handlerOnChangeInput, isPress, errors};
 };
 /**
  * @description  login
@@ -94,13 +93,13 @@ export const LoginUser = () => {
         password: "",
     });
     const handlerOnChangeInput = (event) => {
-        const { name, value } = event.target;
+        const {name, value} = event.target;
         setData((prevData) => ({
             ...prevData,
             [name]: value,
         }));
     };
-    const { login, loading, login_error: error } = useSelector(
+    const {login, loading, login_error: error} = useSelector(
         (state) => state.auth
     );
 
@@ -114,11 +113,9 @@ export const LoginUser = () => {
             console.log(error);
         }
     }
-
     useEffect(() => {
-        if (error.response?.data.errors) {
-            console.log(error.response.data.errors); // Validation errors will be in the response data
-            setErrors(error.response.data.errors); //set errors with response data
+        if (error?.data?.errors) {
+            setErrors(error.data.errors); //set errors with response data
             setIsPress(false);
         }
         if (!loading) {
@@ -136,7 +133,7 @@ export const LoginUser = () => {
             }
         }
     }, [loading, login, error]);
-    return { handleSubmit, data, handlerOnChangeInput, isPress, errors };
+    return {handleSubmit, data, handlerOnChangeInput, isPress, errors};
 };
 /**
  * @description  forget password
@@ -151,12 +148,12 @@ export const ForgetPasswordUser = () => {
         email: "",
     });
     const handlerOnChangeInput = (event) => {
-        const { name, value } = event.target;
+        const {name, value} = event.target;
         setData({
             [name]: value,
         });
     };
-    const { forgetPassword, loading, forgetPassword_error: error } = useSelector(
+    const {forgetPassword, loading, forgetPassword_error: error} = useSelector(
         (state) => state.auth
     );
     const handleSubmit = (e) => {
@@ -171,9 +168,8 @@ export const ForgetPasswordUser = () => {
     };
 
     useEffect(() => {
-        if (error.response?.data.errors) {
-            console.log(error.response.data.errors); // Validation errors will be in the response data
-            setErrors(error.response.data.errors); //set errors with response data
+        if (error?.data?.errors) {
+            setErrors(error.data.errors); //set errors with response data
             setIsPress(false);
         }
         if (!loading) {
@@ -188,7 +184,7 @@ export const ForgetPasswordUser = () => {
             }
         }
     }, [loading, forgetPassword, error]);
-    return { handleSubmit, data, handlerOnChangeInput, isPress, errors };
+    return {handleSubmit, data, handlerOnChangeInput, isPress, errors};
 };
 
 /**
@@ -204,12 +200,12 @@ export const VerifyRestPasswordUser = () => {
         resetCode: "",
     });
     const handlerOnChangeInput = (event) => {
-        const { name, value } = event.target;
+        const {name, value} = event.target;
         setData({
             [name]: value,
         });
     };
-    const { verifyRestPassword, loading, verifyRestPassword_error: error } =
+    const {verifyRestPassword, loading, verifyRestPassword_error: error} =
         useSelector((state) => state.auth);
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -223,9 +219,8 @@ export const VerifyRestPasswordUser = () => {
     };
 
     useEffect(() => {
-        if (error.response?.data.errors) {
-            console.log(error.response.data.errors); // Validation errors will be in the response data
-            setErrors(error.response.data.errors); //set errors with response data
+        if (error?.data?.errors) {
+            setErrors(error.data.errors); //set errors with response data
             setIsPress(false);
         }
         if (!loading) {
@@ -239,7 +234,7 @@ export const VerifyRestPasswordUser = () => {
             }
         }
     }, [loading, verifyRestPassword, error]);
-    return { handleSubmit, data, handlerOnChangeInput, isPress, errors };
+    return {handleSubmit, data, handlerOnChangeInput, isPress, errors};
 };
 
 /**
@@ -257,14 +252,14 @@ export const RestPasswordUser = () => {
         newPasswordConfirm: "",
     });
     const handlerOnChangeInput = (event) => {
-        const { name, value } = event.target;
+        const {name, value} = event.target;
         setData((prevData) => ({
             ...prevData,
             [name]: value,
             email: localStorage.getItem("email"),
         }));
     };
-    const { restPassword, loading, restPassword_error: error } = useSelector(
+    const {restPassword, loading, restPassword_error: error} = useSelector(
         (state) => state.auth
     );
     const handleSubmit = (e) => {
@@ -279,9 +274,8 @@ export const RestPasswordUser = () => {
     };
 
     useEffect(() => {
-        if (error.response?.data.errors) {
-            console.log(error.response.data.errors); // Validation errors will be in the response data
-            setErrors(error.response.data.errors); //set errors with response data
+        if (error?.data?.errors) {
+            setErrors(error.data.errors); //set errors with response data
             setIsPress(false);
         }
         if (!loading) {
@@ -298,6 +292,26 @@ export const RestPasswordUser = () => {
                 return navigate("/");
             }
         }
-    }, [loading, restPassword, error]);
-    return { handleSubmit, data, handlerOnChangeInput, isPress, errors };
+    }, [loading, restPassword, error, navigate]);
+    return {handleSubmit, data, handlerOnChangeInput, isPress, errors};
+};
+
+/**
+ * @description protected routes
+ */
+export const ProtectedAuthRoute = () => {
+    const [userData, setUserData] = useState(JSON.parse(localStorage.getItem("user")))
+    const [isUser, setIsUser] = useState(false)
+    const [isAdmin, setIsAdmin] = useState(false)
+
+    useEffect(() => {
+        if (userData?.role === "user") {
+            setIsUser(true)
+        } else if (userData?.role === "admin" || "manager") {
+            setIsAdmin(true)
+        }
+    }, [])
+
+
+    return {isUser, isAdmin, userData}
 };

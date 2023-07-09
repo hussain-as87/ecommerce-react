@@ -20,7 +20,7 @@ export const signupAction = (formData) => async (dispatch) => {
         dispatch({type: AUTH_SIGNUP, payload: response});
     } catch (error) {
         console.log(error);
-        dispatch({type: AS_ERROR, payload: error});
+        dispatch({type: AS_ERROR, payload: error.response});
     }
 };
 /**
@@ -34,7 +34,7 @@ export const loginAction = (formData) => async (dispatch) => {
         dispatch({type: AUTH_LOGIN, payload: response});
     } catch (error) {
         console.log(error);
-        dispatch({type: AL_ERROR, payload: error});
+        dispatch({type: AL_ERROR,  payload: error.response});
     }
 };
 
@@ -49,7 +49,7 @@ export const forgetPasswordAction = (formData) => async (dispatch) => {
         dispatch({type: AUTH_FORGET_PASSWORD, payload: response});
     } catch (error) {
         console.log(error);
-        dispatch({type: AF_ERROR, payload: error});
+        dispatch({type: AF_ERROR,  payload: error.response});
     }
 };
 /**
@@ -63,7 +63,7 @@ export const verifyRestPasswordAction = (formData) => async (dispatch) => {
         dispatch({type: AUTH_VERiFY_REST_PASSWORD, payload: response});
     } catch (error) {
         console.log(error);
-        dispatch({type: AV_ERROR, payload: error});
+        dispatch({type: AV_ERROR,  payload: error.response});
     }
 };
 /**
@@ -77,7 +77,7 @@ export const restPasswordAction = (formData) => async (dispatch) => {
         dispatch({type: AUTH_REST_PASSWORD, payload: response});
     } catch (error) {
         console.log(error);
-        dispatch({type: AR_ERROR, payload: error});
+        dispatch({type: AR_ERROR,  payload: error.response});
     }
 };
 
