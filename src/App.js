@@ -57,7 +57,6 @@ function App() {
                     <Route path="/products" element={<Products index={indexProductForm}/>}/>
                     <Route path="/products/:id" element={<ProductDetails/>}/>
                     <Route path="/cart" element={<CartContent/>}/>
-
                     <Route path="/order/paymethoud" element={
                         <ProtectedRoute auth={isUser}>
                             <PaymentMethodType/>

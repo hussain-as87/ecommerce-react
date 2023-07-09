@@ -57,9 +57,8 @@ export const SignupUser = () => {
         }
     };
     useEffect(() => {
-        if (error.response?.data.errors) {
-            console.log(error.response.data.errors); // Validation errors will be in the response data
-            setErrors(error.response.data.errors); //set errors with response data
+        if (error?.data?.errors) {
+            setErrors(error.data.errors); //set errors with response data
             setIsPress(false);
         }
         if (!loading) {
@@ -114,11 +113,9 @@ export const LoginUser = () => {
             console.log(error);
         }
     }
-
     useEffect(() => {
-        if (error.response?.data.errors) {
-            console.log(error.response.data.errors); // Validation errors will be in the response data
-            setErrors(error.response.data.errors); //set errors with response data
+        if (error?.data?.errors) {
+            setErrors(error.data.errors); //set errors with response data
             setIsPress(false);
         }
         if (!loading) {
@@ -171,9 +168,8 @@ export const ForgetPasswordUser = () => {
     };
 
     useEffect(() => {
-        if (error.response?.data.errors) {
-            console.log(error.response.data.errors); // Validation errors will be in the response data
-            setErrors(error.response.data.errors); //set errors with response data
+        if (error?.data?.errors) {
+            setErrors(error.data.errors); //set errors with response data
             setIsPress(false);
         }
         if (!loading) {
@@ -223,9 +219,8 @@ export const VerifyRestPasswordUser = () => {
     };
 
     useEffect(() => {
-        if (error.response?.data.errors) {
-            console.log(error.response.data.errors); // Validation errors will be in the response data
-            setErrors(error.response.data.errors); //set errors with response data
+        if (error?.data?.errors) {
+            setErrors(error.data.errors); //set errors with response data
             setIsPress(false);
         }
         if (!loading) {
@@ -279,9 +274,8 @@ export const RestPasswordUser = () => {
     };
 
     useEffect(() => {
-        if (error.response?.data.errors) {
-            console.log(error.response.data.errors); // Validation errors will be in the response data
-            setErrors(error.response.data.errors); //set errors with response data
+        if (error?.data?.errors) {
+            setErrors(error.data.errors); //set errors with response data
             setIsPress(false);
         }
         if (!loading) {
