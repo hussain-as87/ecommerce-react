@@ -11,7 +11,7 @@ import {
 import use_notification from "./use_notification";
 import {confirmAlert} from "react-confirm-alert";
 import {toast} from "react-toastify";
-import {getCouponAction, getCouponsAction} from "../Redux/Actions/CouponAction";
+import {getCouponsAction} from "../Redux/Actions/CouponAction";
 
 export const GetCartItems = () => {
     const dispatch = useDispatch();
@@ -27,7 +27,7 @@ export const GetCartItems = () => {
     useEffect(() => {
         dispatch(getCartItemsAction({page: page, limit: 4}))
         setItemsCount(carts?.numberCartItems)
-    }, [carts?.numberCartItems, dispatch, page])
+    }, [carts, dispatch, page])
     return {carts, loading, pageCount, getPage, itemsCount}
 }
 export const CreateCartItem = (productId) => {
@@ -68,6 +68,15 @@ export const EditCartItemsQuantity = (id, quantity) => {
     const [data, setData] = useState({
         quantity: quantity,
     });
+    const inc = (e) => {
+        e.preventDefault();
+        setData((prevData) => ({ ...prevData, quantity: prevData.quantity + 1 }));
+    };
+
+    const dec = (e) => {
+        e.preventDefault();
+        setData((prevData) => ({ ...prevData, quantity: prevData.quantity - 1 }));
+    };
 
     const handlerOnChangeInput = (event) => {
         const {name, value} = event.target;
@@ -77,14 +86,14 @@ export const EditCartItemsQuantity = (id, quantity) => {
     useEffect(() => {
         dispatch(editCartItemAction({id, formData: data}));
         dispatch(getCartItemsAction({limit: 4, page: 1}));
-    }, [data]);
-    return {handlerOnChangeInput, data, setData};
+    }, [data, dispatch, id]);
+    return {handlerOnChangeInput, data, inc,dec};
 }
 export const ApplyCouponOnCart = () => {
     const dispatch = useDispatch();
     const [isPress, setIsPress] = useState(false);
     const [errors, setErrors] = useState([]);
-    const [discountValue, setDiscountValue] = useState(null);
+    const [discountValue, setDiscountValue] = useState(0);
     const [data, setData] = useState({
         coupon: ''
     });
@@ -97,22 +106,22 @@ export const ApplyCouponOnCart = () => {
             setIsPress(false);
         }
     }, [ApplyCoupon_error?.data?.errors]);
-    useEffect(() => {
-        dispatch(getCouponsAction({name: data?.coupon}))
-        setDiscountValue(coupons.result === 1 ? coupons.data[0].discount : 0)
-    }, [coupons.data, coupons.result, data?.coupon, dispatch])
+
     const handlerOnChangeInput = (event) => {
         const {name, value} = event.target;
         setData((prevData) => ({...prevData, [name]: value}));
     };
-
+    useEffect(() => {
+        dispatch(getCouponsAction({name: data?.coupon}))
+    }, [coupons.data, coupons.result, data?.coupon, dispatch])
     const applyHandler = async (event) => {
         event.preventDefault();
         setIsPress(true);
         await dispatch(applyCouponOnCartAction(data));
+        setDiscountValue(coupons.result === 1 ? coupons.data[0].discount : 0)
+
         await dispatch(getCartItemsAction({limit: 500, page: 1}));
     };
-
     useEffect(() => {
         if (ApplyCoupon.status === 200) {
             setIsPress(false);

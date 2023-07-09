@@ -1,45 +1,44 @@
-import {Col, Row} from "react-bootstrap";
+import {Col, Row, Form, Container, Button} from 'react-bootstrap';
 
 const PaymentMethod = () => {
     return (
-        <div>
-            <div className="admin-content-text pt-5">Chose your payment</div>
-            <div className="user-address-card my-3 px-3">
-                <Row className="d-flex justify-content-between ">
-                    <Col xs="12" className="my-4">
-                        <input
-                            name="group"
-                            id="group1"
+        <Container>
+            <div className="admin-content-text pt-5">Choose your payment</div>
+            <div className="d-inline p-2 bg-primary text-white">{localStorage.getItem('totalPrice')} Dollar</div>
+            <div className="user-address-card my-3 px-3 p-3">
+                <Form.Group className="my-4 m-2">
+                    <Col xs="auto">
+                        <Form.Check
                             type="radio"
+                            name="paymentMethod"
+                            id="creditCard"
                             value="payment by visa"
                             className="mt-2"
+                            label="Payment by credit card"
                         />
-                        <label className="mx-2" htmlFor="group1">Payment by credit card</label>
                     </Col>
-                </Row>
 
-                <Row className="mt-3">
-                    <Col xs="12" className="d-flex">
-                        <input
-                            name="group"
-                            id="group1"
+                    <Col xs="auto">
+                        <Form.Check
                             type="radio"
+                            name="paymentMethod"
+                            id="cashOnDelivery"
                             value="cash on delivery"
                             className="mt-2"
+                            label="Cash on delivery"
                         />
-                        <label className="mx-2" htmlFor="group1">Cash on delivery</label>
                     </Col>
-                </Row>
+                </Form.Group>
+
             </div>
 
             <Row>
                 <Col xs="12" className="d-flex justify-content-end">
-                    <div className="product-price d-inline   border">34000 pounds</div>
-                    <div className="product-cart-add px-3 pt-2 d-inline me-2">Checkout</div>
+                    <Button variant="outline-primary" className=" px-3 pt-2 d-inline me-2">Checkout</Button>
                 </Col>
             </Row>
-        </div>
-    )
-}
+        </Container>
+    );
+};
 
-export default PaymentMethod
+export default PaymentMethod;

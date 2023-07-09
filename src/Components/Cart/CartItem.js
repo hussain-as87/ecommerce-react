@@ -1,13 +1,13 @@
-import React, {useMemo} from 'react'
-import {Col, Row, Spinner} from 'react-bootstrap'
-import {DashCircle, PlusCircle, StarFill, Trash2} from "react-bootstrap-icons";
+import React from 'react'
+import {Col, Row} from 'react-bootstrap'
+import {Dash, Plus, StarFill, Trash2} from "react-bootstrap-icons";
 import LimitCharacters from "../../Hooks/LimitCharacters";
 import {DestroyCartItem, EditCartItemsQuantity} from "../../Controllers/CartController";
-import ShowProductForm from "../../Controllers/Product/ShowProductForm";
 
 const CartItem = ({item}) => {
-    const {data, setData, handlerOnChangeInput} = EditCartItemsQuantity(item?._id, item?.quantity)
+    const {data, inc, dec, handlerOnChangeInput} = EditCartItemsQuantity(item?._id, item?.quantity)
     const {deleteHandler} = DestroyCartItem(item?._id)
+    const {quantity} = data;
     return (
         <Col xs="12" className="cart-item-body my-2 d-flex px-2">
             <img width="35%" src={item?.product?.imageCover} alt="" className="m-2"/>
@@ -52,23 +52,19 @@ const CartItem = ({item}) => {
                     <Col sm="12" className=" d-flex flex-row justify-content-between">
                         <div className="d-inline pt-2 d-flex">
                             <div className="cat-text  d-inline me-2">quantity</div>
-                            <DashCircle size={20} onClick={() => {
-                                setData({quantity: data.quantity - 1})
-                            }}/>
+                            <Dash size={20} onClick={dec}/>
                             <input
                                 className="mx-2"
                                 type="number"
                                 name="quantity"
                                 onChange={handlerOnChangeInput}
-                                value={data.quantity}
+                                value={quantity}
                                 style={{width: "30px", height: "25px"}}
                             />
-                            <PlusCircle size={20} onClick={() => {
-                                setData({quantity: data.quantity + 1})
-                            }}/>
+                            <Plus size={20} onClick={inc}/>
                         </div>
-                        <div className="d-inline pt-2 barnd-text">{item.price}</div>
-                        <div className="d-inline pt-2 barnd-text">total: {item.price * data.quantity} $</div>
+                        <div className="d-inline pt-2 barnd-text text-primary">{item.price}</div>
+                        <div className="d-inline pt-2 barnd-text">total: {item.price * quantity} $</div>
                     </Col>
                 </Row>
             </div>

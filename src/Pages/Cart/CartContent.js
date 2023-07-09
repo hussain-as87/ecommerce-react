@@ -12,7 +12,6 @@ const CartContent = () => {
         </Row>
         <Row className='d-flex justify-content-center'>
             <Col xs={12} sm={12} md={8} xl={8}>
-
                 {carts?.data?.cartItems.slice(0, 4).map((item, index) => (
                     <CartItem item={item} key={item._id}/>
                 ))}

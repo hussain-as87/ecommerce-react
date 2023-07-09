@@ -1,5 +1,5 @@
 import HomePage from "./Pages/Home/HomePage";
-import {BrowserRouter, Routes, Route, useNavigate, Navigate} from "react-router-dom"
+import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom"
 import Footer from "./Components/Utility/Footer";
 import NavbarSection from "./Components/Utility/NavbarSection";
 import Login from "./Pages/Auth/Login";
@@ -30,10 +30,14 @@ import VerifyRestPassword from "./Pages/Auth/VerifyRestPassword";
 import RestPassword from "./Pages/Auth/ResetCodePassword";
 import AdminCreateCouponPage from "./Pages/Admin/AdminCreateCouponPage";
 import Layout from "./Pages/Admin/Layout";
+import {ProtectedAuthRoute} from "./Controllers/AuthController";
+import ProtectedRoute from "./Components/Utility/ProtectedRoute";
 
 
 function App() {
-    const indexProductForm= IndexProductForm()
+    const indexProductForm = IndexProductForm()
+    const {isAdmin, isUser, userData} = ProtectedAuthRoute()
+
 
     return (
         <div className="font">
@@ -53,34 +57,38 @@ function App() {
                     <Route path="/products" element={<Products index={indexProductForm}/>}/>
                     <Route path="/products/:id" element={<ProductDetails/>}/>
                     <Route path="/cart" element={<CartContent/>}/>
-                    <Route path="/order/payment" element={<PaymentMethodType/>}/>
 
-                    {/** Admin dashboard routes*/}
-                    <Route path="/admin/" element={<Layout/>}/>
-                    <Route path="/admin/products" element={<AdminProductsPage/>}/>
-                    <Route path="/admin/orders" element={<AdminOrdersPage/>}/>
-                    <Route path="/admin/orders/:id" element={<AdminOrderDetailsPage/>}/>
-                    <Route path="/admin/products/create" element={<AdminCreateProductPage/>}/>
-                    <Route path="/admin/products/edit/:id" element={<AdminEditProductPage/>}/>
-                    <Route path="/admin/brands/create" element={<AdminCreateBrandPage/>}/>
-                    <Route path="/admin/categories/create" element={<AdminCreateCategoryPage/>}/>
-                    <Route path="/admin/subcategories/create" element={<AdminCreateSubCategoryPage/>}/>
-                    <Route path="/admin/coupons/create" element={<AdminCreateCouponPage/>}/>
+                    <Route element={<ProtectedRoute auth={isAdmin}/>}>
+                        <Route path="/admin/" element={<Layout/>}/>
+                        <Route path="/admin/products" element={<AdminProductsPage/>}/>
+                        <Route path="/admin/orders" element={<AdminOrdersPage/>}/>
+                        <Route path="/admin/orders/:id" element={<AdminOrderDetailsPage/>}/>
+                        <Route path="/admin/products/create" element={<AdminCreateProductPage/>}/>
+                        <Route path="/admin/products/edit/:id" element={<AdminEditProductPage/>}/>
+                        <Route path="/admin/brands/create" element={<AdminCreateBrandPage/>}/>
+                        <Route path="/admin/categories/create" element={<AdminCreateCategoryPage/>}/>
+                        <Route path="/admin/subcategories/create" element={<AdminCreateSubCategoryPage/>}/>
+                        <Route path="/admin/coupons/create" element={<AdminCreateCouponPage/>}/>
+                    </Route>
 
-                    {/** User dashboard routes*/}
-                    <Route path="/user/orders" element={<UserOrdersPage/>}/>
-                    <Route path="/user/favorites" element={<UserFavoritesPage/>}/>
-                    <Route path="/user/addresses" element={<UserAddressesPage/>}/>
-                    <Route path="/user/addresses/create" element={<UserCreateAddressPage/>}/>
-                    <Route path="/user/addresses/edit" element={<UserEditAddressPage/>}/>
-                    <Route path="/user/profile" element={<UserProfilePage/>}/>
+                    <Route element={<ProtectedRoute auth={isUser}/>}>
+                        <Route path="/order/paymethod" element={<PaymentMethodType/>}/>
+                        <Route path="/user/orders" element={<UserOrdersPage/>}/>
+                        <Route path="/user/favorites" element={<UserFavoritesPage/>}/>
+                        <Route path="/user/addresses" element={<UserAddressesPage/>}/>
+                        <Route path="/user/addresses/create" element={<UserCreateAddressPage/>}/>
+                        <Route path="/user/addresses/edit" element={<UserEditAddressPage/>}/>
+                        <Route path="/user/profile" element={<UserProfilePage/>}/>
+                    </Route>
+
                 </Routes>
             </BrowserRouter>
 
 
             <Footer/>
         </div>
-    );
+    )
+        ;
 }
 
 export default App;
