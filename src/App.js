@@ -72,7 +72,7 @@ function App() {
                     </Route>
 
                     <Route element={<ProtectedRoute auth={isUser}/>}>
-                        <Route path="/order/paymethod" element={<PaymentMethodType/>}/>
+                        <Route path="/order/paymethod" element={<PaymentMethodType/>}/
                         <Route path="/user/orders" element={<UserOrdersPage/>}/>
                         <Route path="/user/favorites" element={<UserFavoritesPage/>}/>
                         <Route path="/user/addresses" element={<UserAddressesPage/>}/>
