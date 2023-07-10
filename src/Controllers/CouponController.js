@@ -7,7 +7,6 @@ import {
     getCouponAction,
     getCouponsAction
 } from "../Redux/Actions/CouponAction";
-import {useParams} from "react-router-dom";
 import use_notification from "./use_notification";
 import {confirmAlert} from "react-confirm-alert";
 import {toast} from "react-toastify";

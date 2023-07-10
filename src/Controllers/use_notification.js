@@ -1,8 +1,8 @@
 import {toast} from "react-toastify";
 
 const settings = {
-    position: "top-right",
-    theme: "colored",
+    position: "top-left",
+    theme: "light",
     autoClose: 2000,
     hideProgressBar: false,
     closeOnClick: true,
@@ -12,11 +12,11 @@ const settings = {
 }
 const notification = (msg, type) => {
     if (type === "success") {
-        return toast.success(`${msg} 😀`, settings)
+        return toast.success(msg, settings)
     } else if (type === "warn") {
-        return toast.warn(`${msg} ⚠️`, settings)
+        return toast.warn(msg, settings)
     } else if (type === 'error') {
-        return toast.error(`${msg} ☹️`, settings)
+        return toast.error(msg, settings)
     }
 }
 export default notification
