@@ -43,6 +43,13 @@ export const EDIT_CART = "EDIT_CART"
 export const DELETE_CART = "DELETE_CART"
 export const CLEAR_CART = "CLEAR_CART"
 
+export const GET_ALL_ORDERS = "GET_ALL_ORDERS"
+export const GET_ORDER = "GET_ORDER"
+export const CREATE_ORDER = "CREATE_ORDER"
+export const UPDATE_TO_Paid = "UPDATE_TO_Paid"
+export const UPDATE_TO_DELIVER = "UPDATE_TO_DELIVER"
+export const GET_CHECKOUT_SESSION = "GET_CHECKOUT_SESSION"
+
 
 /*ERRORS TYPES*/
 export const AS_ERROR = "AS_ERROR"
@@ -90,3 +97,12 @@ export const CAC_ERROR = "CAC_ERROR"
 export const CAE_ERROR = "CAE_ERROR"
 export const CAD_ERROR = "CAD_ERROR"
 export const CACL_ERROR = "CACL_ERROR"
+/*
+* order
+* */
+export const OG_ERROR = "OG_ERROR"
+export const OG1_ERROR = "OG1_ERROR"
+export const OC_ERROR = "OC_ERROR"
+export const OETP_ERROR = "OETP_ERROR"
+export const OETD_ERROR = "OETD_ERROR"
+export const OGCS_ERROR = "OGCS_ERROR"

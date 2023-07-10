@@ -28,7 +28,7 @@ export const getCartItemsAction = ({limit, page}) => async (dispatch) => {
     }
 };
 /**
- * @method GET
+ * @method POST
  * @return data object
  * @static true
  */
@@ -60,7 +60,7 @@ export const createCartItemAction = (formData) => async (dispatch) => {
     }
 };
 /**
- * @method POST
+ * @method PUT
  * @return data object
  * @static true
  */
@@ -76,7 +76,7 @@ export const editCartItemAction = ({id, formData}) => async (dispatch) => {
     }
 };
 /**
- * @method POST
+ * @method DELETE
  * @return data object
  * @static true
  */
@@ -92,7 +92,7 @@ export const destroyCartItemAction = (id) => async (dispatch) => {
     }
 };
 /**
- * @method POST
+ * @method DELETE
  * @return data object
  * @static true
  */

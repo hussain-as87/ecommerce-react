@@ -1,10 +1,12 @@
 import React, {useEffect} from 'react';
 import {Row, Col, Button, Form, Card} from 'react-bootstrap';
-import {Link} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {ApplyCouponOnCart, ClearCartItems, GetCartItems} from "../../Controllers/CartController";
 import {BagCheck, CartX} from "react-bootstrap-icons";
+import use_notification from "../../Controllers/use_notification";
 
 const CartCheckout = () => {
+    const navigate = useNavigate()
     const {clearHandler} = ClearCartItems();
     const {handlerOnChangeInput, errors, data, applyHandler, discountValue} = ApplyCouponOnCart()
     const isInvalidCoupon = errors.some(error => error.param === "coupon");
@@ -12,9 +14,17 @@ const CartCheckout = () => {
 
     useEffect(() => {
         let total = carts?.data?.totalPriceAfterDiscount || carts?.data?.totalCartPrice;
+        let cartId = carts?.data?._id;
         localStorage.setItem('totalPrice', total);
+        localStorage.setItem('cartId', cartId);
     }, [carts])
-
+    const checkCart = () => {
+        if (carts?.data?.cartItems.length >= 1) {
+             navigate('/order/paymethod')
+        } else {
+            use_notification('Cart is empty!', 'warn')
+        }
+    }
     return (
         <Row className="my-1 d-flex justify-content-center pt-3">
             <Col xs={12} className="d-flex flex-column">
@@ -29,23 +39,21 @@ const CartCheckout = () => {
                 <Card className="mt-2 mb-4">
                     <Card.Body>
                         <Card.Text className="text-center">Total Price: <b
-                            className="text-primary">{carts?.data?.totalCartPrice}
+                            className="text-primary">{carts?.data?.totalCartPrice ||0}
                             $</b></Card.Text>
                         <Card.Text className="text-center">Discount Value: <b
                             className="text-primary">{discountValue}
                             %</b></Card.Text>
                         <hr/>
                         <Card.Text className="text-center">Total After Discount: <br/><b
-                            className="text-primary">{carts?.data?.totalPriceAfterDiscount || carts?.data?.totalCartPrice}
+                            className="text-primary">{(carts?.data?.totalPriceAfterDiscount || carts?.data?.totalCartPrice)||0}
                             $</b></Card.Text>
                     </Card.Body>
                 </Card>
 
-                <Link to="/order/paymethod" className="d-inline" style={{textDecoration: 'none'}}>
-                    <Button className="w-100 px-2">
-                        <BagCheck size={22}/> Checkout
-                    </Button>
-                </Link>
+                <Button className="w-100 px-2" onClick={checkCart}>
+                    <BagCheck size={22}/> Checkout
+                </Button>
                 <Button variant="danger" onClick={clearHandler} className="mt-2">
                     <CartX size={22}/> Clear Cart
                 </Button>

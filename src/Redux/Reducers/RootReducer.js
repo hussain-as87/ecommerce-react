@@ -9,6 +9,7 @@ import WishlistReducer from "./WishlistReducer";
 import ReviewReducer from "./ReviewReducer";
 import CouponReducer from "./CouponReducer";
 import CartReducer from "./CartReducer";
+import OrderReducer from "./OrderReducer";
 
 const RootReducer = combineReducers({
     categories:CategoryReducer,
@@ -21,5 +22,6 @@ const RootReducer = combineReducers({
     reviews:ReviewReducer,
     coupons:CouponReducer,
     carts:CartReducer,
+    orders:OrderReducer,
 })
 export default RootReducer
