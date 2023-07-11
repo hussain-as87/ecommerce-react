@@ -57,9 +57,8 @@ export const SignupUser = () => {
         }
     };
     useEffect(() => {
-        if (error.response?.data.errors) {
-            console.log(error.response.data.errors); // Validation errors will be in the response data
-            setErrors(error.response.data.errors); //set errors with response data
+        if (error?.data?.errors) {
+            setErrors(error.data.errors); //set errors with response data
             setIsPress(false);
         }
         if (!loading) {
@@ -78,7 +77,7 @@ export const SignupUser = () => {
                 return navigate("/", {replace: true});
             }
         }
-    }, [loading, signup, error]);
+    }, [error.data.errors, loading, navigate, signup.data.data, signup.data.token, signup.status]);
     return {handleSubmit, data, handlerOnChangeInput, isPress, errors};
 };
 /**
@@ -88,7 +87,6 @@ export const LoginUser = () => {
     const dispatch = useDispatch();
     const [isPress, setIsPress] = useState(false);
     const [errors, setErrors] = useState([]);
-    const navigate = useNavigate();
     const [data, setData] = useState({
         email: "",
         password: "",
@@ -114,11 +112,9 @@ export const LoginUser = () => {
             console.log(error);
         }
     }
-
     useEffect(() => {
-        if (error.response?.data.errors) {
-            console.log(error.response.data.errors); // Validation errors will be in the response data
-            setErrors(error.response.data.errors); //set errors with response data
+        if (error?.data?.errors) {
+            setErrors(error.data.errors); //set errors with response data
             setIsPress(false);
         }
         if (!loading) {
@@ -171,9 +167,8 @@ export const ForgetPasswordUser = () => {
     };
 
     useEffect(() => {
-        if (error.response?.data.errors) {
-            console.log(error.response.data.errors); // Validation errors will be in the response data
-            setErrors(error.response.data.errors); //set errors with response data
+        if (error?.data?.errors) {
+            setErrors(error.data.errors); //set errors with response data
             setIsPress(false);
         }
         if (!loading) {
@@ -187,7 +182,7 @@ export const ForgetPasswordUser = () => {
                 return navigate("/verifyResetPassword");
             }
         }
-    }, [loading, forgetPassword, error]);
+    }, [data.email, error.data.errors, forgetPassword.status, loading, navigate]);
     return {handleSubmit, data, handlerOnChangeInput, isPress, errors};
 };
 
@@ -223,9 +218,8 @@ export const VerifyRestPasswordUser = () => {
     };
 
     useEffect(() => {
-        if (error.response?.data.errors) {
-            console.log(error.response.data.errors); // Validation errors will be in the response data
-            setErrors(error.response.data.errors); //set errors with response data
+        if (error?.data?.errors) {
+            setErrors(error.data.errors); //set errors with response data
             setIsPress(false);
         }
         if (!loading) {
@@ -238,7 +232,7 @@ export const VerifyRestPasswordUser = () => {
                 return navigate("/resetPassword");
             }
         }
-    }, [loading, verifyRestPassword, error]);
+    }, [error.data.errors, loading, navigate, verifyRestPassword.status]);
     return {handleSubmit, data, handlerOnChangeInput, isPress, errors};
 };
 
@@ -279,9 +273,8 @@ export const RestPasswordUser = () => {
     };
 
     useEffect(() => {
-        if (error.response?.data.errors) {
-            console.log(error.response.data.errors); // Validation errors will be in the response data
-            setErrors(error.response.data.errors); //set errors with response data
+        if (error?.data?.errors) {
+            setErrors(error.data.errors); //set errors with response data
             setIsPress(false);
         }
         if (!loading) {
@@ -311,13 +304,21 @@ export const ProtectedAuthRoute = () => {
     const [isAdmin, setIsAdmin] = useState(false)
 
     useEffect(() => {
-        if (userData?.role === "user") {
-            setIsUser(true)
-        } else if (userData?.role === "admin" || "manager") {
-            setIsAdmin(true)
+        if (userData != null) {
+            if (userData.role === "user") {
+                setIsUser(true)
+                setIsAdmin(false)
+            } else {
+                setIsUser(false)
+                setIsAdmin(true)
+            }
+        } else {
+            setIsAdmin(false)
+            setIsUser(false)
         }
-    }, [])
+    }, [userData])
 
 
-    return {isUser, isAdmin, userData}
+
+    return [isUser, isAdmin, userData]
 };

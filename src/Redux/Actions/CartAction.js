@@ -23,12 +23,11 @@ export const getCartItemsAction = ({limit, page}) => async (dispatch) => {
         });
         dispatch({type: GET_ALL_CARTS, payload: response, loading: true});
     } catch (error) {
-        console.log(error);
-        dispatch({type: CAG_ERROR, payload: error});
+        dispatch({type: CAG_ERROR, payload: error.response});
     }
 };
 /**
- * @method GET
+ * @method POST
  * @return data object
  * @static true
  */
@@ -39,8 +38,7 @@ export const applyCouponOnCartAction = (formData) => async (dispatch) => {
         });
         dispatch({type: APPlY_COUPON_CART, payload: response, loading: true});
     } catch (error) {
-        console.log(error);
-        dispatch({type: CAAC_ERROR, payload: error});
+        dispatch({type: CAAC_ERROR, payload: error.response});
     }
 };
 /**
@@ -56,11 +54,11 @@ export const createCartItemAction = (formData) => async (dispatch) => {
         dispatch({type: CREATE_CART, payload: response, loading: true});
     } catch (error) {
         console.log(error);
-        dispatch({type: CAC_ERROR, payload: error.response});
+        dispatch({type: CAC_ERROR, payload: error.response.response});
     }
 };
 /**
- * @method POST
+ * @method PUT
  * @return data object
  * @static true
  */
@@ -76,7 +74,7 @@ export const editCartItemAction = ({id, formData}) => async (dispatch) => {
     }
 };
 /**
- * @method POST
+ * @method DELETE
  * @return data object
  * @static true
  */
@@ -92,7 +90,7 @@ export const destroyCartItemAction = (id) => async (dispatch) => {
     }
 };
 /**
- * @method POST
+ * @method DELETE
  * @return data object
  * @static true
  */
