@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {
     createCouponAction,
@@ -14,7 +14,7 @@ import {toast} from "react-toastify";
 export const GetCoupons = () => {
     const dispatch = useDispatch();
     const [page, setPage] = useState(1);
-    const {coupons, loading,coupons_error} = useSelector((state) => state.coupons)
+    const {coupons, loading} = useSelector((state) => state.coupons)
     let pageCount = 0;
     if (coupons.paginationResult)
         pageCount = coupons.paginationResult.numberOfPages
