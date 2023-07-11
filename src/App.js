@@ -71,9 +71,10 @@ function App() {
                         <Route path="/admin/coupons/create" element={<AdminCreateCouponPage/>}/>
                     </Route>
 
+
                     <Route element={<ProtectedRoute auth={isUser}/>}>
-                        <Route path="/order/paymethod" element={<PaymentMethodType/>}/
                         <Route path="/user/orders" element={<UserOrdersPage/>}/>
+                        <Route path="/order/paymethod" element={<PaymentMethodType/>}/>
                         <Route path="/user/favorites" element={<UserFavoritesPage/>}/>
                         <Route path="/user/addresses" element={<UserAddressesPage/>}/>
                         <Route path="/user/addresses/create" element={<UserCreateAddressPage/>}/>

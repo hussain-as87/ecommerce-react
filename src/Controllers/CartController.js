@@ -70,12 +70,12 @@ export const EditCartItemsQuantity = (id, quantity) => {
     });
     const inc = (e) => {
         e.preventDefault();
-        setData((prevData) => ({ ...prevData, quantity: prevData.quantity + 1 }));
+        setData((prevData) => ({...prevData, quantity: prevData.quantity + 1}));
     };
 
     const dec = (e) => {
         e.preventDefault();
-        setData((prevData) => ({ ...prevData, quantity: prevData.quantity - 1 }));
+        setData((prevData) => ({...prevData, quantity: prevData.quantity - 1}));
     };
 
     const handlerOnChangeInput = (event) => {
@@ -87,49 +87,40 @@ export const EditCartItemsQuantity = (id, quantity) => {
         dispatch(editCartItemAction({id, formData: data}));
         dispatch(getCartItemsAction({limit: 4, page: 1}));
     }, [data, dispatch, id]);
-    return {handlerOnChangeInput, data, inc,dec};
+    return {handlerOnChangeInput, data, inc, dec};
 
 }
 export const ApplyCouponOnCart = () => {
     const dispatch = useDispatch();
-    const [isPress, setIsPress] = useState(false);
-    const [errors, setErrors] = useState([]);
     const [discountValue, setDiscountValue] = useState(0);
     const [data, setData] = useState({
         coupon: ''
     });
-    const {ApplyCoupon, ApplyCoupon_error} = useSelector((state) => state.carts);
+    const {applyCoupon, applyCoupon_error} = useSelector((state) => state.carts);
     const {coupons} = useSelector((state) => state.coupons);
-
     useEffect(() => {
-        if (ApplyCoupon_error.data?.errors) {
-            setErrors(ApplyCoupon_error.data.errors); //set errors with response data
-            setIsPress(false);
-        }
-    }, [ApplyCoupon_error?.data?.errors]);
-
+        dispatch(getCouponsAction({name: data?.coupon}))
+    }, [data?.coupon, dispatch])
     const handlerOnChangeInput = (event) => {
         const {name, value} = event.target;
         setData((prevData) => ({...prevData, [name]: value}));
     };
-    useEffect(() => {
-        dispatch(getCouponsAction({name: data?.coupon}))
-    }, [coupons.data, coupons.result, data?.coupon, dispatch])
+
     const applyHandler = async (event) => {
         event.preventDefault();
-        setIsPress(true);
         await dispatch(applyCouponOnCartAction(data));
         setDiscountValue(coupons.result === 1 ? coupons.data[0].discount : 0)
-
         await dispatch(getCartItemsAction({limit: 500, page: 1}));
     };
     useEffect(() => {
-        if (ApplyCoupon.status === 200) {
-            setIsPress(false);
-            use_notification('successfully updated!', 'success');
+        if (applyCoupon?.status === 200) {
+            setData({coupon: ''})
+            use_notification('successfully applied the coupon!', 'success');
+        } else if (applyCoupon_error?.data?.status === "error") {
+            use_notification(applyCoupon_error?.data?.message, "error")
         }
-    }, [dispatch, ApplyCoupon?.status]);
-    return {handlerOnChangeInput, applyHandler, isPress, data, errors, discountValue};
+    }, [applyCoupon?.status, applyCoupon_error?.data?.message, applyCoupon_error?.data?.status]);
+    return {handlerOnChangeInput, applyHandler, data, discountValue};
 }
 export const DestroyCartItem = (id) => {
     const dispatch = useDispatch();

@@ -23,8 +23,7 @@ export const getCartItemsAction = ({limit, page}) => async (dispatch) => {
         });
         dispatch({type: GET_ALL_CARTS, payload: response, loading: true});
     } catch (error) {
-        console.log(error);
-        dispatch({type: CAG_ERROR, payload: error});
+        dispatch({type: CAG_ERROR, payload: error.response});
     }
 };
 /**
@@ -39,8 +38,7 @@ export const applyCouponOnCartAction = (formData) => async (dispatch) => {
         });
         dispatch({type: APPlY_COUPON_CART, payload: response, loading: true});
     } catch (error) {
-        console.log(error);
-        dispatch({type: CAAC_ERROR, payload: error});
+        dispatch({type: CAAC_ERROR, payload: error.response});
     }
 };
 /**
@@ -56,7 +54,7 @@ export const createCartItemAction = (formData) => async (dispatch) => {
         dispatch({type: CREATE_CART, payload: response, loading: true});
     } catch (error) {
         console.log(error);
-        dispatch({type: CAC_ERROR, payload: error.response});
+        dispatch({type: CAC_ERROR, payload: error.response.response});
     }
 };
 /**
