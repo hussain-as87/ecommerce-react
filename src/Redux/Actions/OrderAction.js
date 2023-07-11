@@ -11,18 +11,9 @@ import {
     OETD_ERROR, GET_CHECKOUT_SESSION, OGCS_ERROR,
 } from "../Types";
 import {use_get_data, use_post_data, use_put_data} from "../../Hooks/ApiDataHook";
-import {GetOrderCheckoutSession} from "../../Controllers/OrderController";
 
 const url = "/orders"
 const token = localStorage.getItem('token') || "";
-/*
-orders
-order
-create
-updateToPaid
-updateToDeliver
-*/
-
 
 /**
  * @method GET
@@ -61,9 +52,9 @@ export const getOrderAction = (id) => async (dispatch) => {
  * @return data object
  * @static true
  */
-export const createOrderAction = (id) => async (dispatch) => {
+export const createOrderAction = ({cartId,formData}) => async (dispatch) => {
     try {
-        const response = await use_post_data(`${url}/${id}`, {
+        const response = await use_post_data(`${url}/${cartId}`, formData,{
             headers: {Authorization: `Bearer ${token}`},
         });
         dispatch({type: CREATE_ORDER, payload: response, loading: true});
@@ -109,9 +100,9 @@ export const updateOrderToDeliverAction = (id) => async (dispatch) => {
  * @return data object
  * @static true
  */
-export const getOrderCheckoutSessionAction = (id) => async (dispatch) => {
+export const getOrderCheckoutSessionAction = (cartId) => async (dispatch) => {
     try {
-        const response = await use_get_data(`${url}/checkout-session/${id}`, {
+        const response = await use_get_data(`${url}/checkout-session/${cartId}`, {
             headers: {Authorization: `Bearer ${token}`},
         });
         dispatch({type: GET_CHECKOUT_SESSION, payload: response, loading: true});

@@ -8,13 +8,13 @@ import {
 
 const initialState = {
     carts: [],
-    ApplyCoupon: [],
+    applyCoupon: [],
     create: [],
     edit: [],
     delete: [],
     clear: [],
     carts_error: [],
-    ApplyCoupon_error: [],
+    applyCoupon_error: [],
     create_error: [],
     edit_error: [],
     delete_error: [],
@@ -26,7 +26,7 @@ const ReviewReducer = (state = initialState, action) => {
         case GET_ALL_CARTS:
             return {...state, carts: action.payload, loading: false};
         case APPlY_COUPON_CART:
-            return {...state, ApplyCoupon: action.payload, loading: false};
+            return {...state, applyCoupon: action.payload, loading: false};
         case CREATE_CART:
             return {...state, create: action.payload, loading: false};
         case EDIT_CART:
@@ -38,7 +38,7 @@ const ReviewReducer = (state = initialState, action) => {
         case CAG_ERROR:
             return {...state, carts_error: action.payload, loading: false};
         case CAAC_ERROR:
-            return {...state, ApplyCoupon_error: action.payload, loading: false};
+            return {...state, applyCoupon_error: action.payload, loading: false};
         case CAC_ERROR:
             return {...state, create_error: action.payload, loading: false};
         case CAE_ERROR:

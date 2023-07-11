@@ -8,8 +8,7 @@ import use_notification from "../../Controllers/use_notification";
 const CartCheckout = () => {
     const navigate = useNavigate()
     const {clearHandler} = ClearCartItems();
-    const {handlerOnChangeInput, errors, data, applyHandler, discountValue} = ApplyCouponOnCart()
-    const isInvalidCoupon = errors.some(error => error.param === "coupon");
+    const {handlerOnChangeInput, data, applyHandler, discountValue} = ApplyCouponOnCart()
     const {carts} = GetCartItems()
 
     useEffect(() => {
@@ -31,7 +30,7 @@ const CartCheckout = () => {
                 <Form onSubmit={applyHandler}>
                     <div className="d-flex">
                         <Form.Control name="coupon" value={data.coupon} onChange={handlerOnChangeInput}
-                                      className={`d-inline py-2 ${isInvalidCoupon ? "is-invalid" : ""}`}
+                                      className="d-inline py-2"
                                       type="text" placeholder="Coupon Code"/>
                         <Button type="submit" className="d-inline py-2" variant="primary">Execute</Button>
                     </div>

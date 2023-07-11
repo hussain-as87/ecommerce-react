@@ -3,7 +3,7 @@ import {Col, Row} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import mobile from '../../../assets/images/mobile.png'
 
-const AdminOrdersCards = () => {
+const AdminOrdersCards = ({item}) => {
     return (
         <Col sm="12">
             <Link

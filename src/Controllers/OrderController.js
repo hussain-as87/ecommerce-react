@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {
     getOrdersAction,
@@ -8,16 +8,15 @@ import {
     updateOrderToDeliverAction,
     getOrderCheckoutSessionAction
 } from "../Redux/Actions/OrderAction";
-import {useParams} from "react-router-dom";
 import use_notification from "./use_notification";
 
 export const GetOrders = () => {
     const dispatch = useDispatch()
-    const {orders, orders_error} = useSelector(state => state.orders)
+    const {orders, loading} = useSelector(state => state.orders)
     useEffect(() => {
         dispatch(getOrdersAction())
     }, [dispatch])
-    return {orders, orders_error}
+    return {orders, loading}
 }
 export const GetOrder = (id) => {
     const dispatch = useDispatch()
@@ -31,19 +30,28 @@ export const GetOrder = (id) => {
 export const CreateOrder = (cartId) => {
     const dispatch = useDispatch()
     const {create, create_error} = useSelector(state => state.orders)
-
+    const [data, setData] = useState({});
+    const handlerOnChangeInput = (event) => {
+        const {name, value} = event.target
+        setData((prevData) => ({...prevData, [name]: value}));
+    }
     const handleSubmit = async (event) => {
         event.preventDefault()
-        dispatch(createOrderAction(cartId))
+        dispatch(createOrderAction({cartId, formData: data}))
+        dispatch(getOrdersAction())
     }
     useEffect(() => {
-        if (create?.status === 201) {
-            use_notification("Successfully created!", "success")
-        } else if (create_error?.data) {
-            use_notification("Have an error!", "error")
+            if (create?.status === 201) {
+                use_notification("Successfully created!", "success")
+                setData({})
+            } else if (create_error?.data) {
+                use_notification("Have an error!", "error")
+            }
         }
-    }, [create?.status, create_error?.data, dispatch])
-    return {create, handleSubmit}
+        ,
+        [create?.status, create_error?.data, dispatch]
+    )
+    return {create, data, handlerOnChangeInput, handleSubmit}
 }
 export const UpdateToPaidOrder = (id) => {
     const dispatch = useDispatch()
