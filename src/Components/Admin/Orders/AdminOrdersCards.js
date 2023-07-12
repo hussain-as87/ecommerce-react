@@ -1,57 +1,71 @@
 import React from 'react'
-import {Col, Row} from 'react-bootstrap'
+import {Card, Col, Row} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
-import mobile from '../../../assets/images/mobile.png'
+import {Cash, Check2Circle, CreditCard, DashCircle, Truck, XLg} from "react-bootstrap-icons";
+import {DestroyOrder} from "../../../Controllers/OrderController";
 
 const AdminOrdersCards = ({item}) => {
+    const {deleteHandler} = DestroyOrder(item._id)
     return (
-        <Col sm="12">
-            <Link
-                to="/admin/orders/23"
-                className="cart-item-body my-2 px-1 d-flex"
-                style={{textDecoration: "none"}}>
-                <img width="160px" height="197px" src={mobile} alt=""/>
-                <div className="w-100">
-                    <Row className="justify-content-between">
-                        <Col sm="12" className=" d-flex flex-row justify-content-between">
-                            <div className="d-inline pt-2 cat-text">order #2321</div>
-                            <div className="d-inline pt-2 cat-text">remove</div>
-                        </Col>
-                    </Row>
-                    <Row className="justify-content-center mt-2">
-                        <Col sm="12" className=" d-flex flex-row justify-content-start">
-                            <div className="d-inline pt-2 cat-title">iPhone XR with 128GB memory and supports 4G LTE
-                                technology with VIS application
-                                Time (Prodict) Red
-                            </div>
-                            <div className="d-inline pt-2 cat-rate me-2">4.5</div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col sm="12" className=" d-flex">
-                            <div className="mt-2  cat-text d-inline">Brand :</div>
-                            <div className="mt-1 barnd-text d-inline mx-1">Apple</div>
-                            <div
-                                className="color  me-1 border"
-                                style={{backgroundColor: "#E52C2C"}}></div>
-                        </Col>
-                    </Row>
+        <Card className="col-12 mt-2 d-flex">
+            <XLg className="m-3 text-danger" onClick={deleteHandler}></XLg>
+            <Link to={`/admin/orders/${item._id}`}
+                  className="cart-item-body-admin my-2 px-1 d-flex px-2"
+                  style={{textDecoration: "none"}}>
+                <Card.Body>
+                    <Card.Title>Order: <b className="text-primary">{item._id}</b></Card.Title>
+                    <Card.Text>
+                        <Row className="justify-content-between">
+                            <Col sm="12" className=" d-flex flex-row justify-content-between">
+                                <div className="d-inline pt-2 cat-text">
+                                    <b className="me-3">{item?.cartItems?.length} item</b>
+                                    {item?.cartItems?.map((i) => (
+                                            <Card.Img className="me-3" style={{width: '40px'}} src={i?.product?.imageCover}></Card.Img>
 
-                    <Row className="justify-content-between">
-                        <Col sm="12" className=" d-flex flex-row justify-content-between">
-                            <div className="d-inline pt-2 d-flex">
-                                <div className="cat-text pt-1 d-inline">Quantity</div>
-                                <input
-                                    className="mx-2 mt-1"
-                                    type="number"
-                                    style={{width: "40px", height: "25px"}}
-                                />
-                            </div>
-                            <div className="d-inline pt-2 barnd-text">3000 pound</div>
-                        </Col>
-                    </Row>
-                </div>
+                                    ))}
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row className="justify-content-center mt-2">
+                            <Col sm="12" className=" d-flex flex-row justify-content-start">
+                                <div className="d-inline pt-2 cat-title">
+                                    ordered by: {item?.user?.name || ''}
+                                </div>
+                                <div style={{color: 'black'}}
+                                     className="d-inline pt-2 cat-rate me-2 text-warning"> :( {item.user.email || ''} )
+                                </div>
+                            </Col>
+                        </Row>
+
+                        <Row className="d-flex justify-content-between">
+                            <Col xs="12" className="d-flex">
+                                <div>
+                                    <div style={{color: 'black'}} className="d-inline"> Deliver</div>
+                                    <div
+                                        className={`d-inline mx-2 stat ${item?.isDelivered === true?'text-success':'text-danger'}`}>{item?.isDelivered === true ? (<><Truck size={25} className="text-success"/> Delivered</>)  : (<><DashCircle size={25} className="text-danger"/> Isn't Delivered yet!</>)}</div>
+                                </div>
+                                <div>
+                                    <div style={{color: 'black'}} className="d-inline"> Payment</div>
+                                    <div
+                                        className={`d-inline mx-2 stat ${item?.isPaid === true?'text-success':'text-danger'}`}>{item?.isPaid === true ? (<><Check2Circle size={25} className="text-success"/> Paid</>)  : (<><DashCircle size={25} className="text-danger"/> Isn't Paid</>)}</div>
+                                </div>
+
+                                <div>
+                                    <div style={{color: 'black'}} className="d-inline">Payment Methods</div>
+                                    <div
+                                        className="d-inline mx-2 stat">{item?.paymentMethodType === 'cash' ? (<><Cash size={25} className="text-success"/> Cash</>) : (<><CreditCard size={25} className="text-primary"/> Credit</>)}</div>
+                                </div>
+                            </Col>
+                            <Col xs="12" className="d-flex justify-content-end">
+                                <div>
+                                    <div className="barnd-text">{item?.totalOrderPrice || 0} $</div>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Card.Text>
+                </Card.Body>
             </Link>
-        </Col>)
+        </Card>
+    )
 }
 export default AdminOrdersCards

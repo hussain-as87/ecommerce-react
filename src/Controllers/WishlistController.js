@@ -14,7 +14,7 @@ const ProductWishlist = ({productId}) => {
     const [isProductInWishlist, setIsProductInWishlist] = useState(false);
     useEffect(() => {
         dispatch(loggedUserWishlistAction());
-    }, [productId])
+    }, [dispatch])
     const {loggedUserWishlist} = useSelector((state) => state.wishlist);
     const result = loggedUserWishlist?.data?.some((item) => item._id === productId);
 
@@ -28,7 +28,6 @@ const ProductWishlist = ({productId}) => {
             // Add product to wishlist
             await dispatch(addProductToWishlistAction(data));
         }
-
     };
 
     useEffect(() => {

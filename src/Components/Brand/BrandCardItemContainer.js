@@ -5,9 +5,11 @@ import {Container, Row, Spinner} from 'react-bootstrap';
 const BrandContainer = ({brands, loading}) => {
     if (loading) {
         return (
-            <div className="d-flex justify-content-center align-items-center py-2">
-                <Spinner animation="border" role="status" variant="primary">
-                </Spinner>
+            <div className="text-center"><Spinner
+                animation="border"
+                variant="secondary"
+                style={{width: '100px', height: '100px'}}
+            />
             </div>
         );
     }

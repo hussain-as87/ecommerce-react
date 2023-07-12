@@ -16,9 +16,11 @@ const BrandFeatured = ({title, btn}) => {
                 {loading === false ? (slicedBrands.map((brand) => (
                         <BrandCard image={brand.image}/>
                             ))) :
-                    <div className="d-flex justify-content-center align-items-center py-md-2 py-sm-1">
-                        <Spinner animation="border" role="status" variant="primary">
-                        </Spinner>
+                    <div className="text-center"><Spinner
+                        animation="border"
+                        variant="secondary"
+                        style={{width: '100px', height: '100px'}}
+                    />
                     </div>
 
                 }
