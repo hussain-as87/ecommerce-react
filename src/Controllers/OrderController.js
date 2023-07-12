@@ -1,4 +1,4 @@
-import  {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {
     getOrdersAction,
@@ -32,12 +32,12 @@ export const GetOrders = () => {
 }
 export const GetOrder = (id) => {
     const dispatch = useDispatch()
-    const {order, order_error} = useSelector(state => state.orders)
+    const {order, loading} = useSelector(state => state.orders)
 
     useEffect(() => {
         dispatch(getOrderAction(id))
     }, [id, dispatch])
-    return {order, order_error}
+    return {order, loading}
 }
 export const CreateOrder = (cartId) => {
     const dispatch = useDispatch()
@@ -68,9 +68,16 @@ export const CreateOrder = (cartId) => {
 export const UpdateToPaidOrder = (id) => {
     const dispatch = useDispatch()
     const {updateToPaid, updateToPaid_error} = useSelector(state => state.orders)
+    const [isCheckedP, setIsCheckedP] = useState(false);
+    const {order} = GetOrder(id)
 
+    useEffect(() => {
+        if (order?.data?.isPaid === true)
+            setIsCheckedP(true)
+    }, [order])
     const handleUpdateToPaid = async (event) => {
         event.preventDefault()
+        setIsCheckedP(!isCheckedP)
         dispatch(updateOrderToPaidAction(id))
     }
     useEffect(() => {
@@ -79,25 +86,32 @@ export const UpdateToPaidOrder = (id) => {
         } else if (updateToPaid_error?.data) {
             use_notification("Have an error!", "error")
         }
-    }, [updateToPaid?.status, updateToPaid_error?.data, dispatch])
-    return {updateToPaid, handleUpdateToPaid}
+    }, [updateToPaid, updateToPaid_error, dispatch])
+    return {handleUpdateToPaid, isCheckedP}
 }
 export const UpdateToDeliveredOrder = (id) => {
     const dispatch = useDispatch()
     const {updateToDeliver, updateToDeliver_error} = useSelector(state => state.orders)
-
+    const [isCheckedD, setIsCheckedD] = useState(false);
+    const {order} = GetOrder(id)
+    useEffect(() => {
+        if (order?.data?.isDelivered === true)
+            setIsCheckedD(true)
+    }, [order])
     const handleUpdateToDeliver = async (event) => {
         event.preventDefault()
+        setIsCheckedD(!isCheckedD)
         dispatch(updateOrderToDeliverAction(id))
     }
+
     useEffect(() => {
         if (updateToDeliver?.status === 200) {
             use_notification("Successfully updated!", "success")
         } else if (updateToDeliver_error?.data) {
             use_notification("Have an error!", "error")
         }
-    }, [updateToDeliver?.status, updateToDeliver_error?.data, dispatch])
-    return {updateToDeliver, handleUpdateToDeliver}
+    }, [updateToDeliver, updateToDeliver_error, dispatch])
+    return {handleUpdateToDeliver, isCheckedD}
 }
 export const GetOrderCheckoutSession = (cartId) => {
     const dispatch = useDispatch()

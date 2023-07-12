@@ -34,9 +34,12 @@ export const CreateCartItem = (productId) => {
     const dispatch = useDispatch();
     const [isPress, setIsPress] = useState(false)
     const [data, setData] = useState({
-        productId: productId,
+        productId: "",
         color: ""
     })
+    useEffect(()=>{
+        setData((prevData) => ({...prevData, productId: productId}));
+    },[productId])
     const {create, create_error} = useSelector((state) => state.carts)
     const handlerOnChangeInput = (event) => {
         const {name, value} = event.target
@@ -59,7 +62,7 @@ export const CreateCartItem = (productId) => {
             use_notification(errorMessage, "error")
             setIsPress(false)
         }
-    }, [create.status, create_error?.data, create_error?.data?.errors])
+    }, [create, create_error])
 
     return {handlerOnChangeInput, handleSubmit, isPress, data}
 }

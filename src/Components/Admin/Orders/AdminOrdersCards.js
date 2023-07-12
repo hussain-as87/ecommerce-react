@@ -1,7 +1,7 @@
 import React from 'react'
 import {Card, Col, Row} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
-import {Cash, CreditCard, XLg} from "react-bootstrap-icons";
+import {Cash, Check2Circle, CreditCard, DashCircle, Truck, XLg} from "react-bootstrap-icons";
 import {DestroyOrder} from "../../../Controllers/OrderController";
 
 const AdminOrdersCards = ({item}) => {
@@ -42,12 +42,12 @@ const AdminOrdersCards = ({item}) => {
                                 <div>
                                     <div style={{color: 'black'}} className="d-inline"> Deliver</div>
                                     <div
-                                        className={`d-inline mx-2 stat ${item?.isDelivered === true?'text-success':'text-danger'}`}>{item?.isDelivered === true ? 'Is Delivered' : "Isn't Delivered yet!"}</div>
+                                        className={`d-inline mx-2 stat ${item?.isDelivered === true?'text-success':'text-danger'}`}>{item?.isDelivered === true ? (<><Truck size={25} className="text-success"/> Delivered</>)  : (<><DashCircle size={25} className="text-danger"/> Isn't Delivered yet!</>)}</div>
                                 </div>
                                 <div>
                                     <div style={{color: 'black'}} className="d-inline"> Payment</div>
                                     <div
-                                        className={`d-inline mx-2 stat ${item?.isPaid === true?'text-success':'text-danger'}`}>{item?.isPaid === true ? 'Is Paid' : "Isn't Paid"}</div>
+                                        className={`d-inline mx-2 stat ${item?.isPaid === true?'text-success':'text-danger'}`}>{item?.isPaid === true ? (<><Check2Circle size={25} className="text-success"/> Paid</>)  : (<><DashCircle size={25} className="text-danger"/> Isn't Paid</>)}</div>
                                 </div>
 
                                 <div>

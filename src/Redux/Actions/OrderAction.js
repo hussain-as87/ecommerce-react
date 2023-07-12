@@ -70,7 +70,7 @@ export const createOrderAction = ({cartId,formData}) => async (dispatch) => {
  */
 export const updateOrderToPaidAction = (id) => async (dispatch) => {
     try {
-        const response = await use_put_data(`${url}/${id}/pay`, {
+        const response = await use_put_data(`${url}/${id}/pay`, undefined,{
             headers: {Authorization: `Bearer ${token}`},
         });
         dispatch({type: UPDATE_TO_Paid, payload: response, loading: true});
@@ -86,12 +86,12 @@ export const updateOrderToPaidAction = (id) => async (dispatch) => {
  */
 export const updateOrderToDeliverAction = (id) => async (dispatch) => {
     try {
-        const response = await use_put_data(`${url}/${id}/deliver`, {
+        const response = await use_put_data(`${url}/${id}/delivered`,undefined, {
             headers: {Authorization: `Bearer ${token}`},
         });
         dispatch({type: UPDATE_TO_DELIVER, payload: response, loading: true});
     } catch (error) {
-        console.log(error);
+        console.log(error.response);
         dispatch({type: OETD_ERROR, payload: error.response});
     }
 };
