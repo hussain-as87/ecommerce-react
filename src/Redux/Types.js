@@ -49,6 +49,7 @@ export const CREATE_ORDER = "CREATE_ORDER"
 export const UPDATE_TO_Paid = "UPDATE_TO_Paid"
 export const UPDATE_TO_DELIVER = "UPDATE_TO_DELIVER"
 export const GET_CHECKOUT_SESSION = "GET_CHECKOUT_SESSION"
+export const DElETE_ORDER = "DElETE_ORDER"
 
 
 /*ERRORS TYPES*/
@@ -106,3 +107,4 @@ export const OC_ERROR = "OC_ERROR"
 export const OETP_ERROR = "OETP_ERROR"
 export const OETD_ERROR = "OETD_ERROR"
 export const OGCS_ERROR = "OGCS_ERROR"
+export const OD_ERROR = "OD_ERROR"

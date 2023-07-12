@@ -20,9 +20,11 @@ const CategoryContainer = ({categories, loading}) => {
                                 <CategoryCard key={category.id} title={category.name} img={category.image}
                                               background={getRandomColor()}/>
                             ))) :
-                    <div className="d-flex justify-content-center align-items-center py-md-3 py-sm-2">
-                        <Spinner animation="border" role="status" variant="primary">
-                        </Spinner>
+                    <div className="text-center"><Spinner
+                        animation="border"
+                        variant="secondary"
+                        style={{width: '100px', height: '100px'}}
+                    />
                     </div>
 
                 }

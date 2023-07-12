@@ -44,7 +44,7 @@ const CartItem = ({item}) => {
                     <Col sm="12" className="mt-1 d-flex">
                         <div
                             className="color ms-2 border"
-                            style={{backgroundColor: item.color}}></div>
+                            style={{backgroundColor: item?.color}}></div>
                     </Col>
                 </Row>
 
@@ -63,8 +63,8 @@ const CartItem = ({item}) => {
                             />
                             <Plus size={20} onClick={inc}/>
                         </div>
-                        <div className="d-inline pt-2 barnd-text text-primary">{item.price}</div>
-                        <div className="d-inline pt-2 barnd-text">total: {item.price * quantity} $</div>
+                        <div className="d-inline pt-2 barnd-text text-primary">{item?.price}</div>
+                        <div className="d-inline pt-2 barnd-text">total: {item?.price * quantity} $</div>
                     </Col>
                 </Row>
             </div>

@@ -12,7 +12,7 @@ const UserProfile = () => {
             <h2 className="admin-content-text">Profile</h2>
 
             {!loading ? (
-                user && (
+                user?.data && (
                     <div className="user-address-card my-3 px-2">
                         <Row className="d-flex justify-content-between pt-2">
                             <Col xs={12} className="d-flex">
@@ -96,13 +96,13 @@ const UserProfile = () => {
                     </div>
                 )
             ) : (
-                <Spinner
-                    as="span"
+                <div className="text-center"><Spinner
                     animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
+                    variant="secondary"
+                    style={{width: '100px', height: '100px'}}
                 />
+                </div>
+
             )}
         </div>
     );

@@ -5,12 +5,14 @@ import {
     UPDATE_TO_Paid,
     UPDATE_TO_DELIVER,
     GET_CHECKOUT_SESSION,
+    DElETE_ORDER,
     OG_ERROR,
     OG1_ERROR,
     OC_ERROR,
     OETP_ERROR,
     OETD_ERROR,
-    OGCS_ERROR
+    OGCS_ERROR,
+    OD_ERROR
 } from "../Types";
 
 const initialState = {
@@ -20,12 +22,14 @@ const initialState = {
     updateToPaid: [],
     updateToDeliver: [],
     getCheckoutList: [],
+    delete: [],
     orders_error: [],
     order_error: [],
     create_error: [],
     updateToPaid_error: [],
     updateToDeliver_error: [],
     getCheckoutList_error: [],
+    delete_error: [],
     loading: true,
 };
 const OrderReducer = (state = initialState, action) => {
@@ -42,6 +46,8 @@ const OrderReducer = (state = initialState, action) => {
             return {...state, updateToDeliver: action.payload, loading: false};
         case GET_CHECKOUT_SESSION:
             return {...state, updateToDeliver: action.payload, loading: false};
+        case DElETE_ORDER:
+            return {...state, delete: action.payload, loading: false};
 
         case OG_ERROR:
             return {...state, orders_error: action.payload, loading: false};
@@ -55,6 +61,8 @@ const OrderReducer = (state = initialState, action) => {
             return {...state, updateToDeliver_error: action.payload, loading: false};
         case OGCS_ERROR:
             return {...state, getCheckoutList_error: action.payload, loading: false};
+        case OD_ERROR:
+            return {...state, delete_error: action.payload, loading: false};
 
         default:
             return state;

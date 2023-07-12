@@ -1,6 +1,7 @@
 import {Container, Row, Spinner} from "react-bootstrap";
 import SubTitle from "../Utility/SubTitle";
 import ProductItem from "./ProductItem";
+import React from "react";
 
 const ProductHomeItemContainer = ({title, btn, path, products, loading, exceptID}) => {
     return (
@@ -13,8 +14,11 @@ const ProductHomeItemContainer = ({title, btn, path, products, loading, exceptID
                             }
                         }
                     )) :
-                    <div className="d-flex justify-content-center align-items-center py-md-2 py-sm-1">
-                        <Spinner animation="border" variant="primary"/>
+                    <div className="text-center"><Spinner
+                        animation="border"
+                        variant="secondary"
+                        style={{width: '100px', height: '100px'}}
+                    />
                     </div>
                 }
             </Row>
