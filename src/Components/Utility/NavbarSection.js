@@ -4,7 +4,15 @@ import logo from "../../assets/images/logo.png"
 import login from "../../assets/images/login.png"
 import {useEffect, useState} from "react";
 import {GetLoggedUser} from "../../Controllers/UserController";
-import {Cart} from "react-bootstrap-icons";
+import {
+    BoxArrowDownLeft,
+    BoxArrowLeft,
+    Cart,
+    Person,
+    PersonCircle,
+    Sliders,
+    Sliders2Vertical
+} from "react-bootstrap-icons";
 import {GetCartItems} from "../../Controllers/CartController";
 
 const NavbarSection = ({index}) => {
@@ -45,22 +53,27 @@ const NavbarSection = ({index}) => {
                             onBlur={(e) => e.target.classList.remove('focus')}
                         />
                         <Nav className="me-auto">
-                            {userData.name ? (
-                                <NavDropdown title={userData.name} id="basic-nav-dropdown">
-                                    <NavDropdown.Item href="/user/profile">Profile</NavDropdown.Item>
-                                    {userData.role === "admin" && <NavDropdown.Item href="/admin/products">Control
-                                        Panel</NavDropdown.Item>}
-                                    <NavDropdown.Divider/>
-                                    <NavDropdown.Item onClick={logout} className="text-danger">
-                                        Logout
-                                    </NavDropdown.Item>
-                                </NavDropdown>
+                            {userData.name ? (<>
+                                    <img
+                                        src={`https://ui-avatars.com/api/?name=${userData.name}&bold=true&rounded=true&background=random&size=100`}
+                                        className="login-img" alt="sfvs" style={{width: '38px', height: '62px'}}/>
+                                    <NavDropdown title={userData.name} id="basic-nav-dropdown">
+                                        <NavDropdown.Item href="/user/profile"><Person
+                                            size={25}/> Profile</NavDropdown.Item>
+                                        {userData.role === "admin" && <NavDropdown.Item href="/admin/products"><Sliders2Vertical size={25}/> Control
+                                            Panel</NavDropdown.Item>}
+                                        <NavDropdown.Divider/>
+                                        <NavDropdown.Item onClick={logout} className="text-danger">
+                                            <BoxArrowLeft size={25}/>  Logout
+                                        </NavDropdown.Item>
+                                    </NavDropdown>
+                                </>
                             ) : (
                                 <Nav.Link
                                     href="/login"
                                     className="nav-text d-flex mt-3 justify-content-center"
-                                >
-                                    <img src={login} className="login-img" alt="sfvs" width={20} height={20}/>
+                                > <img src={login} className="login-img" alt="sfvs"/>
+
                                     <p style={{color: "white"}}>
                                         Login
                                     </p>
@@ -70,19 +83,20 @@ const NavbarSection = ({index}) => {
                             <Nav.Link href="/cart" className="nav-text d-flex mt-3 justify-content-center"
                                       style={{color: 'white'}}>
                                 <div style={{position: 'relative'}}>
-                                    <Cart size={25}/>
+                                    <Cart size={27} style={{marginTop: '-10px'}}/>
 
-                                        <Badge pill bg="danger" className="text-center" style={{
-                                            position: 'absolute',
-                                            top: '-8px',
-                                            right: '-8px',
-                                            width: '20px',
-                                            height: '20px',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center'
-                                        }}>   {itemsCount || 0}
-                                        </Badge>
+                                    {itemsCount && (<Badge pill bg="danger" className="text-center" style={{
+                                        position: 'absolute',
+                                        top: '-8px',
+                                        right: '-8px',
+                                        width: '20px',
+                                        height: '20px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        marginTop: '-10px'
+                                    }}>   {itemsCount}
+                                    </Badge>)}
                                 </div>
                                 <p style={{color: 'white', marginLeft: '5px'}}></p>
                             </Nav.Link>
@@ -91,7 +105,8 @@ const NavbarSection = ({index}) => {
                 </Container>
             </Navbar>
         </>
-    );
+    )
+        ;
 };
 
 export default NavbarSection;

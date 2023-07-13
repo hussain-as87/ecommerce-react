@@ -19,7 +19,7 @@ const CategoryHeader = ({onChangeSearch}) => {
                             />
                             All
                         </label>
-                        {categories?.data?.map((cate) => (
+                        {categories?.data?.slice(0,5).map((cate) => (
                             <label key={cate._id} className="checkbox-label cat-text-header">
                                 <input
                                     type="checkbox"

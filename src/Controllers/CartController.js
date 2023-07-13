@@ -16,7 +16,7 @@ import {getCouponsAction} from "../Redux/Actions/CouponAction";
 export const GetCartItems = () => {
     const dispatch = useDispatch();
     const [page, setPage] = useState(1);
-    const [itemsCount, setItemsCount] = useState(1);
+    const [itemsCount, setItemsCount] = useState(0);
     const {carts, loading} = useSelector((state) => state.carts)
     let pageCount = 0;
     if (carts.paginationResult)

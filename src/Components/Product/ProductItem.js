@@ -1,12 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import {Card, Col} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import WishlistController from "../../Controllers/WishlistController";
 import {Heart, HeartFill, StarFill} from "react-bootstrap-icons"
+import avatar from "../../assets/images/image.png"
+import LimitCharacters from "../../Hooks/LimitCharacters";
 
 const ProductItem = ({product: {_id, imageCover, title, ratingsAverage, price, priceAfterDiscount}}) => {
     const {handleToggleWishlist, isProductInWishlist} = WishlistController({productId: _id});
     const HeartIcon = isProductInWishlist ? HeartFill : Heart;
+      const [isImgError, setIsImgError] = useState(false);
+
+    const handleImageError = () => {
+        setIsImgError(true);
+    };
     return (
         <Col xs="6" sm="6" md="4" lg="3" className="d-flex">
             <Card
@@ -20,8 +27,11 @@ const ProductItem = ({product: {_id, imageCover, title, ratingsAverage, price, p
                     boxShadow: "0 2px 2px 0 rgba(151,151,151,0.5)"
                 }}
             >
-                <Link to={`/products/${_id}`} style={{textDecoration: "none"}}>
-                    <Card.Img style={{height: "228px", width: "100%"}} src={imageCover}/>
+                <Link to={`/products/${_id}`} style={{textDecoration: "none"}}> {isImgError ? (
+                    <Card.Img style={{height: "228px", width: "100%"}} alt="avatar" src={avatar}/>
+                    ) : (
+                    <Card.Img style={{height: "228px", width: "100%"}} src={imageCover} onError={handleImageError}/>
+                )}
                 </Link>
                 <div className="d-flex justify-content-end mx-2 py-2">
                     <HeartIcon size={20} className={isProductInWishlist ? "text-danger" : ""}
@@ -29,7 +39,7 @@ const ProductItem = ({product: {_id, imageCover, title, ratingsAverage, price, p
                 </div>
                 <Card.Body>
                     <Card.Title>
-                        <div className="card-title">{title}</div>
+                        <div className="card-title">{LimitCharacters(title,30)}</div>
                     </Card.Title>
                     <Card.Text>
                         <div className="d-flex justify-content-between">

@@ -21,10 +21,10 @@ const Products = ({index}) => {
                                    onChangeSort={onChangeSort}/>
                 <Row className='d-flex flex-row'>
 
-                    <Col sm="2" xs="2" md="1" className='d-flex py-2'>
+                    <Col sm="12" xs="12" md="3" className='d-flex py-2 '>
                         <SidebarFilter search={search} onChangeSearch={onChangeSearch}/>
                     </Col>
-                    <Col sm="10" xs="10" md="11">
+                    <Col sm="12" xs="12" md="9">
                         <ProductItemContainer title="Prodcuts" btn="More" path="/products" products={products}
                                               loading={loading}/>
                     </Col>

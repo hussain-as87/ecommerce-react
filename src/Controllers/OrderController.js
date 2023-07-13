@@ -12,6 +12,7 @@ import use_notification from "./use_notification";
 import {confirmAlert} from "react-confirm-alert";
 import {destroyCartItemAction, getCartItemsAction} from "../Redux/Actions/CartAction";
 import {toast} from "react-toastify";
+import {useNavigate} from "react-router-dom";
 
 export const GetOrders = () => {
     const dispatch = useDispatch()
@@ -30,32 +31,75 @@ export const GetOrders = () => {
     }, [dispatch])
     return {orders, loading, getPage, pageCount}
 }
-export const GetOrder = (id) => {
+export const GetOrderDetailsAndStatus = (id) => {
     const dispatch = useDispatch()
-    const {order, loading} = useSelector(state => state.orders)
+    const [isCheckedD, setIsCheckedD] = useState(false);
+    const [isCheckedP, setIsCheckedP] = useState(false);
 
+    const {order, loading} = useSelector(state => state.orders)
     useEffect(() => {
         dispatch(getOrderAction(id))
-    }, [id, dispatch])
-    return {order, loading}
+        if (order?.data?.isPaid === true) {
+            setIsCheckedP(true)
+        }
+        if (order?.data?.isDelivered === true) {
+            setIsCheckedD(true)
+        }
+    }, [dispatch, id, order])
+    const handleUpdateToPaid = async (event) => {
+        event.preventDefault()
+        setIsCheckedP(true)
+        dispatch(updateOrderToPaidAction(id))
+    }
+    const handleUpdateToDeliver = async (event) => {
+        event.preventDefault()
+        setIsCheckedD(true)
+        dispatch(updateOrderToDeliverAction(id))
+    }
+
+    return {order, loading, isCheckedD, isCheckedP, handleUpdateToPaid, handleUpdateToDeliver}
 }
 export const CreateOrder = (cartId) => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [isCash, setIsCash] = useState(false)
     const {create, create_error} = useSelector(state => state.orders)
-    const [data, setData] = useState({});
+    const [data, setData] = useState({
+        shippingAddress: {
+            details: "",
+            phone: "",
+            city: "",
+            postalCode: ""
+        }
+    });
     const handlerOnChangeInput = (event) => {
         const {name, value} = event.target
-        setData((prevData) => ({...prevData, [name]: value}));
+        setData(prevData => ({
+            shippingAddress: {...prevData.shippingAddress, [name]: value},
+        }));
+    }
+    const handleChangeValue = () => {
+        setIsCash(!isCash)
     }
     const handleSubmit = async (event) => {
         event.preventDefault()
+        /*if (!isCash) {
+            return navigate('/')
+        }*/
         dispatch(createOrderAction({cartId, formData: data}))
         dispatch(getOrdersAction())
     }
     useEffect(() => {
             if (create?.status === 201) {
+                setData({
+                    shippingAddress: {
+                        details: "",
+                        phone: "",
+                        city: "",
+                        postalCode: ""
+                    }
+                })
                 use_notification("Successfully created!", "success")
-                setData({})
             } else if (create_error?.data) {
                 use_notification("Have an error!", "error")
             }
@@ -63,56 +107,9 @@ export const CreateOrder = (cartId) => {
         ,
         [create?.status, create_error?.data, dispatch]
     )
-    return {create, data, handlerOnChangeInput, handleSubmit}
+    return {data, handlerOnChangeInput, handleSubmit, handleChangeValue, isCash}
 }
-export const UpdateToPaidOrder = (id) => {
-    const dispatch = useDispatch()
-    const {updateToPaid, updateToPaid_error} = useSelector(state => state.orders)
-    const [isCheckedP, setIsCheckedP] = useState(false);
-    const {order} = GetOrder(id)
 
-    useEffect(() => {
-        if (order?.data?.isPaid === true)
-            setIsCheckedP(true)
-    }, [order])
-    const handleUpdateToPaid = async (event) => {
-        event.preventDefault()
-        setIsCheckedP(!isCheckedP)
-        dispatch(updateOrderToPaidAction(id))
-    }
-    useEffect(() => {
-        if (updateToPaid?.status === 200) {
-            use_notification("Successfully updated!", "success")
-        } else if (updateToPaid_error?.data) {
-            use_notification("Have an error!", "error")
-        }
-    }, [updateToPaid, updateToPaid_error, dispatch])
-    return {handleUpdateToPaid, isCheckedP}
-}
-export const UpdateToDeliveredOrder = (id) => {
-    const dispatch = useDispatch()
-    const {updateToDeliver, updateToDeliver_error} = useSelector(state => state.orders)
-    const [isCheckedD, setIsCheckedD] = useState(false);
-    const {order} = GetOrder(id)
-    useEffect(() => {
-        if (order?.data?.isDelivered === true)
-            setIsCheckedD(true)
-    }, [order])
-    const handleUpdateToDeliver = async (event) => {
-        event.preventDefault()
-        setIsCheckedD(!isCheckedD)
-        dispatch(updateOrderToDeliverAction(id))
-    }
-
-    useEffect(() => {
-        if (updateToDeliver?.status === 200) {
-            use_notification("Successfully updated!", "success")
-        } else if (updateToDeliver_error?.data) {
-            use_notification("Have an error!", "error")
-        }
-    }, [updateToDeliver, updateToDeliver_error, dispatch])
-    return {handleUpdateToDeliver, isCheckedD}
-}
 export const GetOrderCheckoutSession = (cartId) => {
     const dispatch = useDispatch()
     const {getCheckoutList, getCheckoutList_error} = useSelector(state => state.orders)
