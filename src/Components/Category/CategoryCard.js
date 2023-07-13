@@ -1,7 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import {Col} from "react-bootstrap";
-
+import avatar from "../../assets/images/image.png"
 const CategoryCard = ({background, img, title}) => {
+    const [isImgError, setIsImgError] = useState(false);
+
+    const handleImageError = () => {
+        setIsImgError(true);
+    };
     return (<>
         <Col
             xs="6"
@@ -14,7 +19,16 @@ const CategoryCard = ({background, img, title}) => {
                     className="categoty-card "
                     style={{backgroundColor: `${background}`}}></div>
                 {" "}
-                <img alt="zcv" src={img} className="categoty-card-img"/>
+                {isImgError ? (
+                    <img alt="avatar" src={avatar} className="categoty-card-img" />
+                ) : (
+                    <img
+                        alt="category"
+                        src={img}
+                        className="categoty-card-img"
+                        onError={handleImageError}
+                    />
+                )}
                 <p className="categoty-card-text my-2">{title}</p>
             </div>
         </Col>

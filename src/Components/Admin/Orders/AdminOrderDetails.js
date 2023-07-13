@@ -1,19 +1,14 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {Card, Col, Form, Row} from "react-bootstrap";
 
-import {
-    GetOrder,
-    UpdateToDeliveredOrder,
-    UpdateToPaidOrder,
-} from "../../../Controllers/OrderController";
+import {GetOrderDetailsAndStatus} from "../../../Controllers/OrderController";
 import {StarFill} from "react-bootstrap-icons";
 
 const AdminOrderDetails = () => {
-    const { id } = useParams();
-    const { order } = GetOrder(id);
-    const { handleUpdateToPaid, isCheckedP } = UpdateToPaidOrder(id);
-    const { handleUpdateToDeliver, isCheckedD } = UpdateToDeliveredOrder(id);
+    const {id} = useParams();
+    const {order, isCheckedP, isCheckedD,handleUpdateToPaid,handleUpdateToDeliver} = GetOrderDetailsAndStatus(id);
+
 
     return (
         <>
@@ -42,6 +37,7 @@ const AdminOrderDetails = () => {
                             label="Is Paid"
                             onChange={handleUpdateToPaid}
                             checked={isCheckedP}
+                            disabled={isCheckedP}
                         />
                         <Form.Check
                             name="isDelivered"
@@ -50,6 +46,7 @@ const AdminOrderDetails = () => {
                             label="Is Delivered"
                             onChange={handleUpdateToDeliver}
                             checked={isCheckedD}
+                            disabled={isCheckedD}
                         />
                     </div>
                 </Col>
@@ -61,13 +58,13 @@ const AdminOrderDetails = () => {
                             <Col xs="9" md="10">
                                 <div className="cart-item-title">{item?.product?.title}</div>
                                 <div className="cart-item-rating">
-                                    {item?.product?.ratingsAverage} <StarFill size={17} className="text-warning" />
+                                    {item?.product?.ratingsAverage} <StarFill size={17} className="text-warning"/>
                                     <span className="rate-count">({item?.product?.ratingQuantity} ratings)</span>
                                 </div>
                                 <div className="cart-item-quantity">Quantity: {item?.quantity}</div>
                             </Col>
                             <Col xs="3" md="2" className="d-flex justify-content-end">
-                                <img width="93px" height="120px" src={item?.product?.imageCover} alt="" />
+                                <img width="93px" height="120px" src={item?.product?.imageCover} alt=""/>
                             </Col>
                         </Row>
                     </Card>
