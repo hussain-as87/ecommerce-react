@@ -61,7 +61,6 @@ export const GetOrderDetailsAndStatus = (id) => {
 }
 export const CreateOrder = (cartId) => {
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const [isCash, setIsCash] = useState(false)
     const {create, create_error} = useSelector(state => state.orders)
     const [data, setData] = useState({
@@ -72,6 +71,7 @@ export const CreateOrder = (cartId) => {
             postalCode: ""
         }
     });
+    const {getCheckoutList, getCheckoutList_error} = GetOrderCheckoutSession(cartId)
     const handlerOnChangeInput = (event) => {
         const {name, value} = event.target
         setData(prevData => ({
@@ -83,9 +83,12 @@ export const CreateOrder = (cartId) => {
     }
     const handleSubmit = async (event) => {
         event.preventDefault()
-        /*if (!isCash) {
-            return navigate('/')
-        }*/
+        if (!isCash) {
+            if (getCheckoutList) {
+                console.log(getCheckoutList)
+                return window.location.href = getCheckoutList.session.url
+            }
+        }
         dispatch(createOrderAction({cartId, formData: data}))
         dispatch(getOrdersAction())
     }
@@ -100,12 +103,12 @@ export const CreateOrder = (cartId) => {
                     }
                 })
                 use_notification("Successfully created!", "success")
-            } else if (create_error?.data) {
+            } else if (create_error?.data || getCheckoutList_error?.data) {
                 use_notification("Have an error!", "error")
             }
         }
         ,
-        [create?.status, create_error?.data, dispatch]
+        [create?.status, create_error?.data, getCheckoutList_error]
     )
     return {data, handlerOnChangeInput, handleSubmit, handleChangeValue, isCash}
 }
