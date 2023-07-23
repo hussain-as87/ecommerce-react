@@ -1,13 +1,11 @@
 import React from 'react'
 import {Row, Col} from 'react-bootstrap'
 import AdminSideBar from "../../Components/Admin/AdminSideBar";
-import AdminAddCoupon from "../../Components/Admin/Coupons/AdminAddCoupon";
 import {Route, Routes} from "react-router-dom";
 import AdminProductsPage from "./AdminProductsPage";
 import AdminOrdersPage from "./AdminOrdersPage";
 import AdminOrderDetailsPage from "./AdminOrderDetailsPage";
 import AdminCreateProductPage from "./AdminCreateProductPage";
-import AdminEditProductPage from "./AdminEditProductPage";
 import AdminCreateBrandPage from "./AdminCreateBrandPage";
 import AdminCreateCategoryPage from "./AdminCreateCategoryPage";
 import AdminCreateSubCategoryPage from "./AdminCreateSubCategoryPage";
@@ -26,7 +24,6 @@ const Layout = () => {
                     <Route path="/admin/orders" element={<AdminOrdersPage/>}/>
                     <Route path="/admin/orders/:id" element={<AdminOrderDetailsPage/>}/>
                     <Route path="/admin/products/create" element={<AdminCreateProductPage/>}/>
-                    <Route path="/admin/products/edit/:id" element={<AdminEditProductPage/>}/>
                     <Route path="/admin/brands/create" element={<AdminCreateBrandPage/>}/>
                     <Route path="/admin/categories/create" element={<AdminCreateCategoryPage/>}/>
                     <Route path="/admin/subcategories/create" element={<AdminCreateSubCategoryPage/>}/>

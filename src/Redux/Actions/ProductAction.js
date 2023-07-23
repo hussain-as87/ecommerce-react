@@ -24,7 +24,7 @@ const token = localStorage.getItem('token') || "";
  * @return data object
  * @static true
  */
-export const getProducts = ({limit, page, sort, search, keyword}) => async (dispatch) => {
+export const getProductsAction = ({limit, page, sort, search, keyword}) => async (dispatch) => {
     try {
         const response = await use_get_data(`${url}?limit=${limit}&page=${page}&keyword=${keyword || ''}&sort=${sort}&${search}`);
         dispatch({type: GET_ALL_PRODUCTS, payload: response});
@@ -38,7 +38,7 @@ export const getProducts = ({limit, page, sort, search, keyword}) => async (disp
  * @return data object
  * @static true
  */
-export const getProductsBySold = ({limit, page}) => async (dispatch) => {
+export const getProductsBySoldAction = ({limit, page}) => async (dispatch) => {
     try {
         const response = await use_get_data(`${url}?limit=${limit}&page=${page}&sort=-sold`);
         dispatch({type: GET_PRODUCTS_BY_SOLD, payload: response});
@@ -52,7 +52,7 @@ export const getProductsBySold = ({limit, page}) => async (dispatch) => {
  * @return data object
  * @static true
  */
-export const destroyProduct = (id) => async (dispatch) => {
+export const destroyProductAction = (id) => async (dispatch) => {
     try {
         const response = await use_delete_data(`${url}/${id}`, {
             headers: {Authorization: `Bearer ${token}`},
@@ -68,7 +68,7 @@ export const destroyProduct = (id) => async (dispatch) => {
  * @return data object
  * @static true
  */
-export const getProductsByCategory = (catId) => async (dispatch) => {
+export const getProductsByCategoryAction = (catId) => async (dispatch) => {
     try {
         const response = await use_get_data(`${url}?limit=4&page=1&sort=-createdAt&category.name=${catId}`, {
             headers: {Authorization: `Bearer ${token}`},
@@ -84,7 +84,7 @@ export const getProductsByCategory = (catId) => async (dispatch) => {
  * @return data object
  * @static true
  */
-export const getProduct = (id) => async (dispatch) => {
+export const getProductAction = (id) => async (dispatch) => {
     try {
         const response = await use_get_data(`${url}/${id}`);
         dispatch({type: GET_PRODUCT, payload: response});
@@ -99,7 +99,7 @@ export const getProduct = (id) => async (dispatch) => {
  * @return data object
  * @static true
  */
-export const createProduct = (formData) => async (dispatch) => {
+export const createProductAction = (formData) => async (dispatch) => {
     try {
         const response = await use_post_data(url, formData, {
             headers: {
@@ -119,7 +119,7 @@ export const createProduct = (formData) => async (dispatch) => {
  * @return data object
  * @static true
  */
-export const updateProduct = ({id, formData}) => async (dispatch) => {
+export const editProductAction = ({id, formData}) => async (dispatch) => {
     try {
         const response = await use_put_data(`${url}/${id}`, formData, {
             headers: {

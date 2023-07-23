@@ -23,8 +23,6 @@ import UserAddressesPage from "./Pages/User/Addresses/UserAddressesPage";
 import UserCreateAddressPage from "./Pages/User/Addresses/UserCreateAddressPage";
 import UserEditAddressPage from "./Pages/User/Addresses/UserEditAddressPage";
 import UserProfilePage from "./Pages/User/UserProfilePage";
-import AdminEditProductPage from "./Pages/Admin/AdminEditProductPage";
-import IndexProductForm from "./Controllers/Product/IndexProductForm";
 import ForgetPassword from "./Pages/Auth/ForgetPassword";
 import VerifyRestPassword from "./Pages/Auth/VerifyRestPassword";
 import RestPassword from "./Pages/Auth/ResetCodePassword";
@@ -32,10 +30,15 @@ import AdminCreateCouponPage from "./Pages/Admin/AdminCreateCouponPage";
 import Layout from "./Pages/Admin/Layout";
 import {ProtectedAuthRoute} from "./Controllers/AuthController";
 import ProtectedRoute from "./Components/Utility/ProtectedRoute";
+import AdminProfilePage from "./Pages/Admin/AdminProfilePage";
+import {GetProducts} from "./Controllers/ProductController";
+import AdminCategoriesPage from "./Pages/Admin/AdminCategoriesPage";
+import AdminBrandsPage from "./Pages/Admin/AdminBrandsPage";
+import AdminSubcategoriesPage from "./Pages/Admin/AdminSubcategoriesPage";
 
 
 function App() {
-    const indexProductForm = IndexProductForm()
+    const indexProductForm = GetProducts()
     const {isAdmin, isUser, userData} = ProtectedAuthRoute()
 
 
@@ -61,14 +64,17 @@ function App() {
                     <Route element={<ProtectedRoute auth={isAdmin}/>}>
                         <Route path="/admin/" element={<Layout/>}/>
                         <Route path="/admin/products" element={<AdminProductsPage/>}/>
+                        <Route path="/admin/categories" element={<AdminCategoriesPage/>}/>
+                        <Route path="/admin/brands" element={<AdminBrandsPage/>}/>
+                        <Route path="/admin/subcategories" element={<AdminSubcategoriesPage/>}/>
                         <Route path="/admin/orders" element={<AdminOrdersPage/>}/>
                         <Route path="/admin/orders/:id" element={<AdminOrderDetailsPage/>}/>
                         <Route path="/admin/products/create" element={<AdminCreateProductPage/>}/>
-                        <Route path="/admin/products/edit/:id" element={<AdminEditProductPage/>}/>
                         <Route path="/admin/brands/create" element={<AdminCreateBrandPage/>}/>
                         <Route path="/admin/categories/create" element={<AdminCreateCategoryPage/>}/>
                         <Route path="/admin/subcategories/create" element={<AdminCreateSubCategoryPage/>}/>
                         <Route path="/admin/coupons/create" element={<AdminCreateCouponPage/>}/>
+                        <Route path="/admin/profile" element={<AdminProfilePage/>}/>
                     </Route>
 
 

@@ -44,8 +44,8 @@ export const CreateCoupon = () => {
         expire: "",
         discount: ""
     })
-    const {create, create_error} = useSelector((state) => state.coupons)
-
+    const {coupons, create, create_error} = useSelector((state) => state.coupons)
+    const currentPage = coupons?.paginationResult?.currentPage
     const handlerOnChangeInput = (event) => {
         const {name, value} = event.target
         setData((prevData) => ({...prevData, [name]: value}));
@@ -55,7 +55,7 @@ export const CreateCoupon = () => {
         event.preventDefault()
         setIsPress(true)
         await dispatch(createCouponAction(data));
-        await dispatch(getCouponsAction({limit: 2, page: 1}))
+        await dispatch(getCouponsAction({limit: 2, page: currentPage}))
     }
     useEffect(() => {
         if (create_error?.data?.status === "error") {
@@ -119,7 +119,6 @@ export const EditCoupon = (id) => {
         await dispatch(editCouponAction({id, formData: data}));
         await dispatch(getCouponsAction({limit: 2, page: 1}))
     };
-    console.log(edit_error)
     useEffect(() => {
         if (edit.status === 200) {
             setIsPress(false);

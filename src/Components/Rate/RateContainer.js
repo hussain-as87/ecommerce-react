@@ -25,9 +25,7 @@ const RateContainer = ({productId, product}) => {
             </Row>
             <RatePost/>
             {reviews?.data?.map(review =><RateItem review={review}/>)}
-            {
-                pageCount > 1 && (<Pagination pageCount={pageCount} onPress={getPage}/>)
-            }
+            {pageCount > 1 && (<Pagination pageCount={pageCount} onPress={getPage}/>)}
         </Container>
     )
 }

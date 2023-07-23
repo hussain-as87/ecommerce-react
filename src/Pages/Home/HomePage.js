@@ -3,12 +3,11 @@ import HomeCategory from "../../Components/Home/HomeCategory";
 import ProductHomeItemContainer from "../../Components/Product/ProductHomeItemContainer";
 import DiscountSection from "../../Components/Home/DiscountSection";
 import BrandFeatured from "../../Components/Brand/BrandFeature";
-import IndexHomeProductForm from "../../Controllers/Product/IndexHomeProductForm";
-import IndexTopSoldProductsForm from "../../Controllers/Product/IndexTopSoldProductsForm";
+import {GetProducts, GetProductsBySold} from "../../Controllers/ProductController";
 
 const HomePage = () => {
-    const {products, loading} = IndexHomeProductForm();
-    const {soldProducts, loadingS} = IndexTopSoldProductsForm();
+    const {products, loading} = GetProducts();
+    const {soldProducts, loadingS} = GetProductsBySold();
     return (
         <>
             <Slider/>

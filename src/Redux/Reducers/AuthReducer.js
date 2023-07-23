@@ -23,6 +23,7 @@ const initialState = {
     verifyRestPassword_error: [],
     restPassword_error: [],
     loading: true,
+    error: [],
 };
 
 const AuthReducer = (state = initialState, action) => {
@@ -38,18 +39,23 @@ const AuthReducer = (state = initialState, action) => {
         case AUTH_REST_PASSWORD:
             return { ...state, restPassword: action.payload, loading: false };
         case AS_ERROR:
-            return { ...state, signup_error: action.payload, loading: false };
+            return { ...state, error: action.payload, loading: false };
         case AL_ERROR:
-            return { ...state, login_error: action.payload, loading: false };
+            return { ...state, error: action.payload, loading: false };
         case AF_ERROR:
-            return { ...state, forgetPassword_error: action.payload, loading: false };
+            return { ...state, error: action.payload, loading: false };
         case AV_ERROR:
-            return { ...state, verifyRestPassword_error: action.payload, loading: false };
+            return { ...state, error: action.payload, loading: false };
         case AR_ERROR:
-            return { ...state, restPassword_error: action.payload, loading: false };
+            return { ...state, error: action.payload, loading: false };
         default:
             return state;
     }
 };
-
+/*
+* signup_error
+login_error
+forgetPassword_error
+verifyRestPassword_error
+restPassword_error*/
 export default AuthReducer;

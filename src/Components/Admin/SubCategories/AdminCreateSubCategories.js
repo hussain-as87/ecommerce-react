@@ -1,7 +1,7 @@
 import {Button, Col, Row, Spinner, Form, FloatingLabel, Container, Card} from "react-bootstrap";
 import React from "react";
-import CreateSubcategoryForm from "../../../Controllers/Subcategory/Admin/CreateSubcategoryForm";
 import {Check2Circle} from "react-bootstrap-icons";
+import {CreateSubcategory} from "../../../Controllers/SubcategoryController";
 
 const AdminCreateSubCategories = () => {
     const {
@@ -11,7 +11,7 @@ const AdminCreateSubCategories = () => {
         isPress,
         categories,
         errors
-    } = CreateSubcategoryForm()
+    } = CreateSubcategory()
     return (
         <Container>
             <Card>

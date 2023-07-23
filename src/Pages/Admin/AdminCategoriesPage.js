@@ -1,11 +1,11 @@
 import {Col, Row} from "react-bootstrap";
 import AdminSideBar from "../../Components/Admin/AdminSideBar";
-import AdminProductsContainer from "../../Components/Admin/Products/AdminProductsContainer";
 import Pagination from "../../Components/Utility/Pagination";
-import {GetProducts} from "../../Controllers/ProductController";
+import {GetCategories} from "../../Controllers/CategoryController";
+import AdminCategoriesContainer from "../../Components/Admin/Categories/AdminCategoriesContainer";
 
 const AdminProductsPage = () => {
-    const {products, loading, getPage, pageCount} = GetProducts()
+    const {categories, loading, getPage, pageCount} = GetCategories()
     return (
         <Row className='py-3'>
             <Col sm="4" xs="3" md="3">
@@ -13,7 +13,7 @@ const AdminProductsPage = () => {
             </Col>
 
             <Col sm="8" xs="9" md="9">
-                <AdminProductsContainer products={products} loading={loading}/>
+                <AdminCategoriesContainer categories={categories} loading={loading}/>
                 {pageCount > 1 && <Pagination pageCount={pageCount} onPress={getPage}/>}
             </Col>
         </Row>

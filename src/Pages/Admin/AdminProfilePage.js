@@ -1,19 +1,19 @@
 import {Col, Row} from "react-bootstrap";
 import AdminSideBar from "../../Components/Admin/AdminSideBar";
-import AdminEditProduct from "../../Components/Admin/Products/AdminEditProduct";
+import UserProfile from "../../Components/User/UserProfile";
 
-const AdminCreateProductPage = () => {
+const AdminCreateBrandPage = () => {
     return (
-        <Row className='py-3'>
+        <Row className='py-3 pb-3'>
             <Col sm="4" xs="3" md="3">
                 <AdminSideBar/>
             </Col>
 
             <Col sm="8" xs="9" md="9">
-                <AdminEditProduct/>
+                <UserProfile/>
             </Col>
         </Row>
     )
 }
 
-export default AdminCreateProductPage
+export default AdminCreateBrandPage

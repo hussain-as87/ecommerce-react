@@ -1,10 +1,10 @@
 import React from 'react'
 import {Container, Row, Col} from 'react-bootstrap'
-import IndexCategoryForm from "../../Controllers/Category/IndexCategoryForm";
 import {Link} from "react-router-dom";
+import {GetCategories} from "../../Controllers/CategoryController";
 
 const CategoryHeader = ({onChangeSearch}) => {
-    const {categories} = IndexCategoryForm();
+    const {categories} = GetCategories();
     return (
         <div className="cat-header">
             <Container>

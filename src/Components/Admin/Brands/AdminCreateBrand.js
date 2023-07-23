@@ -1,10 +1,10 @@
-import {Button, Col, Row, Spinner, Form, FloatingLabel, Card, Container} from "react-bootstrap";
+import {Button, Spinner, Form, FloatingLabel, Card, Container} from "react-bootstrap";
 import React from "react";
-import CreateBrandForm from "../../../Controllers/Brand/Admin/CreateBrandForm";
 import {Check2Circle} from "react-bootstrap-icons";
+import {CreateBrand} from "../../../Controllers/BarandController";
 
 const AdminCreateBrand = () => {
-    const {name, onChangeName, img, handleSubmit, isPress, onChangeImage, errors} = CreateBrandForm();
+    const {name, onChangeName, img, handleSubmit, isPress, onChangeImage, errors} = CreateBrand();
     return (<Container>
             <Card className="">
                 <Card.Body>

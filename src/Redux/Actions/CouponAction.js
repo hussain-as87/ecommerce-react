@@ -13,9 +13,25 @@ const token = localStorage.getItem('token') || "";
  * @return data object
  * @static true
  */
-export const getCouponsAction = ({limit,page,name}) => async (dispatch) => {
+export const getCouponsAction = ({limit,page}) => async (dispatch) => {
     try {
-        const response = await use_get_data(`${url}?name=${name||''}&limit=${limit||2}&page=${page||1}&sort=-updatedAt`,{
+        const response = await use_get_data(`${url}?limit=${limit||2}&page=${page||1}&sort=-updatedAt`,{
+            headers: {Authorization: `Bearer ${token}`},
+        });
+        dispatch({type: GET_ALL_COUPONS, payload: response, loading: true});
+    } catch (error) {
+        console.log(error);
+        dispatch({type: COG_ERROR, payload: error});
+    }
+};
+/**
+ * @method GET
+ * @return data object
+ * @static true
+ */
+export const getCouponByNameAction = (name) => async (dispatch) => {
+    try {
+        const response = await use_get_data(`${url}?name=${name}`,{
             headers: {Authorization: `Bearer ${token}`},
         });
         dispatch({type: GET_ALL_COUPONS, payload: response, loading: true});

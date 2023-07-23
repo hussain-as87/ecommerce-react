@@ -11,7 +11,7 @@ import {
 import use_notification from "./use_notification";
 import {confirmAlert} from "react-confirm-alert";
 import {toast} from "react-toastify";
-import {getCouponsAction} from "../Redux/Actions/CouponAction";
+import {getCouponByNameAction, getCouponsAction} from "../Redux/Actions/CouponAction";
 
 export const GetCartItems = () => {
     const dispatch = useDispatch();
@@ -100,9 +100,9 @@ export const ApplyCouponOnCart = () => {
         coupon: ''
     });
     const {applyCoupon, applyCoupon_error} = useSelector((state) => state.carts);
-    const {coupons} = useSelector((state) => state.coupons);
+    const {couponByName} = useSelector((state) => state.coupons);
     useEffect(() => {
-        dispatch(getCouponsAction({name: data?.coupon}))
+        dispatch(getCouponByNameAction(data?.coupon))
     }, [data?.coupon, dispatch])
     const handlerOnChangeInput = (event) => {
         const {name, value} = event.target;
@@ -112,7 +112,7 @@ export const ApplyCouponOnCart = () => {
     const applyHandler = async (event) => {
         event.preventDefault();
         await dispatch(applyCouponOnCartAction(data));
-        setDiscountValue(coupons.result === 1 ? coupons.data[0].discount : 0)
+        setDiscountValue(couponByName.result === 1 ? couponByName.data[0].discount : 0)
         await dispatch(getCartItemsAction({limit: 500, page: 1}));
     };
     useEffect(() => {

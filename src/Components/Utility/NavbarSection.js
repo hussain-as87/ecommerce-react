@@ -58,7 +58,7 @@ const NavbarSection = ({index}) => {
                                         src={`https://ui-avatars.com/api/?name=${userData.name}&bold=true&rounded=true&background=random&size=100`}
                                         className="login-img" alt="sfvs" style={{width: '38px', height: '62px'}}/>
                                     <NavDropdown title={userData.name} id="basic-nav-dropdown">
-                                        <NavDropdown.Item href="/user/profile"><Person
+                                        <NavDropdown.Item href={`/${userData.role}/profile`}><Person
                                             size={25}/> Profile</NavDropdown.Item>
                                         {userData.role === "admin" && <NavDropdown.Item href="/admin/products"><Sliders2Vertical size={25}/> Control
                                             Panel</NavDropdown.Item>}

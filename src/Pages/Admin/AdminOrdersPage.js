@@ -9,7 +9,6 @@ const AdminOrdersPage = () => {
     const {orders, pageCount, getPage} = GetOrders()
 
     return (
-        <Container>
             <Row className='py-3'>
                 <Col sm="4" xs="3" md="3">
                     <AdminSideBar/>
@@ -19,8 +18,6 @@ const AdminOrdersPage = () => {
                     <AdminOrdersContainer orders={orders.data}/>
                     {pageCount > 1 && (<Pagination pageCount={pageCount} onPress={getPage}/>)}            </Col>
             </Row>
-        </Container>
-
     )
 }
 export default AdminOrdersPage

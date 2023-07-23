@@ -3,10 +3,9 @@ import {Button, Card, Col, Container, FloatingLabel, Form, Row, Spinner} from "r
 import {Multiselect} from "multiselect-react-dropdown";
 import MultiImageInput from "react-multiple-image-input";
 import {CompactPicker} from "react-color";
-import CreateProductForm from "../../../Controllers/Product/Admin/CreateProductForm";
-
 import add from "../../../assets/images/add.png";
 import {Check2Circle} from "react-bootstrap-icons";
+import {CreateProduct} from "../../../Controllers/ProductController";
 
 const AdminCreateProduct = () => {
     const {
@@ -24,16 +23,11 @@ const AdminCreateProduct = () => {
         setImages,
         crop,
         subcategoryOptions,
-        handleTitleChange,
-        handleDescriptionChange,
-        handlePriceChange,
-        handleQuantityChange,
-        handleCategoryChange,
         handleSubcategorySelect,
         handleSubcategoryRemove,
-        handleBrandChange,
+        handleInputChange,
         errors
-    } = CreateProductForm();
+    } = CreateProduct();
     const handleError = (e) => console.log(e)
     return (
         <Container>
@@ -59,9 +53,9 @@ const AdminCreateProduct = () => {
                                 <Form.Control type="text"
                                               id="title"
                                               placeholder="the title of the product"
-                                              name="name"
+                                              name="title"
                                               className={errors.some(error => error.param === "title") && 'is-invalid'}
-                                              onChange={handleTitleChange}
+                                              onChange={handleInputChange}
                                               value={data.title}/>
                                 {errors.some(error => error.param === "title") &&
                                     <Form.Text className="text-danger">
@@ -75,12 +69,13 @@ const AdminCreateProduct = () => {
                             <FloatingLabel controlId="description" label="Description">
                                 <Form.Control
                                     id="description"
+                                    name="description"
                                     as="textarea"
                                     placeholder="Enter the description"
                                     className={errors.some(error => error.param === "description") && 'is-invalid'}
                                     style={{height: '100px'}}
                                     value={data.description}
-                                    onChange={handleDescriptionChange}
+                                    onChange={handleInputChange}
                                 />
                                 {errors.some(error => error.param === "description") &&
                                     <Form.Text className="text-danger">
@@ -98,7 +93,7 @@ const AdminCreateProduct = () => {
                                     type="number"
                                     placeholder="Price"
                                     value={data.price}
-                                    onChange={handlePriceChange}
+                                    onChange={handleInputChange}
                                 />
                                 {errors.some(error => error.param === "price") &&
                                     <Form.Text className="text-danger">
@@ -117,7 +112,7 @@ const AdminCreateProduct = () => {
                                     type="number"
                                     placeholder="Available quantity"
                                     value={data.quantity}
-                                    onChange={handleQuantityChange}
+                                    onChange={handleInputChange}
                                 />
                                 {errors.some(error => error.param === "quantity") &&
                                     <Form.Text className="text-danger">
@@ -132,7 +127,7 @@ const AdminCreateProduct = () => {
                                     id="category"
                                     name="category"
                                     value={data.category}
-                                    onChange={handleCategoryChange}
+                                    onChange={handleInputChange}
                                     className={errors.some(error => error.param === "category") && 'is-invalid'}
                                 >
                                     <option value="val">Choose category</option>
@@ -153,7 +148,7 @@ const AdminCreateProduct = () => {
                         <Form.Group>
                             <Multiselect
                                 id="subcategory"
-                                className={"form-control select" + errors.some(error => error.param === "subcategory") && 'is-invalid'}
+                                className={`form-control select ${errors.some(error => error.param === "subcategory") && 'is-invalid'}` }
                                 placeholder={subcategoryOptions.length < 1 && "Subcategory"}
                                 options={Array.isArray(subcategoryOptions) ? subcategoryOptions : []}
                                 selectedValues={data.subCategory}
@@ -176,7 +171,7 @@ const AdminCreateProduct = () => {
                                     name="brand"
                                     id="brand"
                                     value={data.brand}
-                                    onChange={handleBrandChange}
+                                    onChange={handleInputChange}
                                     className={errors.some(error => error.param === "brand") && 'is-invalid'}
                                 >
                                     <option value="val">Choose brand</option>
