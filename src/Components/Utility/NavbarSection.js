@@ -5,12 +5,9 @@ import login from "../../assets/images/login.png"
 import {useEffect, useState} from "react";
 import {GetLoggedUser} from "../../Controllers/UserController";
 import {
-    BoxArrowDownLeft,
     BoxArrowLeft,
     Cart,
     Person,
-    PersonCircle,
-    Sliders,
     Sliders2Vertical
 } from "react-bootstrap-icons";
 import {GetCartItems} from "../../Controllers/CartController";
@@ -31,6 +28,8 @@ const NavbarSection = ({index}) => {
         setUserData(parsedUser || {});
     }, [parsedUser]);
     const {carts, itemsCount} = GetCartItems()
+
+
     return (
         <>
             <Navbar className="sticky-top" bg="dark" variant="dark" expand="sm">
@@ -85,7 +84,7 @@ const NavbarSection = ({index}) => {
                                 <div style={{position: 'relative'}}>
                                     <Cart size={27} style={{marginTop: '-10px'}}/>
 
-                                    {itemsCount && (<Badge pill bg="danger" className="text-center" style={{
+                                    {(itemsCount && userData.role==="user") && (<Badge pill bg="danger" className="text-center" style={{
                                         position: 'absolute',
                                         top: '-8px',
                                         right: '-8px',

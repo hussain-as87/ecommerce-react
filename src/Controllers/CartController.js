@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useMemo} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {
     createCartItemAction,
@@ -11,35 +11,42 @@ import {
 import use_notification from "./use_notification";
 import {confirmAlert} from "react-confirm-alert";
 import {toast} from "react-toastify";
-import {getCouponByNameAction, getCouponsAction} from "../Redux/Actions/CouponAction";
+import {getCouponByNameAction} from "../Redux/Actions/CouponAction";
 
 export const GetCartItems = () => {
+    const storedUser = useMemo(() => localStorage.getItem('user'), []);
+    const parsedUser = useMemo(() => (storedUser ? JSON.parse(storedUser) : null), []);
+
     const dispatch = useDispatch();
     const [page, setPage] = useState(1);
-    const [itemsCount, setItemsCount] = useState(0);
-    const {carts, loading} = useSelector((state) => state.carts)
-    let pageCount = 0;
-    if (carts.paginationResult)
-        pageCount = carts.paginationResult.numberOfPages
+
+    const { carts, loading } = useSelector((state) => state.carts);
+
+    const pageCount = useMemo(() => (carts.paginationResult ? carts.paginationResult.numberOfPages : 0), [carts.paginationResult]);
+    const itemsCount = useMemo(() => carts?.numberCartItems || 0, [carts?.numberCartItems]);
+
     const getPage = async (page) => {
-        await setPage(page)
-    }
+        await setPage(page);
+    };
+
     useEffect(() => {
-        dispatch(getCartItemsAction({page: page, limit: 4}))
-        setItemsCount(carts?.numberCartItems)
-    }, [carts, dispatch, page])
-    return {carts, loading, pageCount, getPage, itemsCount}
-}
+        dispatch(getCartItemsAction({ page: page, limit: 4 }));
+    }, [dispatch, page, parsedUser]);
+
+    return { carts, loading, pageCount, getPage, itemsCount };
+};
 export const CreateCartItem = (productId) => {
     const dispatch = useDispatch();
+    const storedUser = localStorage.getItem("user");
+    const parsedUser = storedUser ? JSON.parse(storedUser) : null;
     const [isPress, setIsPress] = useState(false)
     const [data, setData] = useState({
         productId: "",
         color: ""
     })
-    useEffect(()=>{
+    useEffect(() => {
         setData((prevData) => ({...prevData, productId: productId}));
-    },[productId])
+    }, [productId])
     const {create, create_error} = useSelector((state) => state.carts)
     const handlerOnChangeInput = (event) => {
         const {name, value} = event.target
@@ -47,6 +54,15 @@ export const CreateCartItem = (productId) => {
     }
     const handleSubmit = async (event) => {
         event.preventDefault()
+        if (parsedUser?.role === "admin") {
+            use_notification("You not allowed to add item to cart!", "warn")
+            return
+        } else if (parsedUser === null) {
+            use_notification("Please login!", "error")
+            setTimeout(() => window.location.href = "/login", 1000)
+            return
+        }
+
         setIsPress(true)
         await dispatch(createCartItemAction(data));
         await dispatch(getCartItemsAction({limit: 500, page: 1}));
@@ -89,7 +105,7 @@ export const EditCartItemsQuantity = (id, quantity) => {
     useEffect(() => {
         dispatch(editCartItemAction({id, formData: data}));
         dispatch(getCartItemsAction({limit: 4, page: 1}));
-    }, [data, dispatch, id]);
+    }, [data, data.quantity, dispatch, id]);
     return {handlerOnChangeInput, data, inc, dec};
 
 }
@@ -108,9 +124,18 @@ export const ApplyCouponOnCart = () => {
         const {name, value} = event.target;
         setData((prevData) => ({...prevData, [name]: value}));
     };
-
+    const storedUser = localStorage.getItem("user");
+    const parsedUser = storedUser ? JSON.parse(storedUser) : null;
     const applyHandler = async (event) => {
         event.preventDefault();
+        if (parsedUser?.role === "admin") {
+            use_notification("You not allowed to add item to cart!", "warn")
+            return
+        } else if (parsedUser === null) {
+            use_notification("Please login!", "error")
+            setTimeout(() => window.location.href = "/login", 1000)
+            return
+        }
         await dispatch(applyCouponOnCartAction(data));
         setDiscountValue(couponByName.result === 1 ? couponByName.data[0].discount : 0)
         await dispatch(getCartItemsAction({limit: 500, page: 1}));
@@ -127,6 +152,8 @@ export const ApplyCouponOnCart = () => {
 }
 export const DestroyCartItem = (id) => {
     const dispatch = useDispatch();
+    const storedUser = localStorage.getItem("user");
+    const parsedUser = storedUser ? JSON.parse(storedUser) : null;
     const deleteHandler = (e) => {
         e.preventDefault();
         confirmAlert({
@@ -137,6 +164,14 @@ export const DestroyCartItem = (id) => {
                     label: "Yes",
                     style: {backgroundColor: 'red'},
                     onClick: async () => {
+                        if (parsedUser?.role === "admin") {
+                            use_notification("You not allowed to add item to cart!", "warn")
+                            return
+                        } else if (parsedUser === null) {
+                            use_notification("Please login!", "error")
+                            setTimeout(() => window.location.href = "/login", 1000)
+                            return
+                        }
                         await dispatch(destroyCartItemAction(id));
                         await dispatch(getCartItemsAction({limit: 4, page: 1}));
                         use_notification("Successfully deleted!", "success");
@@ -164,6 +199,8 @@ export const DestroyCartItem = (id) => {
 }
 export const ClearCartItems = () => {
     const dispatch = useDispatch();
+    const storedUser = localStorage.getItem("user");
+    const parsedUser = storedUser ? JSON.parse(storedUser) : null;
     const clearHandler = (e) => {
         e.preventDefault();
         confirmAlert({
@@ -174,6 +211,14 @@ export const ClearCartItems = () => {
                     label: "Yes",
                     style: {backgroundColor: 'red'},
                     onClick: async () => {
+                        if (parsedUser?.role === "admin") {
+                            use_notification("You not allowed to add item to cart!", "warn")
+                            return
+                        } else if (parsedUser === null) {
+                            use_notification("Please login!", "error")
+                            setTimeout(() => window.location.href = "/login", 1000)
+                            return
+                        }
                         await dispatch(clearCartItemsAction());
                         use_notification("Successfully deleted!", "success");
                         window.location.reload();

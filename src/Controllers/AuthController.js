@@ -76,8 +76,8 @@ export const SignupUser = () => {
         localStorage.removeItem("user");
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.data));
-handleLocalStorage(response.data.token)
-         navigate("/");
+        handleLocalStorage(response.data.token)
+        navigate("/");
     }
     return useAuth(signupAction, response, initialState, successMessage);
 };
@@ -98,7 +98,7 @@ export const LoginUser = () => {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.data));
 
-         navigate("/");
+        navigate("/");
     }
     return useAuth(loginAction, response, initialState, successMessage);
 };
@@ -115,7 +115,7 @@ export const ForgetPasswordUser = () => {
     const successMessage = () => {
         localStorage.setItem("email", response.email);
         use_notification("the code has sent to your email!", "success");
-         navigate("/verifyResetPassword");
+        navigate("/verifyResetPassword");
     }
     return useAuth(forgetPasswordAction, response, initialState, successMessage);
 };
@@ -131,7 +131,7 @@ export const VerifyRestPasswordUser = () => {
     const response = useSelector((state) => state.auth.verifyRestPassword);
     const successMessage = () => {
         use_notification("the code has verified!", "success");
-         navigate("/resetPassword");
+        navigate("/resetPassword");
     }
     return useAuth(verifyRestPasswordAction, response, initialState, successMessage);
 };
@@ -151,35 +151,9 @@ export const RestPasswordUser = () => {
         localStorage.removeItem("email");
         localStorage.setItem("token", response.data.token);
         use_notification("the password has changed successfully!", "success");
-         navigate("/");
+        navigate("/");
     }
     return useAuth(restPasswordAction, response, initialState, successMessage);
 };
 
-/**
- * @description protected routes
- */
-export const ProtectedAuthRoute = () => {
-    const [userData, setUserData] = useState(undefined);
-    const [isUser, setIsUser] = useState(false);
-    const [isAdmin, setIsAdmin] = useState(false);
-    useEffect(() => {
-        setUserData(JSON.parse(localStorage.getItem("user")))
-    }, [])
-    useEffect(() => {
-        if (userData != null) {
-            if (userData.role === "user") {
-                setIsUser(true);
-                setIsAdmin(false);
-            } else {
-                setIsUser(false);
-                setIsAdmin(true);
-            }
-        } else {
-            setIsAdmin(false);
-            setIsUser(false);
-        }
-    }, [userData]);
 
-    return [isUser, isAdmin, userData];
-};

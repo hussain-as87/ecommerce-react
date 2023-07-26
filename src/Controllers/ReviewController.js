@@ -7,7 +7,7 @@ import {
     getReviewAction,
     getReviewsAction
 } from "../Redux/Actions/ReviewAction";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import use_notification from "./use_notification";
 import {confirmAlert} from "react-confirm-alert";
 import {toast} from "react-toastify";
@@ -28,14 +28,18 @@ export const GetReviews = (productId) => {
     return {reviews, rg_loading, pageCount, getPage}
 }
 export const CreateReview = () => {
+    const storedUser = localStorage.getItem("user");
+    const parsedUser = storedUser ? JSON.parse(storedUser) : null;
     const dispatch = useDispatch();
     const [isPress, setIsPress] = useState(false)
     const [errors, setErrors] = useState([])
     const {id} = useParams();
+    const navigate = useNavigate()
     const [data, setData] = useState({
         title: "",
         ratings: 0
     })
+
     const {create, create_error} = useSelector((state) => state.reviews)
 
     const handlerOnChangeInput = (event) => {
@@ -48,6 +52,14 @@ export const CreateReview = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
+        if (parsedUser?.role === "admin") {
+            use_notification("You not allowed to commit!", "warn")
+            return
+        } else if (parsedUser === null) {
+            use_notification("Please login!", "error")
+            setTimeout(()=>navigate('/login'),1000)
+            return
+        }
         setIsPress(true)
         await dispatch(createReviewAction({id, formData: data}));
         await dispatch(getReviewsAction(id))

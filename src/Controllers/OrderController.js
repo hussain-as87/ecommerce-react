@@ -10,7 +10,6 @@ import {
 } from "../Redux/Actions/OrderAction";
 import use_notification from "./use_notification";
 import {confirmAlert} from "react-confirm-alert";
-import {destroyCartItemAction, getCartItemsAction} from "../Redux/Actions/CartAction";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 
@@ -62,6 +61,8 @@ export const GetOrderDetailsAndStatus = (id) => {
 export const CreateOrder = (cartId) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const storedUser = localStorage.getItem("user");
+    const parsedUser = storedUser ? JSON.parse(storedUser) : null;
     const [isCash, setIsCash] = useState(false)
     const {create, create_error} = useSelector(state => state.orders)
     const [data, setData] = useState({
@@ -86,6 +87,14 @@ export const CreateOrder = (cartId) => {
         /*if (!isCash) {
             return navigate('/')
         }*/
+        if (parsedUser?.role === "admin") {
+            use_notification("You not allowed to commit!", "warn")
+            return
+        } else if (parsedUser === null) {
+            use_notification("Please login!", "error")
+            setTimeout(() => navigate('/login'), 1000)
+            return
+        }
         dispatch(createOrderAction({cartId, formData: data}))
         dispatch(getOrdersAction())
     }
