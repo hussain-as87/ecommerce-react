@@ -73,6 +73,7 @@ export const CreateOrder = (cartId) => {
             postalCode: ""
         }
     });
+    const {getCheckoutList, getCheckoutList_error} = GetOrderCheckoutSession(cartId)
     const handlerOnChangeInput = (event) => {
         const {name, value} = event.target
         setData(prevData => ({
@@ -84,9 +85,12 @@ export const CreateOrder = (cartId) => {
     }
     const handleSubmit = async (event) => {
         event.preventDefault()
-        /*if (!isCash) {
-            return navigate('/')
-        }*/
+        if (!isCash) {
+            if (getCheckoutList) {
+                console.log(getCheckoutList)
+                return window.location.href = getCheckoutList.session.url
+            }
+
         if (parsedUser?.role === "admin") {
             use_notification("You not allowed to commit!", "warn")
             return
@@ -109,12 +113,12 @@ export const CreateOrder = (cartId) => {
                     }
                 })
                 use_notification("Successfully created!", "success")
-            } else if (create_error?.data) {
+            } else if (create_error?.data || getCheckoutList_error?.data) {
                 use_notification("Have an error!", "error")
             }
         }
         ,
-        [create?.status, create_error?.data, dispatch]
+        [create?.status, create_error?.data, getCheckoutList_error]
     )
     return {data, handlerOnChangeInput, handleSubmit, handleChangeValue, isCash}
 }

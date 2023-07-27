@@ -45,7 +45,7 @@ const OrderReducer = (state = initialState, action) => {
         case UPDATE_TO_DELIVER:
             return {...state, updateToDeliver: action.payload, loading: false};
         case GET_CHECKOUT_SESSION:
-            return {...state, updateToDeliver: action.payload, loading: false};
+            return {...state, getCheckoutList: action.payload, loading: false};
         case DElETE_ORDER:
             return {...state, delete: action.payload, loading: false};
 
