@@ -1,10 +1,10 @@
 import CategoryContainer from "../../Components/Category/CategoryContainer";
 import Pagination from "../../Components/Utility/Pagination";
-import IndexCategoryForm from "../../Controllers/Category/IndexCategoryForm";
+import {GetCategories} from "../../Controllers/CategoryController";
 
 
 const Categories = () => {
-    const {categories, loading, pageCount, getPage} = IndexCategoryForm()
+    const {categories, loading, pageCount, getPage} = GetCategories()
     console.log(categories)
     return (
         <div style={{minHeight: "670px"}}>

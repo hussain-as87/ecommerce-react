@@ -1,8 +1,9 @@
+import React from "react";
 import {Col, Row} from "react-bootstrap";
 import AdminSideBar from "../../Components/Admin/AdminSideBar";
-import AdminEditProduct from "../../Components/Admin/Products/AdminEditProduct";
+import {Outlet} from "react-router-dom";
 
-const AdminCreateProductPage = () => {
+const AdminLayout = ({ children }) => {
     return (
         <Row className='py-3'>
             <Col sm="4" xs="3" md="3">
@@ -10,10 +11,11 @@ const AdminCreateProductPage = () => {
             </Col>
 
             <Col sm="8" xs="9" md="9">
-                <AdminEditProduct/>
+                {children}
+                <Outlet />
             </Col>
         </Row>
-    )
-}
+    );
+};
 
-export default AdminCreateProductPage
+export default AdminLayout;

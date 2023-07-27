@@ -5,12 +5,9 @@ import login from "../../assets/images/login.png"
 import {useEffect, useState} from "react";
 import {GetLoggedUser} from "../../Controllers/UserController";
 import {
-    BoxArrowDownLeft,
     BoxArrowLeft,
     Cart,
     Person,
-    PersonCircle,
-    Sliders,
     Sliders2Vertical
 } from "react-bootstrap-icons";
 import {GetCartItems} from "../../Controllers/CartController";
@@ -31,6 +28,8 @@ const NavbarSection = ({index}) => {
         setUserData(parsedUser || {});
     }, [parsedUser]);
     const {carts, itemsCount} = GetCartItems()
+
+
     return (
         <>
             <Navbar className="sticky-top" bg="dark" variant="dark" expand="sm">
@@ -58,7 +57,7 @@ const NavbarSection = ({index}) => {
                                         src={`https://ui-avatars.com/api/?name=${userData.name}&bold=true&rounded=true&background=random&size=100`}
                                         className="login-img" alt="sfvs" style={{width: '38px', height: '62px'}}/>
                                     <NavDropdown title={userData.name} id="basic-nav-dropdown">
-                                        <NavDropdown.Item href="/user/profile"><Person
+                                        <NavDropdown.Item href={`/${userData.role}/profile`}><Person
                                             size={25}/> Profile</NavDropdown.Item>
                                         {userData.role === "admin" && <NavDropdown.Item href="/admin/products"><Sliders2Vertical size={25}/> Control
                                             Panel</NavDropdown.Item>}
@@ -85,7 +84,7 @@ const NavbarSection = ({index}) => {
                                 <div style={{position: 'relative'}}>
                                     <Cart size={27} style={{marginTop: '-10px'}}/>
 
-                                    {itemsCount && (<Badge pill bg="danger" className="text-center" style={{
+                                    {(itemsCount && userData.role==="user") && (<Badge pill bg="danger" className="text-center" style={{
                                         position: 'absolute',
                                         top: '-8px',
                                         right: '-8px',

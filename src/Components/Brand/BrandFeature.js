@@ -2,10 +2,10 @@ import React from 'react'
 import {Container, Row, Spinner} from 'react-bootstrap'
 import SubTitle from '../Utility/SubTitle'
 import BrandCard from './BrandCardItem'
-import IndexHomeBrandForm from "../../Controllers/Brand/IndexHomeBrandForm";
+import {GetBrands} from "../../Controllers/BarandController";
 
 const BrandFeatured = ({title, btn}) => {
-    const {brands,loading} = IndexHomeBrandForm()
+    const {brands,loading} = GetBrands()
     // Check if brands.data exists before applying slice method
     const slicedBrands = brands.data ? brands.data.slice(0, 6) : [];
 

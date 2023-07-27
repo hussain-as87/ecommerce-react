@@ -1,12 +1,12 @@
 import React from 'react';
 import {Row, Col, Form} from 'react-bootstrap';
-import IndexCategoryForm from "../../Controllers/Category/IndexCategoryForm";
-import IndexBrandForm from "../../Controllers/Brand/IndexBrandForm";
+import {GetBrands} from "../../Controllers/BarandController";
+import {GetCategories} from "../../Controllers/CategoryController";
 
 const SidebarFilter = ({search,onChangeSearch}) => {
 
-    const {categories} = IndexCategoryForm()
-    const {brands} = IndexBrandForm()
+    const {categories} = GetCategories()
+    const {brands} = GetBrands()
 
     return (
         <div className="mt-3 ">

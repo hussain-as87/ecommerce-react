@@ -1,10 +1,10 @@
 import React from "react";
-import {Button, Col, Row, Spinner, Form, FloatingLabel, Container, Card} from "react-bootstrap";
-import CreateCategoryForm from "../../../Controllers/Category/Admin/CreateCategoryForm";
+import {Button, Spinner, Form, FloatingLabel, Container, Card} from "react-bootstrap";
 import {Check2Circle} from "react-bootstrap-icons";
-
+import {CreateCategory} from "../../../Controllers/CategoryController";
+import imageFail from "../../../assets/images/image.png"
 const AdminCreateCategory = () => {
-    const {name, onChangeName, img, handleSubmit, isPress, onChangeImage, errors} = CreateCategoryForm();
+    const {name, onChangeName, img, handleSubmit, isPress, onChangeImage, errors} = CreateCategory();
 
     return (
         <Container>
@@ -16,6 +16,7 @@ const AdminCreateCategory = () => {
                         <div>
                             <label htmlFor="upload-image">
                                 <img
+                                    onError={(e) => e.target.src = imageFail}
                                     src={img}
                                     alt="asa"
                                     height={100}

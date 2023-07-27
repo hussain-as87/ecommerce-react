@@ -2,10 +2,10 @@ import React from "react";
 import {Container, Row, Spinner} from "react-bootstrap";
 import SubTitle from "../Utility/SubTitle";
 import CategoryCard from "../Category/CategoryCard"
-import IndexHomeCategoryForm from "../../Controllers/Category/IndexHomeCategoryForm";
+import {GetCategories} from "../../Controllers/CategoryController";
 
 const HomeCategory = () => {
-    const {categories, loading, colors} = IndexHomeCategoryForm()
+    const {categories, loading, colors} = GetCategories()
     return (
         <Container>
             <SubTitle title="Categories" btn="More" path="/categories"/>

@@ -5,13 +5,12 @@ import ProductHomeItemContainer from "../../Components/Product/ProductHomeItemCo
 import RateContainer from "../../Components/Rate/RateContainer";
 import ProductDetailsContainer from "../../Components/Product/ProductDetailsContainer";
 import {useParams} from "react-router-dom";
-import ShowProductForm from "../../Controllers/Product/ShowProductForm";
-import IndexCategoryProductsForm from "../../Controllers/Product/IndexCategoryProductsForm";
+import {GetProduct, GetProductsByCategory} from "../../Controllers/ProductController";
 
 const ProductDetails = () => {
     const {id} = useParams();
-    const {product, loading} = ShowProductForm(id)
-    const {categoryProducts, loadingCP} = IndexCategoryProductsForm(product?.data?.category.name)
+    const {product, loading} = GetProduct(id)
+    const {categoryProducts, loadingCP} = GetProductsByCategory(product?.data?.category.name)
 
     if (loading) {
         return (

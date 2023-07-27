@@ -8,7 +8,7 @@ const UserProfile = () => {
     const {user, loading} = GetLoggedUser();
     const {handleSubmit, handlerOnChangeInput, isPress} = ChangeUserPassword()
     return (
-        <div>
+        <div className="pb-3">
             <h2 className="admin-content-text">Profile</h2>
 
             {!loading ? (

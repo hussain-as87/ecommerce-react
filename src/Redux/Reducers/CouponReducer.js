@@ -1,16 +1,18 @@
 import {
     CREATE_COUPON, DELETE_COUPON, EDIT_COUPON,
     GET_ALL_COUPONS, GET_COUPON,
-    COC_ERROR, COD_ERROR, COE_ERROR, COG1_ERROR, COG_ERROR
+    COC_ERROR, COD_ERROR, COE_ERROR, COG1_ERROR, COG_ERROR, GET_COUPON_BY_NAME, CBN_ERROR
 } from "../Types";
 
 const initialState = {
     coupons: [],
+    couponByName: [],
     coupon: [],
     create: [],
     edit: [],
     delete: [],
     coupons_error: [],
+    couponByName_error: [],
     coupon_error: [],
     edit_error: [],
     create_error: [],
@@ -23,6 +25,8 @@ const CouponReducer = (state = initialState, action) => {
             return {...state, coupons: action.payload, loading: false};
         case GET_COUPON:
             return {...state, coupon: action.payload, loading: false};
+        case GET_COUPON_BY_NAME:
+            return {...state, couponByName: action.payload, loading: false};
         case CREATE_COUPON:
             return {...state, create: action.payload, loading: false};
         case EDIT_COUPON:
@@ -31,6 +35,8 @@ const CouponReducer = (state = initialState, action) => {
             return {...state, delete: action.payload, loading: false};
         case COG_ERROR:
             return {...state, coupons_error: action.payload, loading: false};
+        case CBN_ERROR:
+            return {...state, couponByName_error: action.payload, loading: false};
         case COG1_ERROR:
             return {...state, coupon_error: action.payload, loading: false};
         case COC_ERROR:
