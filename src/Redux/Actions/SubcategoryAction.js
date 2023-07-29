@@ -1,8 +1,6 @@
 import {use_post_data, use_get_data, use_put_data, use_delete_data} from "../../Hooks/ApiDataHook";
 import {
     CREATE_SUBCATEGORY,
-    GET_SPECIFIC_SUBCATEGORY,
-    SG1_ERROR,
     SC_ERROR,
     GET_SUBCATEGORY,
     SG_ERROR,
