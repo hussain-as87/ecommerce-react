@@ -3,8 +3,6 @@ import Footer from "./Components/Utility/Footer";
 import NavbarSection from "./Components/Utility/NavbarSection";
 import {GetProducts} from "./Controllers/ProductController";
 import {ProtectedAuthRoute} from "./Controllers/AuthController";
-import AdminRoutes from "./Routes/AdminRoutes";
-import UserRoutes from "./Routes/UserRoutes";
 import HomePage from "./Pages/Home/HomePage";
 import Login from "./Pages/Auth/Login";
 import Register from "./Pages/Auth/Register";
@@ -40,7 +38,6 @@ import UserAddressesPage from "./Pages/User/Addresses/UserAddressesPage";
 import UserCreateAddressPage from "./Pages/User/Addresses/UserCreateAddressPage";
 import UserEditAddressPage from "./Pages/User/Addresses/UserEditAddressPage";
 import UserProfilePage from "./Pages/User/UserProfilePage";
-import {useMemo} from "react";
 
 function App() {
     const indexProductForm = GetProducts()

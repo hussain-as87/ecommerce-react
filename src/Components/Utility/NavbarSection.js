@@ -27,7 +27,7 @@ const NavbarSection = ({index}) => {
     useEffect(() => {
         setUserData(parsedUser || {});
     }, [parsedUser]);
-    const {carts, itemsCount} = GetCartItems()
+    const {itemsCount} = GetCartItems()
 
 
     return (
@@ -84,7 +84,7 @@ const NavbarSection = ({index}) => {
                                 <div style={{position: 'relative'}}>
                                     <Cart size={27} style={{marginTop: '-10px'}}/>
 
-                                    {(itemsCount && userData.role==="user") && (<Badge pill bg="danger" className="text-center" style={{
+                                    {(itemsCount>=1 && userData.role==="user") && (<Badge pill bg="danger" className="text-center" style={{
                                         position: 'absolute',
                                         top: '-8px',
                                         right: '-8px',
