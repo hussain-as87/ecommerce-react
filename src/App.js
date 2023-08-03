@@ -38,6 +38,7 @@ import UserAddressesPage from "./Pages/User/Addresses/UserAddressesPage";
 import UserCreateAddressPage from "./Pages/User/Addresses/UserCreateAddressPage";
 import UserEditAddressPage from "./Pages/User/Addresses/UserEditAddressPage";
 import UserProfilePage from "./Pages/User/UserProfilePage";
+import AdminEditProductPage from "./Pages/Admin/AdminEditProductPage";
 
 function App() {
     const indexProductForm = GetProducts()
@@ -52,6 +53,7 @@ function App() {
                         <Route path="" element={<ProtectionRoutes authType="admin"/>}>
                             <Route index element={<Layout/>}/>
                             <Route path="products" element={<AdminProductsPage/>}/>
+                            <Route path="products/edit/:id" element={<AdminEditProductPage/>}/>
                             <Route path="categories" element={<AdminCategoriesPage/>}/>
                             <Route path="brands" element={<AdminBrandsPage/>}/>
                             <Route path="subcategories" element={<AdminSubcategoriesPage/>}/>
