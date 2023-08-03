@@ -4,7 +4,8 @@ import React from "react";
 
 const AdminCategoriesContainer = ({categories, loading}) => {
     if (loading) {
-        return (<div className="text-center pt-5"><Spinner
+        return (<div className="text-center pt-5 m-5">
+            <Spinner
             animation="border"
             variant="secondary"
             style={{width: '100px', height: '100px'}}

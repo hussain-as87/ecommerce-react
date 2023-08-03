@@ -114,7 +114,7 @@ export const EditCategory = (id) => {
     const [isPress, setIsPress] = useState(false);
 
     const dispatch = useDispatch();
-    const {category,categories, edit, edit_error, loading} = useSelector(
+    const {category, categories, edit, edit_error, loading} = useSelector(
         (state) => state.categories
     );
     const currentPage = categories?.paginationResult?.currentPage
@@ -122,7 +122,6 @@ export const EditCategory = (id) => {
 
     useEffect(() => {
         dispatch(getCategoryAction(id));
-        dispatch(getCategoriesAction({limit: 12, page: currentPage || 1}));
     }, [showModal, dispatch, id, isPress]);
 
     useEffect(() => {
@@ -173,6 +172,7 @@ export const EditCategory = (id) => {
 
     useEffect(() => {
         if (!loading && edit.status === 200 && isPress) {
+            dispatch(getCategoriesAction({limit: 12, page: currentPage}));
             setIsPress(false)
             setShowModal(false)
             use_notification("The category has been updated successfully!", "success");

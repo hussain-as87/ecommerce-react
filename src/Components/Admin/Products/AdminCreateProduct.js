@@ -148,7 +148,7 @@ const AdminCreateProduct = () => {
                         <Form.Group>
                             <Multiselect
                                 id="subcategory"
-                                className={`form-control select ${errors.some(error => error.param === "subcategory") && 'is-invalid'}` }
+                                className={`${errors.some(error => error.param === "subcategory") && 'is-invalid'}` }
                                 placeholder={subcategoryOptions.length < 1 && "Subcategory"}
                                 options={Array.isArray(subcategoryOptions) ? subcategoryOptions : []}
                                 selectedValues={data.subCategory}

@@ -123,7 +123,6 @@ export const EditBrand = (id) => {
 
     useEffect(() => {
         dispatch(getBrandAction(id));
-        dispatch(getBrandsAction({limit: 12, page: currentPage || 1}));
     }, [showModal, dispatch, id, isPress]);
 
     useEffect(() => {
@@ -174,6 +173,7 @@ export const EditBrand = (id) => {
 
     useEffect(() => {
         if (!loading && edit.status === 200 && isPress) {
+            dispatch(getBrandsAction({limit: 12, page: currentPage}));
             setIsPress(false)
             setShowModal(false)
             use_notification("The brand has been updated successfully!", "success");
