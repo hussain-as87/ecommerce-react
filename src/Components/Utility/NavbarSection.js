@@ -59,11 +59,13 @@ const NavbarSection = ({index}) => {
                                     <NavDropdown title={userData.name} id="basic-nav-dropdown">
                                         <NavDropdown.Item href={`/${userData.role}/profile`}><Person
                                             size={25}/> Profile</NavDropdown.Item>
-                                        {userData.role === "admin" && <NavDropdown.Item href="/admin/products"><Sliders2Vertical size={25}/> Control
-                                            Panel</NavDropdown.Item>}
+                                        {userData.role === "admin" &&
+                                            <NavDropdown.Item href="/admin/products"><Sliders2Vertical
+                                                size={25}/> Control
+                                                Panel</NavDropdown.Item>}
                                         <NavDropdown.Divider/>
                                         <NavDropdown.Item onClick={logout} className="text-danger">
-                                            <BoxArrowLeft size={25}/>  Logout
+                                            <BoxArrowLeft size={25}/> Logout
                                         </NavDropdown.Item>
                                     </NavDropdown>
                                 </>
@@ -84,18 +86,19 @@ const NavbarSection = ({index}) => {
                                 <div style={{position: 'relative'}}>
                                     <Cart size={27} style={{marginTop: '-10px'}}/>
 
-                                    {(itemsCount>=1 && userData.role==="user") && (<Badge pill bg="danger" className="text-center" style={{
-                                        position: 'absolute',
-                                        top: '-8px',
-                                        right: '-8px',
-                                        width: '20px',
-                                        height: '20px',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        marginTop: '-10px'
-                                    }}>   {itemsCount}
-                                    </Badge>)}
+                                    {(itemsCount >= 1 && userData.role === "user") && (
+                                        <Badge pill bg="danger" className="text-center" style={{
+                                            position: 'absolute',
+                                            top: '-8px',
+                                            right: '-8px',
+                                            width: '20px',
+                                            height: '20px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            marginTop: '-10px'
+                                        }}>   {itemsCount}
+                                        </Badge>)}
                                 </div>
                                 <p style={{color: 'white', marginLeft: '5px'}}></p>
                             </Nav.Link>

@@ -9,7 +9,7 @@ const Register = () => {
         <Container style={{minHeight: "450px"}}>
             <Row className="justify-content-center mt-5">
                 <Col xs={12} md={8} sm={12} xl={6}>
-                    <h2 className="text-center mb-4 text-primary">Signup</h2>
+                    <h2 className="text-center mb-4 text-danger">Sign Up</h2>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formBasicName">
                             <FloatingLabel controlId="name" label="Name">
