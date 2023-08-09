@@ -11,7 +11,7 @@ const ForgetPassword = () => {
             <Row className="justify-content-md-center mt-5">
                 <Col md={8} sm={12} xl={6} xs={12}>
                     <Form onSubmit={handleSubmit}>
-                        <h2 className="text-center text-primary">Confirm Email Address</h2>
+                        <h2 className="text-center text-danger">Confirm Email Address</h2>
                         <Form.Group controlId="formBasicEmail">
                             <FloatingLabel controlId="email" label="Email-Address">
                                 <Form.Control

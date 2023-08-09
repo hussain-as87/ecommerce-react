@@ -102,6 +102,8 @@ export const CreateOrder = (cartId) => {
         dispatch(createOrderAction({cartId, formData: data}))
         dispatch(getOrdersAction())
     }
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
             if (create?.status === 201) {
                 setData({
@@ -116,12 +118,9 @@ export const CreateOrder = (cartId) => {
             } else if (create_error?.data || getCheckoutList_error?.data) {
                 use_notification("Have an error!", "error")
             }
-        }
-        ,
-        [create?.status, create_error?.data, getCheckoutList_error]
-    )
+        },[create?.status, create_error?.data, getCheckoutList_error])
     return {data, handlerOnChangeInput, handleSubmit, handleChangeValue, isCash}
-}
+}}
 
 export const GetOrderCheckoutSession = (cartId) => {
     const dispatch = useDispatch()

@@ -757,5 +757,21 @@ body {
 
 .more-link {
   text-decoration: none;
+  color: royalblue;
 }
+/* Add this CSS in your stylesheet */
+.bg-dark .text-white::placeholder {
+  color: white;
+  font-size: 24px;
+  opacity: 1; /* To ensure the placeholder is fully visible */
+}.bg-dark .text-white::placeholder {
+  color: white;
+  font-size: 24px;
+  opacity: 1; /* To ensure the placeholder is fully visible */
+}
+a {
+  text-decoration: none !important;
+}
+
+
 /*category section in products page ------end*/
