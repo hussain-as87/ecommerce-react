@@ -4,20 +4,52 @@ import laptops from '../../assets/images/laptops.png'
 
 const DiscountSection = () => {
     return (
-        <>
-            <Container>
-                <Row className="discount-backcolor my-3  mx-2 d-flex text-center align-items-center">
-                    <Col sm="6">
-                        <div className="discount-title">
-                            We have a pretty good discount for you get to 30%
+        <section className="categories spad">
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg-3">
+                        <div className="categories__text">
+                            <h2>
+                                Clothings Hot <br/> <span>Shoe Collection</span> <br/>{" "}
+                                Accessories
+                            </h2>
                         </div>
-                    </Col>
-                    <Col sm="6">
-                        <img className="dicount-img" src={laptops} alt=""/>
-                    </Col>
-                </Row>
-            </Container>
-        </>
+                    </div>
+                    <div className="col-lg-4">
+                        <div className="categories__hot__deal">
+                            <img src="img/product-sale.png" alt=""/>
+                            <div className="hot__deal__sticker">
+                                <span>Sale Of</span>
+                                <h5>$29.99</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-lg-4 offset-lg-1">
+                        <div className="categories__deal__countdown">
+                            <span>Deal Of The Week</span>
+                            <h2>Multi-pocket Chest Bag Black</h2>
+                            <div className="categories__deal__countdown__timer" id="countdown">
+                                <div className="cd-item">
+                                    <span>30</span> <p>Days</p>{" "}
+                                </div>
+                                <div className="cd-item">
+                                    <span>12</span> <p>Hours</p>{" "}
+                                </div>
+                                <div className="cd-item">
+                                    <span>28</span> <p>Minutes</p>{" "}
+                                </div>
+                                <div className="cd-item">
+                                    <span>44</span> <p>Seconds</p>{" "}
+                                </div>
+                            </div>
+                            <a href="#" className="primary-btn">
+                                Shop now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     )
 }
 export default DiscountSection
