@@ -1,4 +1,4 @@
-import logo from "../../../assets/images/logo.png";
+import logo2 from "../../../assets/images/logo2.png";
 import React from "react";
 
 const Footer = () => {
@@ -8,7 +8,7 @@ const Footer = () => {
               <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="footer__about">
                       <div className="footer__logo">
-                          <a href="#"><img src={logo} alt=""/></a>
+                          <a href="#"><img src={logo2} alt=""/></a>
                       </div>
                       <p>The customer is at the heart of our unique business model, which includes design.</p>
                       <a href="#"><img src="img/payment.png" alt=""/></a>

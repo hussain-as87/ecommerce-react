@@ -29,7 +29,6 @@ const HomePage = () => {
                                     {categories?.data?.slice(0, 2).map((category) => (
                                         <li data-filter={`.${category.name}`}>{category.name}</li>
                                     ))}
-                                    {/*<li dat-filter=".hot-sales">Hot Sales</li>*/}
                                 </ul>
                             </div>
                         </div>

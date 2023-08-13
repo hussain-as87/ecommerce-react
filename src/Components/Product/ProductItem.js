@@ -53,15 +53,15 @@ const ProductItem = ({product: {_id, imageCover,colors, title, ratingsAverage, p
                 </div>
                 <div className="product__item__text">
                     <h6>{title}</h6>
-                    <a onClick={handleSubmit} className="add-cart">
+                    <a href="#" onClick={handleSubmit} className="add-cart">
                         + Add To Cart
                     </a>
                     <div className="rating">
-                        <ReactStars value={ratingsAverage} size={20} disable/>
+                        <ReactStars value={ratingsAverage} size={20} edit={false}/>
                     </div>
                     <h5>${price}</h5>
                     <div className="product__color__select">
-                        {colors?.map((col) => (
+                        <form>{colors?.map((col) => (
                             <label key={col}
                                    className={`color ms-2 border ${data.color === col ? 'border-primary' : ''}`}
                                    style={{backgroundColor: col}}>
@@ -74,7 +74,8 @@ const ProductItem = ({product: {_id, imageCover,colors, title, ratingsAverage, p
                                     hidden={true}
                                 />
                             </label>
-                        ))}
+                        ))}</form>
+
                     </div>
                 </div>
             </div>
@@ -190,49 +191,3 @@ const ProductItem = ({product: {_id, imageCover,colors, title, ratingsAverage, p
                         </div>
                     </div>*/}
 export default React.memo(ProductItem);
-/* <Col xs="6" sm="6" md="4" lg="3" className="d-flex">
-            <Card
-                className="my-2"
-                style={{
-                    width: "100%",
-                    height: "345px",
-                    borderRadius: "8px",
-                    border: "none",
-                    backgroundColor: "#FFFFFF",
-                    boxShadow: "0 2px 2px 0 rgba(151,151,151,0.5)"
-                }}
-            >
-                <Link to={`/products/${_id}`} style={{textDecoration: "none"}}> {isImgError ? (
-                    <Card.Img style={{height: "228px", width: "100%"}} alt="avatar" src={avatar}/>
-                    ) : (
-                    <Card.Img style={{height: "228px", width: "100%"}} src={imageCover} onError={handleImageError}/>
-                )}
-                </Link>
-                <div className="d-flex justify-content-end mx-2 py-2">
-                    <HeartIcon size={20} className={isProductInWishlist ? "text-danger" : ""}
-                               onClick={handleToggleWishlist}/>
-                </div>
-                <Card.Body>
-                    <Card.Title>
-                        <div className="card-title">{LimitCharacters(title,30)}</div>
-                    </Card.Title>
-                    <Card.Text>
-                        <div className="d-flex justify-content-between">
-                            {ratingsAverage && <div className="d-flex">
-                                <StarFill className="text-warning"/>
-                                <div className="card-rate mx-2">{ratingsAverage}</div>
-                            </div>}
-
-                            <div className="d-flex">
-                                <div className="card-price">
-                                    {priceAfterDiscount >= 1 ?
-                                        (<div><span style={{ textDecorationLine: 'line-through' }}>{price}</span> {priceAfterDiscount}</div>)
-                                        : price}
-                                </div>
-                                <div className="card-currency mx-1">$</div>
-                            </div>
-                        </div>
-                    </Card.Text>
-                </Card.Body>
-            </Card>
-        </Col>*/
