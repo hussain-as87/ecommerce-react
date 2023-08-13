@@ -21,7 +21,7 @@ const ProductItem = ({product: {_id, imageCover,colors, title, ratingsAverage, p
 
     return (
 
-        <div className={`col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix ${category.name}`}>
+        <div className={`col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix ${category?.name}`}>
             <div className="product__item sale">
                 <div
                     className="product__item__pic set-bg"

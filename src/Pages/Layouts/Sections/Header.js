@@ -169,7 +169,7 @@ const Header = ({index}) => {
               <div className="container">
                   <div className="row">
                       <div className="col-lg-3 col-md-3">
-                          <div className="header__logo" style={{marginTop: '-42px'}}>
+                          <div className="header__logo" style={{marginTop: '-35px'}}>
                               <Link to="/"><img src={logo} alt=""/></Link>
                           </div>
                       </div>
@@ -177,7 +177,7 @@ const Header = ({index}) => {
                           <nav className="header__menu mobile-menu ">
                               <ul style={{ textDecoration: 'none'}}>
                                   <li className={isActive("")}><Link style={{ textDecoration: 'none'}} to="/">Home</Link></li>
-                                  <li className={isActive('products')}><Link to="/products">Shop</Link></li>
+                                  <li className={isActive('shop')}><Link to="/products">Shop</Link></li>
                                   {/*<li><a href="#">Pages</a>
                                         <ul className="dropdown">
                                             <li><a href="./about.html">About Us</a></li>

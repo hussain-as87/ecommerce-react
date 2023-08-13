@@ -118,7 +118,7 @@ function App() {
                         <Route path="categories" element={<Categories/>}/>
                         <Route path="brands" element={<Brands/>}/>
                         <Route
-                            path="products"
+                            path="shop"
                             element={<Products index={indexProductForm}/>}
                         />
                         <Route path="products/:id" element={<ProductDetails/>}/>

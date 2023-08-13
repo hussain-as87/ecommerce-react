@@ -775,3 +775,60 @@ a {
 
 
 /*category section in products page ------end*/
+/* Hide the actual checkboxes */
+/* Style the li items */
+.nice-scroll li {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+  padding: 10px;
+}
+
+/* Apply styles to the custom labels */
+.custom-label {
+  cursor: pointer;
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid #ccc; /* Add a border to mimic checkbox appearance */
+  margin: 0;
+}
+
+/* Style the custom labels on hover */
+.custom-label:hover {
+  background-color: #f2f2f2; /* Change to your desired hover background color */
+  color: #333; /* Change to your desired hover text color */
+}
+
+/* Style the custom labels for checked (active) state */
+.checkbox-li.active .custom-label {
+  background-color: #ff9f00; /* Change to your desired active background color */
+  color: white; /* Change to your desired active text color */
+}
+
+/* Hide default checkbox and style the custom checkmark */
+.custom-label input {
+  display: none;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Add a tick/checkmark symbol to the custom checkmark */
+.checkmark:after {
+  content: '\2713'; /* Unicode checkmark symbol */
+  font-size: 16px;
+  color: #ff9f00; /* Change to your desired active text color */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

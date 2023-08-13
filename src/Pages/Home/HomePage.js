@@ -4,13 +4,13 @@ import ProductHomeItemContainer from "../../Components/Product/ProductHomeItemCo
 import DiscountSection from "../../Components/Home/DiscountSection";
 import BrandFeatured from "../../Components/Brand/BrandFeature";
 import {GetProducts} from "../../Controllers/ProductController";
+import {GetCategories} from "../../Controllers/CategoryController";
 
 
 const HomePage = () => {
     const {products, loading} = GetProducts();
-    return (
-        <>
-            <>
+    const {categories} = GetCategories()
+    return (<>
                 {/* Hero Section Begin */}
                 <Slider/>
                 {/* Hero Section End */}
@@ -18,19 +18,29 @@ const HomePage = () => {
                 <BrandFeatured title="Brands" btn="More"/>
                 {/* Banner Section End */}
                 {/* Product Section Begin */}
-                <ProductHomeItemContainer products={products} loading={loading} path="/products"/>
+                <section className="product spad">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-lg-12">
+                                <ul className="filter__controls">
+                                    <li className="active" data-filter="*">
+                                        Best Sellers
+                                    </li>
+                                    {categories?.data?.slice(0, 2).map((category) => (
+                                        <li data-filter={`.${category.name}`}>{category.name}</li>
+                                    ))}
+                                    {/*<li dat-filter=".hot-sales">Hot Sales</li>*/}
+                                </ul>
+                            </div>
+                        </div>
+                        <ProductHomeItemContainer products={products} loading={loading} path="/products"/>
+                    </div>
+                </section>
                 {/* Product Section End */}
                 {/* Categories Section Begin */}
                 <DiscountSection/>
                 {/* Categories Section End */}
-            </>
 
-
-            {/*
-            <DiscountSection/>
-            <ProductHomeItemContainer title="Most Products" btn="More" path="/products" products={products}
-                                      loading={loading} />
-            <BrandFeatured title="Brands" btn="More"/> */}
         </>);
 };
 export default HomePage;
