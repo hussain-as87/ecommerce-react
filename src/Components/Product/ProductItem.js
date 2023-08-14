@@ -7,8 +7,9 @@ import avatar from "../../assets/images/image.png"
 import LimitCharacters from "../../Hooks/LimitCharacters";
 import ReactStars from "react-rating-stars-component";
 import {CreateCartItem} from "../../Controllers/CartController";
+import RenderStars from "../Utility/RenderStars";
 
-const ProductItem = ({product: {_id, imageCover,colors, title, ratingsAverage, price, priceAfterDiscount,category}}) => {
+const ProductItem = ({product: {_id, imageCover,colors, title, ratingsAverage,ratingQuantity, price, priceAfterDiscount,category}}) => {
     const {handleToggleWishlist, isProductInWishlist} = WishlistController({productId: _id});
     const HeartIcon = isProductInWishlist ? HeartFill : Heart;
       const [isImgError, setIsImgError] = useState(false);
@@ -18,9 +19,9 @@ const ProductItem = ({product: {_id, imageCover,colors, title, ratingsAverage, p
     };
 
     const {data, handleSubmit, handlerOnChangeInput} = CreateCartItem(_id)
-
+   const filledStars = Math.floor(ratingsAverage || 0);
+    const outlineStars = 5 - filledStars;
     return (
-
         <div className={`col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix ${category?.name}`}>
             <div className="product__item sale">
                 <div
@@ -45,7 +46,7 @@ const ProductItem = ({product: {_id, imageCover,colors, title, ratingsAverage, p
                             </a>
                         </li>*/}
                         <li>
-                            <Link to={`/products/${_id}`}>
+                            <Link to={`/${_id}`}>
                                <Search className="text-dark" size={20}/>
                             </Link>
                         </li>
@@ -57,7 +58,9 @@ const ProductItem = ({product: {_id, imageCover,colors, title, ratingsAverage, p
                         + Add To Cart
                     </a>
                     <div className="rating">
-                        <ReactStars value={ratingsAverage} size={20} edit={false}/>
+                        <div className="rating">
+                             {RenderStars(filledStars, outlineStars)}
+                        </div>
                     </div>
                     <h5>${price}</h5>
                     <div className="product__color__select">

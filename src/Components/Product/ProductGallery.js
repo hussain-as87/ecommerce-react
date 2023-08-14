@@ -1,46 +1,57 @@
-import React from 'react';
-import "react-image-gallery/styles/css/image-gallery.css";
-import ImageGallery from "react-image-gallery";
-import LeftButton from './LeftButton';
-import RightButton from './RightButton';
+import React, {useEffect, useState} from 'react';
+import {Link} from "react-router-dom";
 
-const ProductGallery = ({ images, imageCover }) => {
-    const imgs = images.map(image => ({ original: image }));
-/*
-    const galleryStyles = {
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-    };
+const ProductGallery = ({images, imageCover}) => {
+    const [tabe, setTabe] = useState("")
 
-    const imageStyles = {
-        objectFit: 'cover',
-        width: '100%',
-
-    };*/
-
+    useEffect(() => {
+        setTabe("#tabs-1"); // Set the default tab when the component mounts
+    }, []);
     return (
-        <div className="product-gallary-card d-flex justfiy-content-center align-items-center pt-2">
-            <ImageGallery
-                items={imgs}
-                defaultImage={imageCover}
-                showFullscreenButton={false}
-                isRTL={true}
-                showPlayButton={false}
-                showThumbnails={false}
-                renderRightNav={RightButton}
-                renderLeftNav={LeftButton}
-    /*            renderCustomControls={() => null} // Disable default navigation controls
-                renderFullscreenButton={() => null} // Disable fullscreen button
-                renderPlayPauseButton={() => null} // Disable play button
-                renderThumbInner={() => null} // Disable thumbnail view
-                renderItem={(item) => (
-                    <div style={galleryStyles}>
-                        <img src={item.original} alt={item.original} style={imageStyles} />
+        <div className="product__details__pic">
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg-12">
+                        <div className="product__details__breadcrumb">
+                            <Link to="/">Home</Link>
+                            <Link to="/shop">Shop</Link>
+                            <span>Product Details</span>
+                        </div>
                     </div>
-                )}*/
-            />
+                </div>
+                <div className="row">
+                    <div className="col-lg-3 col-md-3">
+                        <ul className="nav nav-tabs" role="tablist">
+                            {images.map((img, index) => (
+                                <li className="nav-item">
+                                    <a className={`nav-link ${tabe===`#tabe-${index+1}`?'active':''}`} data-toggle="tab"
+                                       href={`#tabs-${index + 1}`}
+                                       onClick={()=>setTabe(`#tabs-${index + 1}`)}
+                                       role="tab">
+                                        <div
+                                            className="product__thumb__pic set-bg"
+                                            data-setbg={img}
+                                            style={{ backgroundImage: `url(${img})` }}
+                                        ></div>
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <div className="col-lg-6 col-md-9">
+                        <div className="tab-content">
+                            {images.map((img, index) => (
+                                <div className={`tab-pane ${tabe===`#tabs-${index + 1}`?'active':''}`} id={`tabs-${index + 1}`} role="tabpanel">
+                                    <div className="product__details__pic__item">
+                                        <img src={img} alt={img}/>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

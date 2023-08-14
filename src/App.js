@@ -121,7 +121,7 @@ function App() {
                             path="shop"
                             element={<Products index={indexProductForm}/>}
                         />
-                        <Route path="products/:id" element={<ProductDetails/>}/>
+                        <Route path=":id" element={<ProductDetails/>}/>
                         <Route path="cart" element={<CartContent/>}/>
                         <Route path="500" element={<BadConnectionPage/>}/>
                         {/**Protected routes (don't allow user to access if he already signed) Start*/}

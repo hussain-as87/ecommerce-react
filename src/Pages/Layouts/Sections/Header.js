@@ -177,7 +177,7 @@ const Header = ({index}) => {
                                 <ul style={{textDecoration: 'none'}}>
                                     <li className={isActive("")}><Link style={{textDecoration: 'none'}}
                                                                        to="/">Home</Link></li>
-                                    <li className={isActive('shop')}><Link to="/products">Shop</Link></li>
+                                    <li className={isActive('shop')}><Link to="/shop">Shop</Link></li>
                                     {/*<li><a href="#">Pages</a>
                                         <ul className="dropdown">
                                             <li><a href="./about.html">About Us</a></li>

@@ -6,6 +6,7 @@ import RateContainer from "../../Components/Rate/RateContainer";
 import ProductDetailsContainer from "../../Components/Product/ProductDetailsContainer";
 import {useParams} from "react-router-dom";
 import {GetProduct, GetProductsByCategory} from "../../Controllers/ProductController";
+import ProductItem from "../../Components/Product/ProductItem";
 
 const ProductDetails = () => {
     const {id} = useParams();
@@ -20,17 +21,27 @@ const ProductDetails = () => {
             </div>
         );
     }
-    return (
-        <div style={{minHeight: '670px'}}>
-            <CategoryHeader/>
-            <Container>
-                <ProductDetailsContainer product={product} loading={loading}/>
-                <RateContainer product={product} productId={id}/>
-                <ProductHomeItemContainer title="Suggestion products" products={categoryProducts} loading={loadingCP}
-                                          btn="More" path="/products" exceptID={product?.data?._id}/>
-            </Container>
-        </div>
-    )
+    return (<>
+            {/* Shop Details Section Begin */}
+            <ProductDetailsContainer product={product} loading={loading}/>
+            {/* Shop Details Section End */}
+            {/* Related Section Begin */}
+            <section className="related spad">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <h3 className="related-title">Related Product</h3>
+                        </div>
+                    </div>
+                    <div className="row">
+                        {categoryProducts?.data?.map((prod)=>(
+                            <ProductItem product={prod}/>
+                        ))}
+                    </div>
+                </div>
+            </section>
+            {/* Related Section End */}
+    </>)
 }
 
 export default ProductDetails
