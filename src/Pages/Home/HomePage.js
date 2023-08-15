@@ -32,7 +32,7 @@ const HomePage = () => {
                                 </ul>
                             </div>
                         </div>
-                        <ProductHomeItemContainer products={products} loading={loading} path="/products"/>
+                        <ProductHomeItemContainer products={products} loading={loading} path="/shop"/>
                     </div>
                 </section>
                 {/* Product Section End */}

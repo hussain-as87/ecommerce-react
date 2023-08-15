@@ -42,7 +42,8 @@ export const CreateCartItem = (productId) => {
     const [isPress, setIsPress] = useState(false)
     const [data, setData] = useState({
         productId: "",
-        color: ""
+        color: "",
+        quantity: 1
     })
     useEffect(() => {
         setData((prevData) => ({...prevData, productId: productId}));

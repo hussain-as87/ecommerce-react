@@ -6,6 +6,7 @@ import CategoryHeader from "../../Components/Category/CategoryHeader";
 import SearchResultCount from "../../Components/Utility/SearchResultCount";
 import SidebarFilter from "../../Components/Utility/SidebarFilter";
 import ProductItem from "../../Components/Product/ProductItem";
+import {Link} from "react-router-dom";
 
 const Products = ({index}) => {
     const {
@@ -26,7 +27,7 @@ const Products = ({index}) => {
                             <div className="breadcrumb__text">
                                 <h4>Shop</h4>
                                 <div className="breadcrumb__links">
-                                    <a href="./index.html">Home</a>
+                                    <Link to="/">Home</Link>
                                     <span>Shop</span>
                                 </div>
                             </div>

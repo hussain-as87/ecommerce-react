@@ -43,15 +43,14 @@ import UserEditAddressPage from "./Pages/User/Addresses/UserEditAddressPage";
 import UserProfilePage from "./Pages/User/UserProfilePage";
 import AdminEditProductPage from "./Pages/Admin/AdminEditProductPage";
 import HomeLayout from "./Pages/Layouts/HomeLayout";
+import About from "./Pages/About";
+import Contact from "./Pages/Contact";
 
 function App() {
     const indexProductForm = GetProducts();
 
     return (
-        <div className="font">
-            {/*
-      <NavbarSection index={indexProductForm} />
-*/}
+        <div>
             <BrowserRouter>
                 {indexProductForm.keyword && <Navigate to="/products"/>}
                 <Routes>
@@ -121,8 +120,10 @@ function App() {
                             path="shop"
                             element={<Products index={indexProductForm}/>}
                         />
-                        <Route path="products/:id" element={<ProductDetails/>}/>
+                        <Route path=":id" element={<ProductDetails/>}/>
                         <Route path="cart" element={<CartContent/>}/>
+                        <Route path="about-us" element={<About/>}/>
+                        <Route path="contact" element={<Contact/>}/>
                         <Route path="500" element={<BadConnectionPage/>}/>
                         {/**Protected routes (don't allow user to access if he already signed) Start*/}
                         <Route path="" element={<ProtectionLoginRoutes/>}>

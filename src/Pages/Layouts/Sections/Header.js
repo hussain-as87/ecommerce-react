@@ -94,8 +94,8 @@ const Header = ({index}) => {
                         <img src="img/icon/search.png" alt=""/>
                     </a>
                     <a href="#"><img src="img/icon/heart.png" alt=""/></a>
-                    <a href="#"><img src="img/icon/cart.png" alt=""/> <span>{itemsCount}</span></a>
-                    <div className="price">$0.00</div>
+                    <Link to="/cart"><img src="img/icon/cart.png" alt=""/> <span>{itemsCount}</span></Link>
+                    <div className="price">${carts?.data?.totalCartPrice || '0.0'}</div>
                 </div>
                 <div id="mobile-menu-wrap"></div>
                 <div className="offcanvas__text">
@@ -168,7 +168,7 @@ const Header = ({index}) => {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-3 col-md-3">
-                            <div className="header__logo" style={{marginTop: '-35px'}}>
+                            <div className="header__logo p-0">
                                 <Link to="/"><img src={logo} alt=""/></Link>
                             </div>
                         </div>
@@ -177,7 +177,7 @@ const Header = ({index}) => {
                                 <ul style={{textDecoration: 'none'}}>
                                     <li className={isActive("")}><Link style={{textDecoration: 'none'}}
                                                                        to="/">Home</Link></li>
-                                    <li className={isActive('shop')}><Link to="/products">Shop</Link></li>
+                                    <li className={isActive('shop')}><Link to="/shop">Shop</Link></li>
                                     {/*<li><a href="#">Pages</a>
                                         <ul className="dropdown">
                                             <li><a href="./about.html">About Us</a></li>
@@ -190,6 +190,7 @@ const Header = ({index}) => {
                                     <li className={isActive('categories')}><Link to="/categories">Categories</Link></li>
                                     <li className={isActive('brands')}><Link to="/brands">Brands</Link></li>
                                     <li className={isActive('contact')}><Link to="/contact">Contacts</Link></li>
+                                    <li className={isActive('about-us')}><Link to="/about-us">About Us</Link></li>
                                 </ul>
                             </nav>
                         </div>
@@ -198,7 +199,7 @@ const Header = ({index}) => {
                                 <a className="search-switch" onClick={handleSearchModal}>
                                     <img src="img/icon/search.png" alt=""/>
                                 </a> <a href="#"><img src="img/icon/heart.png" alt=""/></a>
-                                <a href="#"><img src="img/icon/cart.png" alt=""/> <span>{itemsCount}</span></a>
+                                <Link to="/cart"><img src="img/icon/cart.png" alt=""/> <span>{itemsCount}</span></Link>
                                 <div className="price">${carts?.data?.totalCartPrice || '0.0'}</div>
                             </div>
                         </div>

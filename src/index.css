@@ -788,9 +788,8 @@ a {
 /* Apply styles to the custom labels */
 .custom-label {
   cursor: pointer;
-  display: inline-block;
-  padding: 5px 10px;
-  border: 1px solid #ccc; /* Add a border to mimic checkbox appearance */
+  display: block;
+  padding: 0 14px;
   margin: 0;
 }
 

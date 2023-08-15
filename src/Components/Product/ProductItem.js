@@ -7,59 +7,68 @@ import avatar from "../../assets/images/image.png"
 import LimitCharacters from "../../Hooks/LimitCharacters";
 import ReactStars from "react-rating-stars-component";
 import {CreateCartItem} from "../../Controllers/CartController";
+import RenderStars from "../Utility/RenderStars";
 
-const ProductItem = ({product: {_id, imageCover,colors, title, ratingsAverage, price, priceAfterDiscount,category}}) => {
+const ProductItem = ({
+                         product: {
+                             _id,
+                             imageCover,
+                             colors,
+                             title,
+                             ratingsAverage,
+                             ratingQuantity,
+                             price,
+                             priceAfterDiscount,
+                             category
+                         }
+                     }) => {
     const {handleToggleWishlist, isProductInWishlist} = WishlistController({productId: _id});
     const HeartIcon = isProductInWishlist ? HeartFill : Heart;
-      const [isImgError, setIsImgError] = useState(false);
+    const [isImgError, setIsImgError] = useState(false);
 
     const handleImageError = () => {
         setIsImgError(true);
     };
-
     const {data, handleSubmit, handlerOnChangeInput} = CreateCartItem(_id)
-
+    const filledStars = Math.floor(ratingsAverage || 0);
+    const outlineStars = 5 - filledStars;
     return (
-
         <div className={`col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix ${category?.name}`}>
             <div className="product__item sale">
-                <div
-                    className="product__item__pic set-bg"
-                    data-setbg="img/product/product-5.jpg"
-                    style={{ backgroundImage: 'url("img/product/product-5.jpg")' }}
-                >
-                    <span className="label">New</span>
-                    <span className="label">Sale</span>
-                    <ul className="product__hover">
-                        <li>
-                            <a href="#">
-                             {/*   <img src="img/icon/heart.png" alt="" className={isProductInWishlist ? "text-danger" : ""}
-                                     onClick={handleToggleWishlist}/>*/}
-                                <HeartIcon size={20} className={isProductInWishlist ? "text-danger" : "text-dark"}
-                                           onClick={handleToggleWishlist}/>                            </a>
-                        </li>
-                       {/* <li>
-                            <a href="#">
-                                <img src="img/icon/compare.png" alt="" />{" "}
-                                <span>Compare</span>
-                            </a>
-                        </li>*/}
-                        <li>
-                            <Link to={`/products/${_id}`}>
-                               <Search className="text-dark" size={20}/>
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
+                <Link to={`/${_id}`}>
+                    <div
+                        className="product__item__pic set-bg"
+                        data-setbg={isImgError ? avatar : imageCover}
+                        style={{backgroundImage: isImgError ? `url('img/product/product-8.jpg')` : `url('${imageCover}')`}}
+                        onError={handleImageError}
+                    >
+                        <span className="label">New</span>
+                        <span className="label">Sale</span>
+                        <ul className="product__hover">
+                            <li>
+                                <a href="#">
+                                    <HeartIcon size={20} className={isProductInWishlist ? "text-danger" : "text-dark"}
+                                               onClick={handleToggleWishlist}/> </a>
+                            </li>
+                            <li>
+                                <Link to={`/${_id}`}>
+                                    <Search className="text-dark" size={20}/>
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+                </Link>
                 <div className="product__item__text">
                     <h6>{title}</h6>
                     <a href="#" onClick={handleSubmit} className="add-cart">
                         + Add To Cart
                     </a>
                     <div className="rating">
-                        <ReactStars value={ratingsAverage} size={20} edit={false}/>
+                        {RenderStars(filledStars, outlineStars)}
+                        <span></span>
                     </div>
-                    <h5>${price}</h5>
+                    <h5>{priceAfterDiscount ?
+                        <> ${priceAfterDiscount}<span>${price}</span></> : <>${price}</>}</h5>
                     <div className="product__color__select">
                         <form>{colors?.map((col) => (
                             <label key={col}
@@ -75,13 +84,13 @@ const ProductItem = ({product: {_id, imageCover,colors, title, ratingsAverage, p
                                 />
                             </label>
                         ))}</form>
-
                     </div>
                 </div>
             </div>
         </div>
     );
 };
+export default React.memo(ProductItem);
 {/*                    <div className="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
                         <div className="product__item">
                             <div
@@ -189,5 +198,5 @@ const ProductItem = ({product: {_id, imageCover,colors, title, ratingsAverage, p
                                 </div>
                             </div>
                         </div>
-                    </div>*/}
-export default React.memo(ProductItem);
+                    </div>*/
+}
