@@ -13,14 +13,14 @@ const RateContainer = ({productId, product}) => {
             <Row>
                 <Col className="d-flex">
                     <div className="sub-tile d-inline p-1 ">Ratings</div>
-                    {product?.data?.ratingsAverageratingsAverage && (<><img className="mt-2" src={rate} alt=""
+                    {product?.ratingsAverageratingsAverage && (<><img className="mt-2" src={rate} alt=""
                                                                             height="16px" width="16px"/>
-                            <div className="cat-rate  d-inline  p-1 pt-2">{product?.data?.ratingsAverageratingsAverage}
+                            <div className="cat-rate  d-inline  p-1 pt-2">{product?.ratingsAverageratingsAverage}
                             </div>
                         </>
                     )}
 
-                    <div className="rate-count d-inline p-1 pt-2">({product?.data?.ratingQuantity} rate)</div>
+                    <div className="rate-count d-inline p-1 pt-2">({product?.ratingQuantity} rate)</div>
                 </Col>
             </Row>
             <RatePost/>

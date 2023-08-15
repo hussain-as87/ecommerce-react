@@ -70,7 +70,7 @@ export const destroyProductAction = (id) => async (dispatch) => {
  */
 export const getProductsByCategoryAction = (catId) => async (dispatch) => {
     try {
-        const response = await use_get_data(`${url}?limit=4&page=1&sort=-createdAt&category.name=${catId}`, {
+        const response = await use_get_data(`${url}?limit=5&page=1&sort=-createdAt&category.name=${catId}`, {
             headers: {Authorization: `Bearer ${token}`},
         });
         dispatch({type: GET_PRODUCTS_BY_CATEGORY, payload: response});
