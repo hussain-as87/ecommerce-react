@@ -7,7 +7,6 @@ import use_notification from "../../Controllers/use_notification";
 
 const CartCheckout = () => {
     const navigate = useNavigate()
-    const {clearHandler} = ClearCartItems();
     const {handlerOnChangeInput, data, applyHandler, discountValue} = ApplyCouponOnCart()
     const {carts} = GetCartItems()
 
@@ -19,46 +18,38 @@ const CartCheckout = () => {
     }, [carts])
     const checkCart = () => {
         if (carts?.data?.cartItems.length >= 1) {
-             navigate('/order/paymethod')
+            navigate('/order/paymethod')
         } else {
             use_notification('Cart is empty!', 'warn')
         }
     }
     return (
-        <Row className="my-1 d-flex justify-content-center pt-3">
-            <Col xs={12} className="d-flex flex-column">
-                <Form onSubmit={applyHandler}>
-                    <div className="d-flex">
-                        <Form.Control name="coupon" value={data.coupon} onChange={handlerOnChangeInput}
-                                      className="d-inline py-2"
-                                      type="text" placeholder="Coupon Code"/>
-                        <Button type="submit" className="d-inline py-2" variant="primary">Execute</Button>
-                    </div>
-                </Form>
-                <Card className="mt-2 mb-4">
-                    <Card.Body>
-                        <Card.Text className="text-center">Total Price: <b
-                            className="text-primary">{carts?.data?.totalCartPrice ||0}
-                            $</b></Card.Text>
-                        <Card.Text className="text-center">Discount Value: <b
-                            className="text-primary">{discountValue}
-                            %</b></Card.Text>
-                        <hr/>
-                        <Card.Text className="text-center">Total After Discount: <br/><b
-                            className="text-primary">{(carts?.data?.totalPriceAfterDiscount || carts?.data?.totalCartPrice)||0}
-                            $</b></Card.Text>
-                    </Card.Body>
-                </Card>
-
-                <Button className="w-100 px-2" onClick={checkCart}>
-                    <BagCheck size={22}/> Checkout
-                </Button>
-                <Button variant="danger" onClick={clearHandler} className="mt-2">
-                    <CartX size={22}/> Clear Cart
-                </Button>
-            </Col>
-        </Row>
+        <div className="col-lg-4">
+            <div className="cart__discount">
+                <h6>Discount codes</h6>
+                <form onSubmit={applyHandler}>
+                    <input type="text" name="coupon" value={data.coupon} onChange={handlerOnChangeInput}
+                           placeholder="Coupon code"/>
+                    <button type="submit">Apply</button>
+                </form>
+            </div>
+            <div className="cart__total">
+                <h6>Cart total</h6>
+                <ul>
+                    <li>
+                        Subtotal <span>$ {carts?.data?.totalCartPrice ||0}</span>
+                    </li>
+                    <li>
+                        Total <span>$ {(carts?.data?.totalPriceAfterDiscount || carts?.data?.totalCartPrice)||0}</span>
+                    </li>
+                </ul>
+                <a href="#" className="primary-btn" onClick={checkCart}>
+                    Proceed to checkout
+                </a>
+            </div>
+        </div>
     );
 }
 
 export default CartCheckout;
+
