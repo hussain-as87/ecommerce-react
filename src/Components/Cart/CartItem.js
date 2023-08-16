@@ -1,16 +1,56 @@
 import React from 'react';
-import { Col, Row } from 'react-bootstrap';
-import { Dash, Plus, StarFill, Trash2 } from 'react-bootstrap-icons';
+import {Col, Row} from 'react-bootstrap';
+import {Dash, Plus, StarFill, Trash2} from 'react-bootstrap-icons';
 import LimitCharacters from '../../Hooks/LimitCharacters';
-import { DestroyCartItem, EditCartItemsQuantity } from '../../Controllers/CartController';
+import {DestroyCartItem, EditCartItemsQuantity} from '../../Controllers/CartController';
 
-const CartItem = ({ item }) => {
-    const { data, inc, dec, handlerOnChangeInput } = EditCartItemsQuantity(item?._id, item?.quantity);
-    const { deleteHandler } = DestroyCartItem(item?._id);
-    const { quantity } = data;
-
+const CartItem = ({item}) => {
+    const {data, inc, dec, handlerOnChangeInput} = EditCartItemsQuantity(item?._id, item?.quantity);
+    const {deleteHandler} = DestroyCartItem(item?._id);
+    const {quantity} = data;
     return (
-        <Col xs="12" className="cart-item-body my-2 d-flex px-2">
+        <tr>
+            <td className="product__cart__item">
+                <div className="product__cart__item__pic">
+                    <img src={item?.product?.imageCover} width={100} alt=""/>
+                </div>
+                <div className="product__cart__item__text">
+                    <h6>{item?.product?.title}</h6>
+                    <div className="d-flex align-items-center">
+                        <h5 className="me-2">${item?.price}</h5>
+                        <div className="color ms-1 border" style={{ backgroundColor: item?.color }}></div>
+                    </div>
+                </div>
+            </td>
+
+            <td className="quantity__item">
+                <div className="quantity">
+                    <div className="pro-qty-2 d-inline">
+                        <Dash size={20} onClick={dec}/>
+                        <input
+                            className="mx-2"
+                            type="text"
+                           disabled={true}
+                            name="quantity"
+                            onChange={handlerOnChangeInput}
+                            value={quantity}
+                            style={{width: '30px', height: '25px'}}
+                        />
+                        <Plus size={20} onClick={inc}/>
+                    </div>
+                </div>
+            </td>
+
+            <td className="cart__price">$ {item?.price * quantity}</td>
+            <td className="cart__close" onClick={deleteHandler}>
+                <i className="fa fa-close"/>
+            </td>
+        </tr>
+    );
+};
+
+export default CartItem;
+/*<Col xs="12" className="cart-item-body my-2 d-flex px-2">
             <img width="35%" src={item?.product?.imageCover} alt="" className="m-2" />
             <div className="w-100">
                 <Row className="justify-content-between">
@@ -45,28 +85,6 @@ const CartItem = ({ item }) => {
                         <div className="color ms-2 border" style={{ backgroundColor: item?.color }}></div>
                     </Col>
                 </Row>
-                <Row className="justify-content-between">
-                    <Col sm="12" className="d-flex flex-row justify-content-between">
-                        <div className="d-inline pt-2 d-flex">
-                            <div className="cat-text d-inline me-2">Quantity:</div>
-                            <Dash size={20} onClick={dec} />
-                            <input
-                                className="mx-2"
-                                type="number"
-                                name="quantity"
-                                onChange={handlerOnChangeInput}
-                                value={quantity}
-                                style={{ width: '30px', height: '25px' }}
-                            />
-                            <Plus size={20} onClick={inc} />
-                        </div>
-                        <div className="d-inline pt-2 barnd-text text-primary">{item?.price}</div>
-                        <div className="d-inline pt-2 barnd-text">Total: {item?.price * quantity} $</div>
-                    </Col>
-                </Row>
-            </div>
-        </Col>
-    );
-};
 
-export default CartItem;
+            </div>
+        </Col>*/

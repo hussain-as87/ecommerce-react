@@ -122,9 +122,12 @@ function App() {
                         />
                         <Route path=":id" element={<ProductDetails/>}/>
                         <Route path="cart" element={<CartContent/>}/>
+                        <Route path="order/paymethod" element={<PaymentMethodType/>}/>
                         <Route path="about-us" element={<About/>}/>
                         <Route path="contact" element={<Contact/>}/>
                         <Route path="500" element={<BadConnectionPage/>}/>
+
+
                         {/**Protected routes (don't allow user to access if he already signed) Start*/}
                         <Route path="" element={<ProtectionLoginRoutes/>}>
                             <Route path="login" element={<Login/>}/>
