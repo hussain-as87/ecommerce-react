@@ -1,11 +1,8 @@
-import React, {useState} from "react";
-import {Card, Col} from "react-bootstrap";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import WishlistController from "../../Controllers/WishlistController";
 import {Heart, HeartFill, Search, StarFill} from "react-bootstrap-icons"
-import avatar from "../../assets/images/image.png"
-import LimitCharacters from "../../Hooks/LimitCharacters";
-import ReactStars from "react-rating-stars-component";
+import noneImage from "../../assets/images/avatar.png"
 import {CreateCartItem} from "../../Controllers/CartController";
 import RenderStars from "../Utility/RenderStars";
 
@@ -24,23 +21,33 @@ const ProductItem = ({
                      }) => {
     const {handleToggleWishlist, isProductInWishlist} = WishlistController({productId: _id});
     const HeartIcon = isProductInWishlist ? HeartFill : Heart;
-    const [isImgError, setIsImgError] = useState(false);
+    const [img, setImg] = useState(false);
 
-    const handleImageError = () => {
-        setIsImgError(true);
-    };
     const {data, handleSubmit, handlerOnChangeInput} = CreateCartItem(_id)
     const filledStars = Math.floor(ratingsAverage || 0);
     const outlineStars = 5 - filledStars;
+    useEffect(() => {
+        // Check the validity of the image URL
+        const checkImageValidity = async () => {
+            try {
+                const response = await fetch(imageCover);
+                if (response.ok)
+                    setImg(true);
+            } catch (error) {
+                setImg(false);
+            }
+        };
+
+        checkImageValidity();
+    }, [imageCover]);
     return (
         <div className={`col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix ${category?.name}`}>
             <div className="product__item sale">
                 <Link to={`/${_id}`}>
                     <div
-                        className="product__item__pic set-bg"
-                        data-setbg={isImgError ? avatar : imageCover}
-                        style={{backgroundImage: isImgError ? `url('img/product/product-8.jpg')` : `url('${imageCover}')`}}
-                        onError={handleImageError}
+                        className="product__item__pic set-bg py-2"
+                        data-setbg={img ? imageCover : noneImage}
+                        style={{backgroundImage: `url(${img ? imageCover : noneImage})`}}
                     >
                         <span className="label">New</span>
                         <span className="label">Sale</span>
