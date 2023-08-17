@@ -122,7 +122,7 @@ function App() {
                         />
                         <Route path=":id" element={<ProductDetails/>}/>
                         <Route path="cart" element={<CartContent/>}/>
-                        <Route path="order/paymethod" element={<PaymentMethodType/>}/>
+                        <Route path="checkout" element={<PaymentMethodType/>}/>
                         <Route path="about-us" element={<About/>}/>
                         <Route path="contact" element={<Contact/>}/>
                         <Route path="500" element={<BadConnectionPage/>}/>

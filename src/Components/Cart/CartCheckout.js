@@ -18,7 +18,7 @@ const CartCheckout = () => {
     }, [carts])
     const checkCart = () => {
         if (carts?.data?.cartItems.length >= 1) {
-            navigate('/order/paymethod')
+            navigate('/checkout')
         } else {
             use_notification('Cart is empty!', 'warn')
         }

@@ -63,14 +63,19 @@ export const CreateOrder = (cartId) => {
     const navigate = useNavigate()
     const storedUser = localStorage.getItem("user");
     const parsedUser = storedUser ? JSON.parse(storedUser) : null;
-    const [isCash, setIsCash] = useState(false)
+    const [isCash, setIsCash] = useState(true)
     const {create, create_error} = useSelector(state => state.orders)
     const [data, setData] = useState({
         shippingAddress: {
+            firstName:"",
+            lastName:"",
+            email:"",
             details: "",
             phone: "",
             city: "",
-            postalCode: ""
+            country:"",
+            postalCode: "",
+            notes:"",
         }
     });
     const {getCheckoutList, getCheckoutList_error} = GetOrderCheckoutSession(cartId)
@@ -80,17 +85,14 @@ export const CreateOrder = (cartId) => {
             shippingAddress: {...prevData.shippingAddress, [name]: value},
         }));
     }
-    const handleChangeValue = () => {
+    const handleChangeCashValue = () => {
         setIsCash(!isCash)
     }
     const handleSubmit = async (event) => {
         event.preventDefault()
         if (!isCash) {
-            if (getCheckoutList) {
-                console.log(getCheckoutList)
-                return window.location.href = getCheckoutList.session.url
-            }
-
+            return window.location.href = getCheckoutList?.session?.url
+        }
         if (parsedUser?.role === "admin") {
             use_notification("You not allowed to commit!", "warn")
             return
@@ -99,28 +101,30 @@ export const CreateOrder = (cartId) => {
             setTimeout(() => navigate('/login'), 1000)
             return
         }
+
         dispatch(createOrderAction({cartId, formData: data}))
         dispatch(getOrdersAction())
     }
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-            if (create?.status === 201) {
-                setData({
-                    shippingAddress: {
-                        details: "",
-                        phone: "",
-                        city: "",
-                        postalCode: ""
-                    }
-                })
-                use_notification("Successfully created!", "success")
-            } else if (create_error?.data || getCheckoutList_error?.data) {
-                use_notification("Have an error!", "error")
-            }
-        },[create?.status, create_error?.data, getCheckoutList_error])
-    return {data, handlerOnChangeInput, handleSubmit, handleChangeValue, isCash}
-}}
+        if (create?.status === 201) {
+            setData({
+                shippingAddress: {
+                    details: "",
+                    phone: "",
+                    city: "",
+                    postalCode: ""
+                }
+            })
+            use_notification("Successfully created!", "success")
+        } else if (create_error?.data || getCheckoutList_error?.data) {
+            use_notification("Have an error!", "error")
+        }
+    }, [create?.status, create_error?.data, getCheckoutList_error])
+    return {data, handlerOnChangeInput, handleSubmit, handleChangeCashValue, isCash, setIsCash}
+}
+
 
 export const GetOrderCheckoutSession = (cartId) => {
     const dispatch = useDispatch()
