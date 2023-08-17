@@ -1,18 +1,33 @@
-import React from 'react';
-import {Col, Row} from 'react-bootstrap';
-import {Dash, Plus, StarFill, Trash2} from 'react-bootstrap-icons';
-import LimitCharacters from '../../Hooks/LimitCharacters';
+import React, {useEffect, useState} from 'react';
+import {Dash, Plus} from 'react-bootstrap-icons';
 import {DestroyCartItem, EditCartItemsQuantity} from '../../Controllers/CartController';
+import noneImage from "../../assets/images/avatar.png"
 
 const CartItem = ({item}) => {
     const {data, inc, dec, handlerOnChangeInput} = EditCartItemsQuantity(item?._id, item?.quantity);
     const {deleteHandler} = DestroyCartItem(item?._id);
+    const [img, setImg] = useState(false);
+
     const {quantity} = data;
+    useEffect(() => {
+        // Check the validity of the image URL
+        const checkImageValidity = async () => {
+            try {
+                const response = await fetch(item?.product?.imageCover);
+                if (response.ok)
+                setImg(true);
+            } catch (error) {
+                setImg(false);
+            }
+        };
+
+        checkImageValidity();
+    }, [item?.product?.imageCover]);
     return (
         <tr>
             <td className="product__cart__item">
                 <div className="product__cart__item__pic">
-                    <img src={item?.product?.imageCover} width={100} alt=""/>
+                    <img src={img?item.product.imageCover:noneImage} width={100} alt=""/>
                 </div>
                 <div className="product__cart__item__text">
                     <h6>{item?.product?.title}</h6>
@@ -50,41 +65,3 @@ const CartItem = ({item}) => {
 };
 
 export default CartItem;
-/*<Col xs="12" className="cart-item-body my-2 d-flex px-2">
-            <img width="35%" src={item?.product?.imageCover} alt="" className="m-2" />
-            <div className="w-100">
-                <Row className="justify-content-between">
-                    <Col sm="12" className="d-flex flex-row justify-content-between">
-                        <div className="d-inline pt-2 cat-text">{item?.product?.category?.name}</div>
-                        <div className="d-flex pt-2" style={{ cursor: 'pointer' }}>
-                            <Trash2 size={20} className="text-danger" onClick={deleteHandler} />
-                        </div>
-                    </Col>
-                </Row>
-                <Row className="justify-content-center mt-2">
-                    <Col sm="12" className="d-flex flex-row justify-content-start">
-                        <div className="d-inline pt-2 cat-title">
-                            {item?.product?.description && LimitCharacters(item?.product?.description, 49)}
-                        </div>
-                        {item?.product?.ratingsAverage && (
-                            <>
-                                <div className="d-inline pt-2 cat-rate me-2 m-1">{item?.product?.ratingsAverage}</div>
-                                <StarFill size={35} className="text-warning" />
-                            </>
-                        )}
-                    </Col>
-                </Row>
-                <Row>
-                    <Col sm="12" className="mt-1">
-                        <div className="cat-text d-inline">Brand:</div>
-                        <div className="barnd-text d-inline mx-1">{item?.product?.brand?.name}</div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col sm="12" className="mt-1 d-flex">
-                        <div className="color ms-2 border" style={{ backgroundColor: item?.color }}></div>
-                    </Col>
-                </Row>
-
-            </div>
-        </Col>*/
