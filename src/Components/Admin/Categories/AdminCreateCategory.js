@@ -7,7 +7,7 @@ const AdminCreateCategory = () => {
     const {name, onChangeName, img, handleSubmit, isPress, onChangeImage, errors} = CreateCategory();
 
     return (
-        <Container>
+        <>
             <Card className="">
                 <Card.Body>
                     <Card.Title className="">Create Category</Card.Title>
@@ -68,7 +68,7 @@ const AdminCreateCategory = () => {
                     </Form>
                 </Card.Body>
             </Card>
-        </Container>);
+        </>);
 };
 
 export default AdminCreateCategory;

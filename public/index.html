@@ -25,13 +25,15 @@
         };
 
         if (isDashboard) {
-            addStylesheet(`${publicUrl}/dashboard/assets/vendors/mdi/css/materialdesignicons.min.css`);
-            addStylesheet(`${publicUrl}/dashboard/assets/vendors/css/vendor.bundle.base.css`);
-            addStylesheet(`${publicUrl}/dashboard/assets/vendors/jvectormap/jquery-jvectormap.css`);
-            addStylesheet(`${publicUrl}/dashboard/assets/vendors/flag-icon-css/css/flag-icon.min.css`);
-            addStylesheet(`${publicUrl}/dashboard/assets/vendors/owl-carousel-2/owl.carousel.min.css`);
-            addStylesheet(`${publicUrl}/dashboard/assets/vendors/owl-carousel-2/owl.theme.default.min.css`);
-            addStylesheet(`${publicUrl}/dashboard/assets/css/style.css`);
+            document.write('<title>Dashboard</title>')
+            document.write('<link rel="stylesheet" href="%PUBLIC_URL%/dashboard/assets/vendors/core/core.css">')
+            document.write('<link rel="stylesheet" href="%PUBLIC_URL%/dashboard/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">')
+            document.write('<link rel="stylesheet" href="%PUBLIC_URL%/dashboard/assets/fonts/feather-font/css/iconfont.css">')
+            document.write('<link rel="stylesheet" href="%PUBLIC_URL%/dashboard/assets/vendors/flag-icon-css/css/flag-icon.min.css">')
+            document.write('<link rel="stylesheet" href="%PUBLIC_URL%/dashboard/assets/css/demo_2/style.css">')
+            document.write('<link rel="shortcut icon" href="%PUBLIC_URL%/dashboard/assets/images/favicon.png"/>')
+            /*datatable scripts*/
+            document.write('<link rel="shortcut icon" href="%PUBLIC_URL%/dashboard/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css"/>')
 
         } else {
             addStylesheet("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap");
@@ -51,18 +53,20 @@
 <div id="root"></div>
 <script>
     if (isDashboard) {
-        addScript(`${publicUrl}/dashboard/assets/vendors/js/vendor.bundle.base.js`)
-        addScript(`${publicUrl}/dashboard/assets/vendors/chart.js/Chart.min.js`)
-        addScript(`${publicUrl}/dashboard/assets/vendors/progressbar.js/progressbar.min.js`)
-        addScript(`${publicUrl}/dashboard/assets/vendors/jvectormap/jquery-jvectormap.min.js`)
-        addScript(`${publicUrl}/dashboard/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js`)
-        addScript(`${publicUrl}/dashboard/assets/vendors/owl-carousel-2/owl.carousel.min.js`)
-        addScript(`${publicUrl}/dashboard/assets/js/off-canvas.js`)
-        addScript(`${publicUrl}/dashboard/assets/js/hoverable-collapse.js`)
-        addScript(`${publicUrl}/dashboard/assets/js/misc.js`)
-        addScript(`${publicUrl}/dashboard/assets/js/settings.js`)
-        addScript(`${publicUrl}/dashboard/assets/js/todolist.js`)
-        addScript(`${publicUrl}/dashboard/assets/js/dashboard.js`)
+        document.write('<script src="%PUBLIC_URL%/dashboard/assets/vendors/core/core.js"></scr' + 'ipt>');
+        document.write('<script src="%PUBLIC_URL%/dashboard/assets/vendors/chartjs/Chart.min.js"></scr' + 'ipt>');
+        document.write('<script src="%PUBLIC_URL%/dashboard/assets/vendors/jquery.flot/jquery.flot.js"></scr' + 'ipt>');
+        document.write('<script src="%PUBLIC_URL%/dashboard/assets/vendors/jquery.flot/jquery.flot.resize.js"></scr' + 'ipt>');
+        document.write('<script src="%PUBLIC_URL%/dashboard/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></scr' + 'ipt>');
+        document.write('<script src="%PUBLIC_URL%/dashboard/assets/vendors/apexcharts/apexcharts.min.js"></scr' + 'ipt>');
+        document.write('<script src="%PUBLIC_URL%/dashboard/assets/vendors/progressbar.js/progressbar.min.js"></scr' + 'ipt>');
+        document.write('<script src="%PUBLIC_URL%/dashboard/assets/vendors/feather-icons/feather.min.js"></scr' + 'ipt>');
+        document.write('<script src="%PUBLIC_URL%/dashboard/assets/js/template.js"></scr' + 'ipt>');
+        document.write('<script src="%PUBLIC_URL%/dashboard/assets/js/dashboard.js"></scr' + 'ipt>');
+        document.write('<script src="%PUBLIC_URL%/dashboard/assets/js/datepicker.js"></scr' + 'ipt>');
+        /*datatable scripts*/
+        document.write('<script src="%PUBLIC_URL%/dashboard/assets/vendors/datatables.net/jquery.dataTables.js"></scr' + 'ipt>');
+        document.write('<script src="%PUBLIC_URL%/dashboard/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></scr' + 'ipt>');
     } else {
         addScript("https://kit.fontawesome.com/cc1007967f.js");
         addScript("https://cdn.jsdelivr.net/npm/react/umd/react.production.min.js");
