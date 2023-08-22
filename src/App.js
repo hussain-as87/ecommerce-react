@@ -32,7 +32,7 @@ import AdminCreateCategoryPage from "./Pages/Admin/AdminCreateCategoryPage";
 import AdminCreateSubCategoryPage from "./Pages/Admin/AdminCreateSubCategoryPage";
 import AdminCreateCouponPage from "./Pages/Admin/AdminCreateCouponPage";
 import AdminProfilePage from "./Pages/Admin/AdminProfilePage";
-import AdminLayout from "./Pages/Layouts/AdminLayout";
+import AdminLayout from "./Pages/Layouts/Admin/AdminLayout";
 import UserLayout from "./Pages/Layouts/UserLayout";
 import UserOrdersPage from "./Pages/User/UserOrdersPage";
 import PaymentMethodType from "./Pages/Checkout/PaymentMethodType";
