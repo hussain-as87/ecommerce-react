@@ -14,7 +14,7 @@ import {
 } from "../Redux/Actions/ProductAction";
 import { getSubcategoryByCategoryAction } from "../Redux/Actions/SubcategoryAction";
 import { GetCategories } from "./CategoryController";
-import { GetBrands } from "./BarandController";
+import { GetBrands } from "./BrandController";
 
 export const GetProducts = () => {
   const dispatch = useDispatch();

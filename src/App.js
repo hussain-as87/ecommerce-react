@@ -45,6 +45,8 @@ import AdminEditProductPage from "./Pages/Admin/AdminEditProductPage";
 import HomeLayout from "./Pages/Layouts/HomeLayout";
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
+import AdminCreateBannerPage from "./Pages/Admin/AdminCreateBannerPage";
+import AdminBannersPage from "./Pages/Admin/AdminBannersPage";
 
 function App() {
     const indexProductForm = GetProducts();
@@ -66,6 +68,7 @@ function App() {
                             />
                             <Route path="categories" element={<AdminCategoriesPage/>}/>
                             <Route path="brands" element={<AdminBrandsPage/>}/>
+                            <Route path="banners" element={<AdminBannersPage/>}/>
                             <Route
                                 path="subcategories"
                                 element={<AdminSubcategoriesPage/>}
@@ -77,6 +80,7 @@ function App() {
                                 element={<AdminCreateProductPage/>}
                             />
                             <Route path="brands/create" element={<AdminCreateBrandPage/>}/>
+                            <Route path="banners/create" element={<AdminCreateBannerPage/>}/>
                             <Route
                                 path="categories/create"
                                 element={<AdminCreateCategoryPage/>}

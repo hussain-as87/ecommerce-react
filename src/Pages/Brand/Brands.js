@@ -1,6 +1,6 @@
 import Pagination from "../../Components/Utility/Pagination";
 import BrandContainer from "../../Components/Brand/BrandCardItemContainer";
-import {GetBrands} from "../../Controllers/BarandController";
+import {GetBrands} from "../../Controllers/BrandController";
 
 const Brands = () => {
     const {brands,getPage,pageCount,loading} = GetBrands()

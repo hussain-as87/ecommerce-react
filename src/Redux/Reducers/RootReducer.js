@@ -10,10 +10,12 @@ import ReviewReducer from "./ReviewReducer";
 import CouponReducer from "./CouponReducer";
 import CartReducer from "./CartReducer";
 import OrderReducer from "./OrderReducer";
+import BannerReducer from "./BannerReducer";
 
 const RootReducer = combineReducers({
     categories:CategoryReducer,
     brands:BrandReducer,
+    banners:BannerReducer,
     subcategories:SubcategoryReducer,
     products:ProductReducer,
     auth:AuthReducer,

@@ -133,6 +133,19 @@ export const BC_ERROR = "BC_ERROR"
 export const BE_ERROR = "BE_ERROR"
 export const BD_ERROR = "BD_ERROR"
 /**
+ * banners
+ * */
+export const GET_ALL_BANNERS = "GET_ALL_BANNERS"
+export const GET_BANNER = "GET_BANNER"
+export const CREATE_BANNER = "CREATE_BANNER"
+export const EDIT_BANNER = "EDIT_BANNER"
+export const DELETE_BANNER = "DELETE_BANNER"
+export const BNG_ERROR = "BNG_ERROR"
+export const BNG1_ERROR = "BNG1_ERROR"
+export const BNC_ERROR = "BNC_ERROR"
+export const BNE_ERROR = "BNE_ERROR"
+export const BND_ERROR = "BND_ERROR"
+/**
  * categories
  * */
 export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES"
