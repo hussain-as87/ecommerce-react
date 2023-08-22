@@ -2,7 +2,7 @@ import React from 'react'
 import {Container, Row, Spinner} from 'react-bootstrap'
 import SubTitle from '../Utility/SubTitle'
 import BrandCard from './BrandCardItem'
-import {GetBrands} from "../../Controllers/BarandController";
+import {GetBrands} from "../../Controllers/BrandController";
 
 const BrandFeatured = ({title, btn}) => {
     const {brands, loading} = GetBrands()

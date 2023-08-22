@@ -14,9 +14,9 @@ const HomePage = () => {
                 {/* Hero Section Begin */}
                 <Slider/>
                 {/* Hero Section End */}
-                {/* Banner Section Begin */}
+                {/* Banners Section Begin */}
                 <BrandFeatured title="Brands" btn="More"/>
-                {/* Banner Section End */}
+                {/* Banners Section End */}
                 {/* Product Section Begin */}
                 <section className="product spad">
                     <div className="container">

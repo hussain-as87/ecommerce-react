@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
-import { GetBrands } from '../../Controllers/BarandController';
+import { GetBrands } from '../../Controllers/BrandController';
 import { GetCategories } from '../../Controllers/CategoryController';
 
 const SidebarFilter = ({ index }) => {

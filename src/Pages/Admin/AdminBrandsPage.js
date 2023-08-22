@@ -1,8 +1,8 @@
 import Pagination from "../../Components/Utility/Pagination";
-import {GetBrands} from "../../Controllers/BarandController";
+import {GetBrands} from "../../Controllers/BrandController";
 import AdminBrandsContainer from "../../Components/Admin/Brands/AdminBrandsContainer";
 
-const AdminProductsPage = () => {
+const AdminBrandsPage = () => {
     const {brands, loading, getPage, pageCount} = GetBrands()
     return (
             <>
@@ -12,4 +12,4 @@ const AdminProductsPage = () => {
 
     )
 }
-export default AdminProductsPage
+export default AdminBrandsPage

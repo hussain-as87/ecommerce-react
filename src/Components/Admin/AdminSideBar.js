@@ -25,6 +25,11 @@ const AdminSideBar = () => {
                 </Link>
             </Nav.Link>
             <Nav.Link>
+                <Link to="/admin/banners" style={{textDecoration: "auto"}}>
+                    <div className="admin-side-text my-1 border-bottom p-2 mx-auto text-center">Banners</div>
+                </Link>
+            </Nav.Link>
+            <Nav.Link>
                 <Link to="/admin/subcategories" style={{textDecoration: "auto"}}>
                     <div className="admin-side-text my-1 border-bottom p-2 mx-auto text-center">Subcategories</div>
                 </Link>
@@ -32,6 +37,11 @@ const AdminSideBar = () => {
             <Nav.Link>
                 <Link to="/admin/brands/create" style={{textDecoration: "auto"}}>
                     <div className="admin-side-text my-1 border-bottom p-2 mx-auto text-center">Create Brands</div>
+                </Link>
+            </Nav.Link>
+            <Nav.Link>
+                <Link to="/admin/banners/create" style={{textDecoration: "auto"}}>
+                    <div className="admin-side-text my-1 border-bottom p-2 mx-auto text-center">Create Banners</div>
                 </Link>
             </Nav.Link>
             <Nav.Link>
