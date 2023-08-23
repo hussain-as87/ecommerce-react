@@ -141,9 +141,17 @@ export const EditBanner = (id) => {
 
     useEffect(() => {
         if (banner?.data) {
-            const {name, image} = banner.data;
+            const {title, image, subtitle, summary, description} = banner.data;
             setImg(image);
             setSelectedFile(image);
+            setData((prevState) => ({
+                ...prevState,
+                title:title,
+                description:description,
+                summary:summary,
+                image:image,
+                subtitle:subtitle,
+            }));
         }
     }, [banner]);
 

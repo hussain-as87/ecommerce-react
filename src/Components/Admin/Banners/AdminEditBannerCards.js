@@ -122,21 +122,6 @@ const AdminEditBanner = ({id}) => {
                                 </Form.Group>
 
                                 <br/>
-
-                                <Button
-                                    type="submit"
-                                    variant="outline-primary"
-                                    className="mt-2 justify-content-end d-flex"
-                                >
-                                    <Check2Circle size={20}/>
-                                    {isPress && (<Spinner
-                                        as="span"
-                                        animation="border"
-                                        size="sm"
-                                        role="status"
-                                        aria-hidden="true"
-                                    />)}
-                                </Button>
                             </Form>
                         </Card.Body>
                     </Card>
