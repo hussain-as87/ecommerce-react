@@ -38,7 +38,7 @@ const AdminCreateProduct = () => {
                         <MultiImageInput
                             images={images}
                             setImages={setImages}
-                            theme="light"
+                            theme="dark"
                             max={6}
                             handleError={handleError}
                             allowCrop={false}
@@ -49,43 +49,40 @@ const AdminCreateProduct = () => {
                                 {errors.find(error => error.param === "imageCover").msg}
                             </Form.Text>}
                         <Form.Group>
-                            <FloatingLabel controlId="title" label="Title">
-                                <Form.Control type="text"
-                                              id="title"
-                                              placeholder="the title of the product"
-                                              name="title"
-                                              className={errors.some(error => error.param === "title") && 'is-invalid'}
-                                              onChange={handleInputChange}
-                                              value={data.title}/>
-                                {errors.some(error => error.param === "title") &&
-                                    <Form.Text className="text-danger">
-                                        {errors.find(error => error.param === "title").msg}
-                                    </Form.Text>
-                                }
-                            </FloatingLabel>
+                            <label htmlFor="title">Title</label>
+                            <Form.Control
+                                id="title"
+                                type="text"
+                                placeholder="the title of the banner"
+                                name="title"
+                                className={errors.some(error => error.param === "title") && 'is-invalid'}
+                                onChange={handleInputChange}
+                                value={data.title}/>
+                            {errors.some(error => error.param === "title") &&
+                                <Form.Text className="text-danger">
+                                    {errors.find(error => error.param === "title").msg}
+                                </Form.Text>
+                            }
                         </Form.Group>
                         <br/>
                         <Form.Group>
-                            <FloatingLabel controlId="description" label="Description">
-                                <Form.Control
-                                    id="description"
-                                    name="description"
-                                    as="textarea"
-                                    placeholder="Enter the description"
-                                    className={errors.some(error => error.param === "description") && 'is-invalid'}
-                                    style={{height: '100px'}}
-                                    value={data.description}
-                                    onChange={handleInputChange}
-                                />
-                                {errors.some(error => error.param === "description") &&
-                                    <Form.Text className="text-danger">
-                                        {errors.find(error => error.param === "description").msg}
-                                    </Form.Text>}
-                            </FloatingLabel>
+                            <label htmlFor="description">Description</label>
+                            <textarea id="description"
+                                      placeholder="the description of the banner"
+                                      name="description"
+                                      className={`form-control ${errors.some(error => error.param === "description") && 'is-invalid'}`}
+                                      onChange={handleInputChange}
+                                      value={data.description}
+                                      rows="5"></textarea>
+                            {errors.some(error => error.param === "description") &&
+                                <Form.Text className="text-danger">
+                                    {errors.find(error => error.param === "description").msg}
+                                </Form.Text>
+                            }
                         </Form.Group>
                         <br/>
                         <Form.Group>
-                            <FloatingLabel controlId="price" label="Price">
+                            <label htmlFor="price">Price</label>
                                 <Form.Control
                                     id="price"
                                     className={errors.some(error => error.param === "price") && 'is-invalid'}
@@ -99,12 +96,10 @@ const AdminCreateProduct = () => {
                                     <Form.Text className="text-danger">
                                         {errors.find(error => error.param === "price").msg}
                                     </Form.Text>}
-                            </FloatingLabel>
-
                         </Form.Group>
                         <br/>
                         <Form.Group>
-                            <FloatingLabel controlId="quantity" label="Quantity">
+                            <label htmlFor="quantity">Quantity</label>
                                 <Form.Control
                                     id="quantity"
                                     className={errors.some(error => error.param === "quantity") && 'is-invalid'}
@@ -118,12 +113,11 @@ const AdminCreateProduct = () => {
                                     <Form.Text className="text-danger">
                                         {errors.find(error => error.param === "quantity").msg}
                                     </Form.Text>}
-                            </FloatingLabel>
                         </Form.Group>
                         <br/>
                         <Form.Group>
-                            <FloatingLabel controlId="category" label="Category">
-                                <Form.Select
+                            <label htmlFor="category">Category</label>
+                            <Form.Select
                                     id="category"
                                     name="category"
                                     value={data.category}
@@ -142,7 +136,6 @@ const AdminCreateProduct = () => {
                                     <Form.Text className="text-danger">
                                         {errors.find(error => error.param === "category").msg}
                                     </Form.Text>}
-                            </FloatingLabel>
                         </Form.Group>
                         <br/>
                         <Form.Group>
@@ -157,6 +150,7 @@ const AdminCreateProduct = () => {
                                 displayValue="name"
                                 selectionLimit={4}
                                 style={{color: "red", height: '100px'}}
+
                             />
                             {errors.some(error => error.param === "subcategory") &&
                                 <Form.Text className="text-danger">
@@ -166,7 +160,7 @@ const AdminCreateProduct = () => {
 
                         <br/>
                         <Form.Group>
-                            <FloatingLabel controlId="brand" label="Brand">
+                            <label htmlFor="brand">Brand</label>
                                 <Form.Select
                                     name="brand"
                                     id="brand"
@@ -186,7 +180,6 @@ const AdminCreateProduct = () => {
                                     <Form.Text className="text-danger">
                                         {errors.find(error => error.param === "brand").msg}
                                     </Form.Text>}
-                            </FloatingLabel>
                         </Form.Group>
                         <div className="text-form mt-3">Available colors of the product</div>
                         <div className="mt-1 d-flex">
@@ -215,7 +208,7 @@ const AdminCreateProduct = () => {
                             variant="outline-primary"
                             className="mt-2 justify-content-end d-flex"
                         >
-                            <Check2Circle size={20}/>
+                            <Check2Circle size={24}/>
                             {isPress && (<Spinner
                                 as="span"
                                 animation="border"

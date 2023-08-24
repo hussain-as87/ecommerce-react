@@ -116,7 +116,7 @@ export const EditSubcategory = (id) => {
     useEffect(() => {
         if (subcategory?.data) {
             const { name, category } = subcategory.data;
-            setData({ name, category: category._id });
+            setData({ name, category: category?._id });
         }
     }, [subcategory.data]);
 

@@ -32,29 +32,28 @@ const AdminCreateBrand = () => {
                         </div>
                         <br/>
                         <Form.Group>
-                            <FloatingLabel controlId="name" label="Name">
-                                <Form.Control
-                                    id="name"
-                                    type="text"
-                                    placeholder="the name of the brand"
-                                    name="name"
-                                    className={errors.some(error => error.param === "name") && 'is-invalid'}
-                                    onChange={onChangeName}
-                                    value={name}/>
-                                {errors.some(error => error.param === "name") &&
-                                    <Form.Text className="text-danger">
-                                        {errors.find(error => error.param === "name").msg}
-                                    </Form.Text>
-                                }
-                            </FloatingLabel>
+                            <label htmlFor="name">Name</label>
+                            <Form.Control
+                                id="name"
+                                type="text"
+                                placeholder="the name of the brand"
+                                name="name"
+                                className={errors.some(error => error.param === "name") && 'is-invalid'}
+                                onChange={onChangeName}
+                                value={name}/>
+                            {errors.some(error => error.param === "name") &&
+                                <Form.Text className="text-danger">
+                                    {errors.find(error => error.param === "name").msg}
+                                </Form.Text>
+                            }
                         </Form.Group>
-
+                        <br/>
                         <Button
                             type="submit"
                             variant="outline-primary"
                             className="mt-2 justify-content-end d-flex"
                         >
-                            <Check2Circle size={20}/>
+                            <Check2Circle size={24}/>
                             {isPress && (<Spinner
                                 as="span"
                                 animation="border"

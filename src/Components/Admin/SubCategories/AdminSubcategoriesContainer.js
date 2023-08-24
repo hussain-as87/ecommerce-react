@@ -27,7 +27,7 @@ const AdminSubcategoriesContainer = ({subcategories, loading}) => {
                     </thead>
                     <tbody>
                     {subcategories?.data?.map((subcategory) => (
-                        <AdminSubcategoriesCards key={subcategory._id} subcategory={subcategory}/>
+                        <AdminSubcategoriesCards key={subcategory?._id} subcategory={subcategory}/>
                     ))}
                     </tbody>
                 </Table>

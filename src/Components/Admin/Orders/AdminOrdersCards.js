@@ -3,6 +3,7 @@ import {Card, Col, Row} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import {Cash, Check2Circle, CreditCard, DashCircle, Truck, XLg} from "react-bootstrap-icons";
 import {DestroyOrder} from "../../../Controllers/OrderController";
+import imageFail from "../../../assets/images/image.png"
 
 const AdminOrdersCards = ({item}) => {
     const {deleteHandler} = DestroyOrder(item._id)
@@ -18,9 +19,9 @@ const AdminOrdersCards = ({item}) => {
                         <Row className="justify-content-between">
                             <Col sm="12" className=" d-flex flex-row justify-content-between">
                                 <div className="d-inline pt-2 cat-text">
-                                    <b className="me-3">{item?.cartItems?.length} item</b>
+                                    <b className="me-5">{item?.cartItems?.length} item</b>
                                     {item?.cartItems?.map((i) => (
-                                            <Card.Img className="me-3" style={{width: '40px'}} src={i?.product?.imageCover}></Card.Img>
+                                            <Card.Img className="me-5" style={{width: '40px'}} src={i?.product?.imageCover} onError={(e) => (e.target.src = imageFail)}></Card.Img>
 
                                     ))}
                                 </div>
