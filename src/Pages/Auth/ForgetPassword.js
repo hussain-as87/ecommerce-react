@@ -1,69 +1,64 @@
 import React from "react";
-import {Button, Col, Container, FloatingLabel, Form, Row, Spinner} from "react-bootstrap";
-import {ForgetPasswordUser} from "../../Controllers/AuthController";
-import {Link} from "react-router-dom";
+import { Button, Col, Container, FloatingLabel, Form, Row, Spinner } from "react-bootstrap";
+import { ForgetPasswordUser } from "../../Controllers/AuthController";
+import { Link } from "react-router-dom";
 
 const ForgetPassword = () => {
-    const {data, handlerOnChangeInput, handleSubmit, isPress, errors} = ForgetPasswordUser();
+    const { data, handlerOnChangeInput, handleSubmit, isPress, errors } = ForgetPasswordUser();
 
     return (
-        <Container style={{minHeight: "450px"}}>
-            <Row className="justify-content-md-center mt-5">
-                <Col md={8} sm={12} xl={6} xs={12}>
-                    <Form onSubmit={handleSubmit}>
-                        <h2 className="text-center text-danger">Confirm Email Address</h2>
-                        <Form.Group controlId="formBasicEmail">
-                            <FloatingLabel controlId="email" label="Email-Address">
-                                <Form.Control
-                                    id="email"
-                                    type="email"
-                                    placeholder="example@name.com"
-                                    name="email"
-                                    className={errors.some(error => error.param === "email") && 'is-invalid'}
-                                    onChange={handlerOnChangeInput}
-                                    value={data.email}
-                                    style={{textAlign: "center"}}
-                                />
-                                {errors.some(error => error.param === "email") &&
-                                    <Form.Text className="text-danger">
-                                        {errors.find(error => error.param === "email").msg}
-                                    </Form.Text>
-                                }
-                            </FloatingLabel>
-                        </Form.Group>
-
-                        <div className="text-center">
-                            <Button
-                                variant="outline-primary"
-                                type="submit"
-                                className="mt-3"
-                                disabled={isPress}
-                            >
-                                Submit {isPress &&
-                                <Spinner
-                                    as="span"
-                                    animation="border"
-                                    size="sm"
-                                    role="status"
-                                    aria-hidden="true"
-                                />
-                            }
-                            </Button>
+        <Container style={{ minHeight: "450px", paddingBottom: '50px' }} className="pt-5">
+            <div className="row">
+                <div className="col-lg-6 col-md-6">
+                    <div className="contact__text">
+                        <div className="section-title">
+                            <h2>Confirm Email Address</h2>
                         </div>
-                    </Form>
-                </Col>
-            </Row>
-            <br/>
-            <br/>
-            <label className="mx-auto my-4">
-                <Link to="/singup" style={{textDecoration: 'none'}}>
-                    <span style={{cursor: "pointer"}} className="text-danger">Create an account</span>
-                </Link>
+                    </div>
+                </div>
+                <div className="col-lg-6 col-md-6">
+                    <br />
 
-                <Link to="/login" style={{textDecoration: 'none'}}>
-                    <span style={{cursor: "pointer"}} className="text-danger mx-3">Login</span>
-                </Link>
-            </label>
+                    <div className="contact__form">
+                        <form onSubmit={handleSubmit}>
+                            <div className="row">
+                                <div className="col-lg-12">
+                                    <input
+                                        id="email"
+                                        type="email"
+                                        placeholder="Email"
+                                        name="email"
+                                        className={errors.some(error => error.param === "email") && 'is-invalid'}
+                                        onChange={handlerOnChangeInput}
+                                        value={data.email}
+                                    />
+                                </div>
+                                <div className="col-lg-12">
+                                    <button type="submit" className="site-btn">
+                                        Submit {isPress &&
+                                        <Spinner
+                                            as="span"
+                                            animation="border"
+                                            size="sm"
+                                            role="status"
+                                            aria-hidden="true"
+                                        />
+                                    }
+                                    </button>
+                                </div>
+                                <label className="mx-auto my-4">
+                                    <Link to="/signup" style={{ textDecoration: 'none' }}>
+                                        <span style={{ cursor: "pointer" }} className="text-warning">Sign Up</span>
+                                    </Link>
+                                    <Link to="/login" style={{ textDecoration: 'none' }}>
+                                        <span style={{ cursor: "pointer" }} className="text-primary mx-3">Sign In</span>
+                                    </Link>
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </Container>
     );
 };

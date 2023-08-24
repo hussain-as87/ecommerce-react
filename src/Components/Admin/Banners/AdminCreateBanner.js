@@ -17,9 +17,7 @@ const AdminCreateBanner = () => {
                                 <img
                                     src={img}
                                     alt="asa"
-                                    height={100}
-                                    width={120}
-                                    style={{cursor: "pointer"}}
+                                    style={{height:'100px',width:'100%',cursor: "pointer"}}
                                 />
                             </label>
                             <input type="file" name="image" onChange={onChangeImage} id="upload-image"
@@ -31,77 +29,71 @@ const AdminCreateBanner = () => {
                                 </Form.Text>
                             }
                         </div>
-                        <br/>
                         <Form.Group>
-                            <FloatingLabel controlId="title" label="Title">
-                                <Form.Control
-                                    id="title"
-                                    type="text"
-                                    placeholder="the title of the banner"
-                                    name="title"
-                                    className={errors.some(error => error.param === "title") && 'is-invalid'}
-                                    onChange={handleInputChange}
-                                    value={data.title}/>
-                                {errors.some(error => error.param === "title") &&
-                                    <Form.Text className="text-danger">
-                                        {errors.find(error => error.param === "title").msg}
-                                    </Form.Text>
-                                }
-                            </FloatingLabel>
+                            <label htmlFor="title">Title</label>
+                            <Form.Control
+                                id="title"
+                                type="text"
+                                placeholder="the title of the banner"
+                                name="title"
+                                className={errors.some(error => error.param === "title") && 'is-invalid'}
+                                onChange={handleInputChange}
+                                value={data.title}/>
+                            {errors.some(error => error.param === "title") &&
+                                <Form.Text className="text-danger">
+                                    {errors.find(error => error.param === "title").msg}
+                                </Form.Text>
+                            }
                         </Form.Group>
                         <br/>
                         <Form.Group>
-                            <FloatingLabel controlId="subtitle" label="Subtitle">
-                                <Form.Control
-                                    id="subtitle"
-                                    type="text"
-                                    placeholder="the subtitle of the banner"
-                                    name="subtitle"
-                                    className={errors.some(error => error.param === "subtitle") && 'is-invalid'}
-                                    onChange={handleInputChange}
-                                    value={data.subtitle}/>
-                                {errors.some(error => error.param === "subtitle") &&
-                                    <Form.Text className="text-danger">
-                                        {errors.find(error => error.param === "subtitle").msg}
-                                    </Form.Text>
-                                }
-                            </FloatingLabel>
+                            <label htmlFor="subtitle">Subtitle</label>
+                            <Form.Control
+                                id="subtitle"
+                                type="text"
+                                placeholder="the subtitle of the banner"
+                                name="subtitle"
+                                className={errors.some(error => error.param === "subtitle") && 'is-invalid'}
+                                onChange={handleInputChange}
+                                value={data.subtitle}/>
+                            {errors.some(error => error.param === "subtitle") &&
+                                <Form.Text className="text-danger">
+                                    {errors.find(error => error.param === "subtitle").msg}
+                                </Form.Text>
+                            }
                         </Form.Group>
                         <br/>
                         <Form.Group>
-                            <FloatingLabel controlId="summary" label="Summary">
-                                <Form.Control
-                                    id="summary"
-                                    type="text"
-                                    placeholder="the summary of the banner"
-                                    name="summary"
-                                    className={errors.some(error => error.param === "summary") && 'is-invalid'}
-                                    onChange={handleInputChange}
-                                    value={data.summary}/>
-                                {errors.some(error => error.param === "summary") &&
-                                    <Form.Text className="text-danger">
-                                        {errors.find(error => error.param === "summary").msg}
-                                    </Form.Text>
-                                }
-                            </FloatingLabel>
+                            <label htmlFor="summary">Summary</label>
+                            <textarea id="summary"
+                                      placeholder="the summary of the banner"
+                                      name="summary"
+                                      className={`form-control ${errors.some(error => error.param === "summary") && 'is-invalid'}`}
+                                      onChange={handleInputChange}
+                                      value={data.summary}
+                                      rows="5"></textarea>
+                            {errors.some(error => error.param === "summary") &&
+                                <Form.Text className="text-danger">
+                                    {errors.find(error => error.param === "summary").msg}
+                                </Form.Text>
+                            }
+
                         </Form.Group>
                         <br/>
                         <Form.Group>
-                            <FloatingLabel controlId="description" label="Description">
-                                <Form.Control
-                                    id="description"
-                                    type="text"
-                                    placeholder="the description of the banner"
-                                    name="description"
-                                    className={errors.some(error => error.param === "description") && 'is-invalid'}
-                                    onChange={handleInputChange}
-                                    value={data.description}/>
-                                {errors.some(error => error.param === "description") &&
-                                    <Form.Text className="text-danger">
-                                        {errors.find(error => error.param === "description").msg}
-                                    </Form.Text>
-                                }
-                            </FloatingLabel>
+                            <label htmlFor="description">Description</label>
+                            <textarea id="description"
+                                      placeholder="the description of the banner"
+                                      name="description"
+                                      className={`form-control ${errors.some(error => error.param === "description") && 'is-invalid'}`}
+                                      onChange={handleInputChange}
+                                      value={data.description}
+                                      rows="5"></textarea>
+                            {errors.some(error => error.param === "description") &&
+                                <Form.Text className="text-danger">
+                                    {errors.find(error => error.param === "description").msg}
+                                </Form.Text>
+                            }
                         </Form.Group>
 
                         <br/>
@@ -111,7 +103,7 @@ const AdminCreateBanner = () => {
                             variant="outline-primary"
                             className="mt-2 justify-content-end d-flex"
                         >
-                            <Check2Circle size={20}/>
+                            <Check2Circle size={25}/>
                             {isPress && (<Spinner
                                 as="span"
                                 animation="border"

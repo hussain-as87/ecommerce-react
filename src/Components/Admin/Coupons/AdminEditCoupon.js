@@ -15,7 +15,7 @@ const AdminEditCoupon = ({id}) => {
     } = EditCoupon(id)
     return (
         <>
-            <Button variant="outline-warning" size="sm" className="me-2"
+            <Button variant="outline-warning" size="sm" className="py-2"
                     onClick={() => setShowModal(true)}>
                 <Pencil/>
             </Button>
@@ -26,26 +26,25 @@ const AdminEditCoupon = ({id}) => {
                 <Modal.Body>
                     <Container>
                         <Form onSubmit={UpdateHandler}>
-                        <Form.Group>
-                            <FloatingLabel controlId="name" label="Name">
+                            <Form.Group>
+                                <label htmlFor="name">Name</label>
                                 <Form.Control
                                     id="name"
-                                    name="name"
-                                    value={data.name}
-                                    onChange={handlerOnChangeInput}
                                     type="text"
+                                    placeholder="the name of the brand"
+                                    name="name"
                                     className={errors.some(error => error.param === "name") && 'is-invalid'}
-                                />
+                                    onChange={handlerOnChangeInput}
+                                    value={data.name}/>
                                 {errors.some(error => error.param === "name") &&
                                     <Form.Text className="text-danger">
                                         {errors.find(error => error.param === "name").msg}
                                     </Form.Text>
                                 }
-                            </FloatingLabel>
-                        </Form.Group>
-                        <br/>
-                        <Form.Group>
-                            <FloatingLabel controlId="expire" label="Expire date">
+                            </Form.Group>
+                            <br/>
+                            <Form.Group>
+                                <label htmlFor="expire">Expire</label>
                                 <Form.Control
                                     id="expire"
                                     ref={dateRef}
@@ -62,11 +61,10 @@ const AdminEditCoupon = ({id}) => {
                                         {errors.find(error => error.param === "expire").msg}
                                     </Form.Text>
                                 }
-                            </FloatingLabel>
-                        </Form.Group>
-                        <br/>
-                        <Form.Group>
-                            <FloatingLabel controlId="discount" label="Discount percent">
+                            </Form.Group>
+                            <br/>
+                            <Form.Group>
+                                <label htmlFor="discount">Discount</label>
                                 <Form.Control
                                     id="discount"
                                     name="discount"
@@ -80,9 +78,10 @@ const AdminEditCoupon = ({id}) => {
                                         {errors.find(error => error.param === "discount").msg}
                                     </Form.Text>
                                 }
-                            </FloatingLabel>
-                        </Form.Group>
-                    </Form></Container>
+                            </Form.Group>
+                            <br/>
+                        </Form>
+                    </Container>
 
                 </Modal.Body>
                 <Modal.Footer>
