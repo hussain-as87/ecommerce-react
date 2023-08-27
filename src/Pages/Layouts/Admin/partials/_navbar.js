@@ -1,6 +1,23 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({index}) => {
+    const [userData, setUserData] = useState({});
+
+    const {keyword, onChangeKeyWord} = index;
+
+    const storedUser = localStorage.getItem("user");
+    const parsedUser = storedUser ? JSON.parse(storedUser) : null;
+
+    useEffect(() => {
+        setUserData(parsedUser || {});
+    }, [parsedUser])
+    const logout = (e) => {
+        e.preventDefault();
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        window.location.href();
+    };
     return (
         <nav className="navbar">
             <a href="#" className="sidebar-toggler">
@@ -44,10 +61,15 @@ const Navbar = () => {
                             </div>
                         </div>
                         <input
-                            type="text"
                             className="form-control"
-                            id="navbarForm"
                             placeholder="Search here..."
+                            id="search-input"
+                            type="search"
+                            aria-label="Search"
+                            value={keyword}
+                            onChange={onChangeKeyWord}
+                            onFocus={(e) => e.target.classList.add('focus')}
+                            onBlur={(e) => e.target.classList.remove('focus')}
                         />
                     </div>
                 </form>
@@ -490,22 +512,22 @@ const Navbar = () => {
                             aria-haspopup="true"
                             aria-expanded="false"
                         >
-                            <img src="https://via.placeholder.com/30x30" alt="profile"/>
+                            <img src={`https://ui-avatars.com/api/?name=${userData.name}&bold=true&rounded=true&background=random&size=100`} alt="profile"/>
                         </a>
                         <div className="dropdown-menu" aria-labelledby="profileDropdown">
                             <div className="dropdown-header d-flex flex-column align-items-center">
                                 <div className="figure mb-3">
-                                    <img src="https://via.placeholder.com/80x80" alt=""/>
+                                    <img src={`https://ui-avatars.com/api/?name=${userData.name}&bold=true&rounded=true&background=random&size=100`} alt=""/>
                                 </div>
                                 <div className="info text-center">
-                                    <p className="name font-weight-bold mb-0">Amiah Burton</p>
-                                    <p className="email text-muted mb-3">amiahburton@gmail.com</p>
+                                    <p className="name font-weight-bold mb-0">{userData.name}</p>
+                                    <p className="email text-muted mb-3">{userData.email}</p>
                                 </div>
                             </div>
                             <div className="dropdown-body">
                                 <ul className="profile-nav p-0 pt-3">
                                     <li className="nav-item">
-                                        <a href="pages/general/profile.html" className="nav-link">
+                                        <Link to="/admin/profile" className="nav-link">
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 width={24}
@@ -522,10 +544,10 @@ const Navbar = () => {
                                                 <circle cx={12} cy={7} r={4}/>
                                             </svg>
                                             <span>Profile</span>
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li className="nav-item">
-                                        <a href="javascript:;" className="nav-link">
+                                        <Link to="/admin/profile" className="nav-link">
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 width={24}
@@ -544,7 +566,7 @@ const Navbar = () => {
                                                     d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
                                             </svg>
                                             <span>Edit Profile</span>
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li className="nav-item">
                                         <a href="javascript:;" className="nav-link">
@@ -569,7 +591,7 @@ const Navbar = () => {
                                         </a>
                                     </li>
                                     <li className="nav-item">
-                                        <a href="javascript:;" className="nav-link">
+                                        <a onClick={logout} href="javascript:;" className="nav-link">
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 width={24}

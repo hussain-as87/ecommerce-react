@@ -9,10 +9,13 @@ import store from "./Redux/Store";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import "react-confirm-alert/src/react-confirm-alert.css";
+import {BrowserRouter} from "react-router-dom";
 ReactDOM.render(
   <Provider store={store}>
       <ToastContainer/>
+      <BrowserRouter>
       <App />
+      </BrowserRouter>
   </Provider>,
   document.getElementById("root")
 );

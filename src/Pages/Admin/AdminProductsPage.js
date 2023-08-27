@@ -2,8 +2,8 @@ import AdminProductsContainer from "../../Components/Admin/Products/AdminProduct
 import Pagination from "../../Components/Utility/Pagination";
 import {GetProducts} from "../../Controllers/ProductController";
 
-const AdminProductsPage = () => {
-    const {products, loading, getPage, pageCount} = GetProducts()
+const AdminProductsPage = ({index}) => {
+    const {products, loading, getPage, pageCount} = index
     return (
         <>
             <AdminProductsContainer products={products} loading={loading}/>

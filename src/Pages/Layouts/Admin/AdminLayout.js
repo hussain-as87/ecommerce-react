@@ -6,7 +6,7 @@ import Footer from "./partials/_footer";
 import Navbar from "./partials/_navbar";
 import SideBar from "./partials/_sidebar";
 
-const AdminLayout = ({children}) => {
+const AdminLayout = ({children,index}) => {
     return (
         <div className="main-wrapper">
             {/* partial:partials/_sidebar.html */}
@@ -14,7 +14,7 @@ const AdminLayout = ({children}) => {
             {/* partial */}
             <div className="page-wrapper">
                 {/* partial:partials/_navbar.html */}
-                <Navbar/>
+                <Navbar index={index}/>
                 {/* partial */}
                 <div className="page-content">
                     {/*

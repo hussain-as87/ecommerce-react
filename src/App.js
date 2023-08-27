@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
+import {BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate} from "react-router-dom";
 import Footer from "./Components/Utility/Footer";
 import NavbarSection from "./Components/Utility/NavbarSection";
 import {GetProducts} from "./Controllers/ProductController";
@@ -47,107 +47,115 @@ import About from "./Pages/About";
 import Contact from "./Pages/Contact";
 import AdminCreateBannerPage from "./Pages/Admin/AdminCreateBannerPage";
 import AdminBannersPage from "./Pages/Admin/AdminBannersPage";
+import {useEffect} from "react";
 
 function App() {
+    const location = useLocation()
+    const navigate = useNavigate()
     const indexProductForm = GetProducts();
-
+    useEffect(() => {
+        if (indexProductForm.keyword) {
+            if (location.pathname.includes('admin')) {
+              return   navigate('/admin/products')
+            } else {
+             return    navigate('/shop')
+            }
+        }
+    }, [indexProductForm.keyword])
     return (
         <div>
-            <BrowserRouter>
-                {indexProductForm.keyword && <Navigate to="/products"/>}
-                <Routes>
+            <Routes>
 
-                    {/**Admin Dashboard routes Start*/}
-                    <Route path="/admin/*" element={<AdminLayout/>}>
-                        <Route path="" element={<ProtectionRoutes authType="admin"/>}>
-                            <Route index element={<Layout/>}/>
-                            <Route path="products" element={<AdminProductsPage/>}/>
-                            <Route
-                                path="products/edit/:id"
-                                element={<AdminEditProductPage/>}
-                            />
-                            <Route path="categories" element={<AdminCategoriesPage/>}/>
-                            <Route path="brands" element={<AdminBrandsPage/>}/>
-                            <Route path="banners" element={<AdminBannersPage/>}/>
-                            <Route
-                                path="subcategories"
-                                element={<AdminSubcategoriesPage/>}
-                            />
-                            <Route path="orders" element={<AdminOrdersPage/>}/>
-                            <Route path="orders/:id" element={<AdminOrderDetailsPage/>}/>
-                            <Route
-                                path="products/create"
-                                element={<AdminCreateProductPage/>}
-                            />
-                            <Route path="brands/create" element={<AdminCreateBrandPage/>}/>
-                            <Route path="banners/create" element={<AdminCreateBannerPage/>}/>
-                            <Route
-                                path="categories/create"
-                                element={<AdminCreateCategoryPage/>}
-                            />
-                            <Route
-                                path="subcategories/create"
-                                element={<AdminCreateSubCategoryPage/>}
-                            />
-                            <Route
-                                path="coupons/create"
-                                element={<AdminCreateCouponPage/>}
-                            />
-                            <Route path="profile" element={<AdminProfilePage/>}/>
-                        </Route>
-                    </Route>
-                    {/**Admin Dashboard routes End*/}
-
-                    {/**User Dashboard routes Start*/}
-                    <Route path="/user/*" element={<UserLayout/>}>
-                        <Route path="" element={<ProtectionRoutes authType="user"/>}>
-                            <Route path="orders" element={<UserOrdersPage/>}/>
-                            <Route path="paymethod" element={<PaymentMethodType/>}/>
-                            <Route path="favorites" element={<UserFavoritesPage/>}/>
-                            <Route path="addresses" element={<UserAddressesPage/>}/>
-                            <Route
-                                path="addresses/create"
-                                element={<UserCreateAddressPage/>}
-                            />
-                            <Route path="addresses/edit" element={<UserEditAddressPage/>}/>
-                            <Route path="profile" element={<UserProfilePage/>}/>
-                        </Route>
-                    </Route>
-                    {/**User Dashboard routes End*/}
-
-                    {/** Landing page routes Start*/}
-                    <Route path="/*" element={<HomeLayout index={indexProductForm}/>}>
-                        <Route index element={<HomePage/>}/>
-                        <Route path="categories" element={<Categories/>}/>
-                        <Route path="brands" element={<Brands/>}/>
+                {/**Admin Dashboard routes Start*/}
+                <Route path="/admin/*" element={<AdminLayout index={indexProductForm}/>}>
+                    <Route path="" element={<ProtectionRoutes authType="admin"/>}>
+                        <Route index element={<Layout/>}/>
+                        <Route path="products" element={<AdminProductsPage index={indexProductForm}/>}/>
                         <Route
-                            path="shop"
-                            element={<Products index={indexProductForm}/>}
+                            path="products/edit/:id"
+                            element={<AdminEditProductPage/>}
                         />
-                        <Route path=":id" element={<ProductDetails/>}/>
-                        <Route path="cart" element={<CartContent/>}/>
-                        <Route path="checkout" element={<PaymentMethodType/>}/>
-                        <Route path="about-us" element={<About/>}/>
-                        <Route path="contact" element={<Contact/>}/>
-                        <Route path="500" element={<BadConnectionPage/>}/>
-
-
-                        {/**Protected routes (don't allow user to access if he already signed) Start*/}
-                        <Route path="" element={<ProtectionLoginRoutes/>}>
-                            <Route path="login" element={<Login/>}/>
-                            <Route path="singup" element={<Register/>}/>
-                            <Route path="forgotPassword" element={<ForgetPassword/>}/>
-                            <Route
-                                path="verifyResetPassword"
-                                element={<VerifyRestPassword/>}
-                            />
-                            <Route path="resetPassword" element={<RestPassword/>}/>
-                        </Route>
-                        {/**Protected routes (don't allow user to access if he already signed) End*/}
+                        <Route path="categories" element={<AdminCategoriesPage/>}/>
+                        <Route path="brands" element={<AdminBrandsPage/>}/>
+                        <Route path="banners" element={<AdminBannersPage/>}/>
+                        <Route
+                            path="subcategories"
+                            element={<AdminSubcategoriesPage/>}
+                        />
+                        <Route path="orders" element={<AdminOrdersPage/>}/>
+                        <Route path="orders/:id" element={<AdminOrderDetailsPage/>}/>
+                        <Route
+                            path="products/create"
+                            element={<AdminCreateProductPage/>}
+                        />
+                        <Route path="brands/create" element={<AdminCreateBrandPage/>}/>
+                        <Route path="banners/create" element={<AdminCreateBannerPage/>}/>
+                        <Route
+                            path="categories/create"
+                            element={<AdminCreateCategoryPage/>}
+                        />
+                        <Route
+                            path="subcategories/create"
+                            element={<AdminCreateSubCategoryPage/>}
+                        />
+                        <Route
+                            path="coupons/create"
+                            element={<AdminCreateCouponPage/>}
+                        />
+                        <Route path="profile" element={<AdminProfilePage/>}/>
                     </Route>
-                    {/** Landing page routes End*/}
-                </Routes>
-            </BrowserRouter>
+                </Route>
+                {/**Admin Dashboard routes End*/}
+
+                {/**User Dashboard routes Start*/}
+                <Route path="/user/*" element={<UserLayout index={indexProductForm}/>}>
+                    <Route path="" element={<ProtectionRoutes authType="user"/>}>
+                        <Route path="orders" element={<UserOrdersPage/>}/>
+                        <Route path="paymethod" element={<PaymentMethodType/>}/>
+                        <Route path="favorites" element={<UserFavoritesPage/>}/>
+                        <Route path="addresses" element={<UserAddressesPage/>}/>
+                        <Route
+                            path="addresses/create"
+                            element={<UserCreateAddressPage/>}
+                        />
+                        <Route path="addresses/edit" element={<UserEditAddressPage/>}/>
+                        <Route path="profile" element={<UserProfilePage/>}/>
+                    </Route>
+                </Route>
+                {/**User Dashboard routes End*/}
+
+                {/** Landing page routes Start*/}
+                <Route path="/*" element={<HomeLayout index={indexProductForm}/>}>
+                    <Route index element={<HomePage/>}/>
+                    <Route path="categories" element={<Categories/>}/>
+                    <Route path="brands" element={<Brands/>}/>
+                    <Route
+                        path="shop"
+                        element={<Products index={indexProductForm}/>}
+                    />
+                    <Route path=":id" element={<ProductDetails/>}/>
+                    <Route path="cart" element={<CartContent/>}/>
+                    <Route path="checkout" element={<PaymentMethodType/>}/>
+                    <Route path="about-us" element={<About/>}/>
+                    <Route path="contact" element={<Contact/>}/>
+                    <Route path="500" element={<BadConnectionPage/>}/>
+
+
+                    {/**Protected routes (don't allow user to access if he already signed) Start*/}
+                    <Route path="" element={<ProtectionLoginRoutes/>}>
+                        <Route path="login" element={<Login/>}/>
+                        <Route path="singup" element={<Register/>}/>
+                        <Route path="forgotPassword" element={<ForgetPassword/>}/>
+                        <Route
+                            path="verifyResetPassword"
+                            element={<VerifyRestPassword/>}
+                        />
+                        <Route path="resetPassword" element={<RestPassword/>}/>
+                    </Route>
+                    {/**Protected routes (don't allow user to access if he already signed) End*/}
+                </Route>
+                {/** Landing page routes End*/}
+            </Routes>
         </div>
     );
 }
