@@ -36,15 +36,18 @@
             document.write('<link rel="shortcut icon" href="%PUBLIC_URL%/dashboard/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css"/>')
 
         } else {
-            addStylesheet("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap");
-            addStylesheet(`${publicUrl}/css/bootstrap.min.css`);
-            addStylesheet(`${publicUrl}/css/font-awesome.min.css`);
-            addStylesheet(`${publicUrl}/css/elegant-icons.css`);
-            addStylesheet(`${publicUrl}/css/magnific-popup.css`);
-            addStylesheet(`${publicUrl}/css/nice-select.css`);
-            addStylesheet(`${publicUrl}/css/owl.carousel.min.css`);
-            addStylesheet(`${publicUrl}/css/slicknav.min.css`);
-            addStylesheet(`${publicUrl}/css/style.css`);
+            /*Google Font*/
+            document.write('<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">')
+
+            /*Css Styles*/
+            document.write('<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">')
+            document.write('<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">')
+            document.write('<link rel="stylesheet" href="css/elegant-icons.css" type="text/css">')
+            document.write('<link rel="stylesheet" href="css/magnific-popup.css" type="text/css">')
+            document.write('<link rel="stylesheet" href="css/nice-select.css" type="text/css">')
+            document.write('<link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">')
+            document.write('<link rel="stylesheet" href="css/slicknav.min.css" type="text/css">')
+            document.write('<link rel="stylesheet" href="css/style.css" type="text/css">')
         }
     </script>
 </head>
@@ -68,21 +71,16 @@
         document.write('<script src="%PUBLIC_URL%/dashboard/assets/vendors/datatables.net/jquery.dataTables.js"></scr' + 'ipt>');
         document.write('<script src="%PUBLIC_URL%/dashboard/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></scr' + 'ipt>');
     } else {
-        addScript("https://kit.fontawesome.com/cc1007967f.js");
-        addScript("https://cdn.jsdelivr.net/npm/react/umd/react.production.min.js");
-        addScript("https://code.jquery.com/jquery-3.6.0.min.js");
-        addScript("https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.production.min.js");
-        addScript("https://cdn.jsdelivr.net/npm/react-bootstrap@next/dist/react-bootstrap.min.js");
-        addScript(`${publicUrl}/js/jquery-3.3.1.min.js`);
-        addScript(`${publicUrl}/js/bootstrap.min.js`);
-        addScript(`${publicUrl}/js/jquery.nice-select.min.js`);
-        addScript(`${publicUrl}/js/jquery.nicescroll.min.js`);
-        addScript(`${publicUrl}/js/jquery.magnific-popup.min.js`);
-        addScript(`${publicUrl}/js/jquery.countdown.min.js`);
-        addScript(`${publicUrl}/js/jquery.slicknav.js`);
-        addScript(`${publicUrl}/js/mixitup.min.js`);
-        addScript(`${publicUrl}/js/owl.carousel.min.js`);
-        addScript(`${publicUrl}/js/main.js`);
+        document.write('<script src="js/jquery-3.3.1.min.js"></scr' + 'ipt>');
+        document.write('<script src="js/bootstrap.min.js"></scr' + 'ipt>');
+        document.write('<script src="js/jquery.nice-select.min.js"></scr' + 'ipt>');
+        document.write('<script src="js/jquery.nicescroll.min.js"></scr' + 'ipt>');
+        document.write('<script src="js/jquery.magnific-popup.min.js"></scr' + 'ipt>');
+        document.write('<script src="js/jquery.countdown.min.js"></scr' + 'ipt>');
+        document.write('<script src="js/jquery.slicknav.js"></scr' + 'ipt>');
+        document.write('<script src="js/mixitup.min.js"></scr' + 'ipt>');
+        document.write('<script src="js/owl.carousel.min.js"></scr' + 'ipt>');
+        document.write('<script src="js/main.js"></scr' + 'ipt>');
     }
 </script>
 </body>
