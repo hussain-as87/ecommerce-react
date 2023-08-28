@@ -1,6 +1,6 @@
-import Pagination from "../../Components/Utility/Pagination";
-import {GetSubcategories} from "../../Controllers/SubcategoryController";
-import AdminSubcategoriesContainer from "../../Components/Admin/SubCategories/AdminSubcategoriesContainer";
+import Pagination from "../../../Components/Utility/Pagination";
+import {GetSubcategories} from "../../../Controllers/SubcategoryController";
+import AdminSubcategoriesContainer from "../../../Components/Admin/SubCategories/AdminSubcategoriesContainer";
 
 const AdminProductsPage = () => {
     const {subcategories, loading, getPage, pageCount} = GetSubcategories()

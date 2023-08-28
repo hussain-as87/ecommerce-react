@@ -1,11 +1,9 @@
 import React from "react";
 import { EditProduct } from "../../../Controllers/ProductController";
-import imageFail from "../../../assets/images/image.png";
 import { Check2Circle } from "react-bootstrap-icons";
 import {
   Button,
   Card,
-  FloatingLabel,
   Form,
   Container,
   Spinner,

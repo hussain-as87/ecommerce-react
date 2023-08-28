@@ -1,4 +1,4 @@
-import AdminCreateBrand from "../../Components/Admin/Brands/AdminCreateBrand";
+import AdminCreateBrand from "../../../Components/Admin/Brands/AdminCreateBrand";
 
 const AdminCreateBrandPage = () => {
     return <AdminCreateBrand/>

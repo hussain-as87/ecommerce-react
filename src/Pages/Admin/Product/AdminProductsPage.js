@@ -1,6 +1,6 @@
-import AdminProductsContainer from "../../Components/Admin/Products/AdminProductsContainer";
-import Pagination from "../../Components/Utility/Pagination";
-import {GetProducts} from "../../Controllers/ProductController";
+import AdminProductsContainer from "../../../Components/Admin/Products/AdminProductsContainer";
+import Pagination from "../../../Components/Utility/Pagination";
+import {GetProducts} from "../../../Controllers/ProductController";
 
 const AdminProductsPage = ({index}) => {
     const {products, loading, getPage, pageCount} = index

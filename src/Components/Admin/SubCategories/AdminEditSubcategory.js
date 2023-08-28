@@ -1,7 +1,7 @@
-import {Button, Col, Row, Spinner, Form, FloatingLabel, Container, Card, Modal} from "react-bootstrap";
+import {Button, Form, Card, Modal} from "react-bootstrap";
 import React from "react";
 import {Backspace, Check2Circle, Pen} from "react-bootstrap-icons";
-import {CreateSubcategory, EditSubcategory} from "../../../Controllers/SubcategoryController";
+import {EditSubcategory} from "../../../Controllers/SubcategoryController";
 
 const AdminEditSubcategory = ({id}) => {
     const {

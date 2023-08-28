@@ -1,8 +1,7 @@
-import {Button, Card, Col, Container, FloatingLabel, Form, Row, Spinner} from "react-bootstrap";
+import {Container} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {LoginUser} from "../../Controllers/AuthController";
 import React from "react";
-import logo from "../../assets/images/about-us.jpg"
 const Login = () => {
     const {data, handlerOnChangeInput, handleSubmit, isPress, errors} = LoginUser()
     return (

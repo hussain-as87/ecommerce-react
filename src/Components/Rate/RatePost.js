@@ -3,7 +3,7 @@ import {Button, Col, FloatingLabel, Form, Row} from 'react-bootstrap';
 import ReactStars from "react-rating-stars-component";
 import {CreateReview} from "../../Controllers/ReviewController";
 import {GetLoggedUser} from "../../Controllers/UserController";
-import {Send, SendCheck} from "react-bootstrap-icons";
+import {SendCheck} from "react-bootstrap-icons";
 
 const RatePost = () => {
     const {user: lu} = GetLoggedUser()

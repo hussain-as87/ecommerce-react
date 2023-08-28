@@ -1,6 +1,6 @@
-import Pagination from "../../Components/Utility/Pagination";
-import {GetCategories} from "../../Controllers/CategoryController";
-import AdminCategoriesContainer from "../../Components/Admin/Categories/AdminCategoriesContainer";
+import Pagination from "../../../Components/Utility/Pagination";
+import {GetCategories} from "../../../Controllers/CategoryController";
+import AdminCategoriesContainer from "../../../Components/Admin/Categories/AdminCategoriesContainer";
 
 const AdminProductsPage = () => {
     const {categories, loading, getPage, pageCount} = GetCategories()

@@ -1,6 +1,5 @@
 import React from 'react'
-import {Container, Row, Spinner} from 'react-bootstrap'
-import SubTitle from '../Utility/SubTitle'
+import {Spinner} from 'react-bootstrap'
 import BrandCard from './BrandCardItem'
 import {GetBrands} from "../../Controllers/BrandController";
 

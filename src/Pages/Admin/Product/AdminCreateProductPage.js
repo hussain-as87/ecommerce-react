@@ -1,4 +1,4 @@
-import AdminCreateProduct from "../../Components/Admin/Products/AdminCreateProduct";
+import AdminCreateProduct from "../../../Components/Admin/Products/AdminCreateProduct";
 
 const AdminCreateProductPage = () => {
     return <AdminCreateProduct/>

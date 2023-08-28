@@ -1,7 +1,5 @@
-import {Form, Container, Button, ListGroup, FloatingLabel, Card} from 'react-bootstrap';
 import {CreateOrder} from "../../Controllers/OrderController";
 import React from "react";
-import {CashStack, Check2Circle} from "react-bootstrap-icons";
 import {GetCartItems} from "../../Controllers/CartController";
 
 const PaymentMethod = () => {

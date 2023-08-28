@@ -3,7 +3,6 @@ import { DestroyProduct } from "../../../Controllers/ProductController";
 import LimitCharacters from "../../../Hooks/LimitCharacters";
 import image from "../../../assets/images/image.png";
 import { StarFill, Trash2, Pen } from "react-bootstrap-icons";
-import AdminEditProduct from "./AdminEditProduct";
 import { Link } from "react-router-dom";
 const AdminProductsCards = ({
   product: { _id, imageCover, title, rattingAverage, description },

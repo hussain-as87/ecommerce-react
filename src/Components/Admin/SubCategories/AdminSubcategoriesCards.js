@@ -1,9 +1,6 @@
 import React from "react";
-import imageFail from "../../../assets/images/image.png"
 import {Backspace, Check2Circle, Pen, StarFill, Trash2} from "react-bootstrap-icons";
 import {Button, Card, FloatingLabel, Form, Modal, Spinner} from "react-bootstrap";
-import {DestroyCategory, EditCategory} from "../../../Controllers/CategoryController";
-import {DestroyBrand, EditBrand} from "../../../Controllers/BrandController";
 import {DestroySubcategory, EditSubcategory} from "../../../Controllers/SubcategoryController";
 
 const AdminSubcategoriesCards = ({subcategory}) => {

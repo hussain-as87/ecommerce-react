@@ -1,8 +1,5 @@
 import React from 'react'
-import {Container, Spinner} from 'react-bootstrap'
-import CategoryHeader from "../../Components/Category/CategoryHeader";
-import ProductHomeItemContainer from "../../Components/Product/ProductHomeItemContainer";
-import RateContainer from "../../Components/Rate/RateContainer";
+import {Spinner} from 'react-bootstrap'
 import ProductDetailsContainer from "../../Components/Product/ProductDetailsContainer";
 import {useParams} from "react-router-dom";
 import {GetProduct, GetProductsByCategory} from "../../Controllers/ProductController";
@@ -24,8 +21,8 @@ const ProductDetails = () => {
     return (<>
         {/* Shop Details Section Begin */}
         <ProductDetailsContainer product={product} loading={loading}/>
-            {/* Shop Details Section End */}
-            {/* Related Section Begin */}
+        {/* Shop Details Section End */}
+        {/* Related Section Begin */}
         <section className="related spad">
             <div className="container">
                 <div className="row">

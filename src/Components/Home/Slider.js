@@ -1,10 +1,3 @@
-import {Carousel} from "react-bootstrap";
-import sliderimg from "../../assets/images/slider1.png";
-import slider4 from "../../assets/images/slider4.png";
-import prod3 from "../../assets/images/prod3.png";
-import hero1 from "../../assets/images/hero/hero-1.jpg";
-import hero2 from "../../assets/images/hero/hero-2.jpg";
-import {useState} from "react";
 const Slider = () => {
   return (
       <section className="hero">

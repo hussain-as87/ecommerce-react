@@ -1,8 +1,7 @@
 import React from "react";
-import imageFail from "../../../assets/images/image.png"
 import {EditCategory} from "../../../Controllers/CategoryController";
 import {Backspace, Check2Circle, Pen} from "react-bootstrap-icons";
-import {Card, FloatingLabel, Modal, Form, Button} from "react-bootstrap";
+import {Card, Modal, Form, Button} from "react-bootstrap";
 
 const AdminEditCategory = ({id}) => {
     const {

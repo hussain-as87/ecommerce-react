@@ -1,6 +1,6 @@
-import Pagination from "../../Components/Utility/Pagination";
-import AdminOrdersContainer from "../../Components/Admin/Orders/AdminOrdersContainer";
-import {GetOrders} from "../../Controllers/OrderController";
+import Pagination from "../../../Components/Utility/Pagination";
+import AdminOrdersContainer from "../../../Components/Admin/Orders/AdminOrdersContainer";
+import {GetOrders} from "../../../Controllers/OrderController";
 import React from "react";
 
 const AdminOrdersPage = () => {

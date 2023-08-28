@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import WishlistController from "../../Controllers/WishlistController";
-import {Heart, HeartFill, Search, StarFill} from "react-bootstrap-icons"
+import {Heart, HeartFill, Search} from "react-bootstrap-icons"
 import noneImage from "../../assets/images/avatar.png"
 import {CreateCartItem} from "../../Controllers/CartController";
 import RenderStars from "../Utility/RenderStars";

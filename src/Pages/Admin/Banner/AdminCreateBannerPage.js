@@ -1,4 +1,4 @@
-import AdminCreateBanner from "../../Components/Admin/Banners/AdminCreateBanner";
+import AdminCreateBanner from "../../../Components/Admin/Banners/AdminCreateBanner";
 
 const AdminCreateBrandPage = () => {
     return <AdminCreateBanner/>

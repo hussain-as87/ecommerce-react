@@ -1,4 +1,4 @@
-import AdminOrderDetails from "../../Components/Admin/Orders/AdminOrderDetails";
+import AdminOrderDetails from "../../../Components/Admin/Orders/AdminOrderDetails";
 
 const AdminOrderDetailsPage = () => {
     return <AdminOrderDetails/>
