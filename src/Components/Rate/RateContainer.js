@@ -1,5 +1,5 @@
 import React from 'react'
-import {Container, Row, Col, Spinner} from 'react-bootstrap'
+import {Container, Row, Col} from 'react-bootstrap'
 import rate from '../../assets/images/rate.png'
 import RateItem from './RateItem';
 import RatePost from './RatePost';

@@ -1,4 +1,3 @@
-import {Col, Container, Row} from "react-bootstrap";
 import CartItem from "../../Components/Cart/CartItem";
 import CartCheckout from "../../Components/Cart/CartCheckout";
 import {ClearCartItems, GetCartItems} from "../../Controllers/CartController";

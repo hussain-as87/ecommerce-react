@@ -11,8 +11,7 @@ const AdminCategoriesCards = ({category}) => {
             <th><img onError={(e) => (e.target.src = imageFail)}
                      src={category?.image} alt={category?.name} width={20}/></th>
             <th>{category?.name}</th>
-            <th>{/*<Link to={`/admin/products/edit/${_id}`}>*/}
-                {/*</Link>*/}
+            <th>
                 <AdminEditCategory id={category?._id} key={category?._id}/>
             </th>
             <th>

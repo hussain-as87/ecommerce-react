@@ -1,4 +1,3 @@
-import {Card, Col} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import avatar from "../../assets/images/image.png"
 import React, {useState} from "react";

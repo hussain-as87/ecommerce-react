@@ -1,5 +1,4 @@
 import React from "react";
-import { Row, Col } from "react-bootstrap";
 import ProductGallery from "./ProductGallery";
 import ProductText from "./ProductText";
 

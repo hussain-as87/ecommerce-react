@@ -1,14 +1,13 @@
-import { Button, Card, Col, Container, FloatingLabel, Form, Row, Spinner } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { SignupUser } from "../../Controllers/AuthController";
+import {Container} from "react-bootstrap";
+import {Link} from "react-router-dom";
+import {SignupUser} from "../../Controllers/AuthController";
 import React from "react";
-import logo from "../../assets/images/about-us.jpg";
 
 const Register = () => {
-    const { data, handlerOnChangeInput, handleSubmit, isPress, errors } = SignupUser();
+    const {data, handlerOnChangeInput, handleSubmit, isPress, errors} = SignupUser();
 
     return (
-        <Container style={{ minHeight: "450px", paddingBottom: '50px' }} className="pt-5">
+        <Container style={{minHeight: "450px", paddingBottom: '50px'}} className="pt-5">
             <div className="row">
                 <div className="col-lg-4 col-md-4">
                     <div className="contact__text">
@@ -18,7 +17,7 @@ const Register = () => {
                     </div>
                 </div>
                 <div className="col-lg-8 col-md-8">
-                    <br />
+                    <br/>
 
                     <div className="contact__form">
                         <form onSubmit={handleSubmit}>
@@ -74,8 +73,8 @@ const Register = () => {
                                 </div>
                                 <label className="mx-auto my-4">
                                     already have an account?{" "}
-                                    <Link to="/login" style={{ textDecoration: 'none' }}>
-                                        <span style={{ cursor: "pointer" }} className="text-warning">click here</span>
+                                    <Link to="/login" style={{textDecoration: 'none'}}>
+                                        <span style={{cursor: "pointer"}} className="text-warning">click here</span>
                                     </Link>
                                 </label>
                             </div>

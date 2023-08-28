@@ -1,8 +1,5 @@
-import {BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate} from "react-router-dom";
-import Footer from "./Components/Utility/Footer";
-import NavbarSection from "./Components/Utility/NavbarSection";
+import {Routes, Route, useLocation, useNavigate} from "react-router-dom";
 import {GetProducts} from "./Controllers/ProductController";
-import {ProtectedAuthRoute} from "./Controllers/AuthController";
 import HomePage from "./Pages/Home/HomePage";
 import Login from "./Pages/Auth/Login";
 import Register from "./Pages/Auth/Register";
@@ -19,20 +16,6 @@ import {
     ProtectionRoutes,
     ProtectionLoginRoutes,
 } from "./Hooks/ProtectionRoutes";
-import Layout from "./Pages/Admin/Layout";
-import AdminProductsPage from "./Pages/Admin/AdminProductsPage";
-import AdminCategoriesPage from "./Pages/Admin/AdminCategoriesPage";
-import AdminBrandsPage from "./Pages/Admin/AdminBrandsPage";
-import AdminSubcategoriesPage from "./Pages/Admin/AdminSubcategoriesPage";
-import AdminOrdersPage from "./Pages/Admin/AdminOrdersPage";
-import AdminOrderDetailsPage from "./Pages/Admin/AdminOrderDetailsPage";
-import AdminCreateProductPage from "./Pages/Admin/AdminCreateProductPage";
-import AdminCreateBrandPage from "./Pages/Admin/AdminCreateBrandPage";
-import AdminCreateCategoryPage from "./Pages/Admin/AdminCreateCategoryPage";
-import AdminCreateSubCategoryPage from "./Pages/Admin/AdminCreateSubCategoryPage";
-import AdminCreateCouponPage from "./Pages/Admin/AdminCreateCouponPage";
-import AdminProfilePage from "./Pages/Admin/AdminProfilePage";
-import AdminLayout from "./Pages/Layouts/Admin/AdminLayout";
 import UserLayout from "./Pages/Layouts/UserLayout";
 import UserOrdersPage from "./Pages/User/UserOrdersPage";
 import PaymentMethodType from "./Pages/Checkout/PaymentMethodType";
@@ -41,13 +24,26 @@ import UserAddressesPage from "./Pages/User/Addresses/UserAddressesPage";
 import UserCreateAddressPage from "./Pages/User/Addresses/UserCreateAddressPage";
 import UserEditAddressPage from "./Pages/User/Addresses/UserEditAddressPage";
 import UserProfilePage from "./Pages/User/UserProfilePage";
-import AdminEditProductPage from "./Pages/Admin/AdminEditProductPage";
+import AdminEditProductPage from "./Pages/Admin/Product/AdminEditProductPage";
 import HomeLayout from "./Pages/Layouts/HomeLayout";
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
-import AdminCreateBannerPage from "./Pages/Admin/AdminCreateBannerPage";
-import AdminBannersPage from "./Pages/Admin/AdminBannersPage";
+import AdminCreateBannerPage from "./Pages/Admin/Banner/AdminCreateBannerPage";
+import AdminBannersPage from "./Pages/Admin/Banner/AdminBannersPage";
 import {useEffect} from "react";
+import AdminLayout from "./Pages/Layouts/Admin/AdminLayout";
+import AdminProductsPage from "./Pages/Admin/Product/AdminProductsPage";
+import AdminCategoriesPage from "./Pages/Admin/Category/AdminCategoriesPage";
+import AdminBrandsPage from "./Pages/Admin/Brand/AdminBrandsPage";
+import AdminSubcategoriesPage from "./Pages/Admin/Subcategory/AdminSubcategoriesPage";
+import AdminOrdersPage from "./Pages/Admin/Order/AdminOrdersPage";
+import AdminOrderDetailsPage from "./Pages/Admin/Order/AdminOrderDetailsPage";
+import AdminCreateProductPage from "./Pages/Admin/Product/AdminCreateProductPage";
+import AdminCreateBrandPage from "./Pages/Admin/AdminProfilePage";
+import AdminCreateCategoryPage from "./Pages/Admin/Category/AdminCreateCategoryPage";
+import AdminCreateSubCategoryPage from "./Pages/Admin/Subcategory/AdminCreateSubCategoryPage";
+import AdminCreateCouponPage from "./Pages/Admin/Coupon/AdminCreateCouponPage";
+import AdminProfilePage from "./Pages/Admin/AdminProfilePage";
 
 function App() {
     const location = useLocation()
@@ -69,7 +65,6 @@ function App() {
                 {/**Admin Dashboard routes Start*/}
                 <Route path="/admin/*" element={<AdminLayout index={indexProductForm}/>}>
                     <Route path="" element={<ProtectionRoutes authType="admin"/>}>
-                        <Route index element={<Layout/>}/>
                         <Route path="products" element={<AdminProductsPage index={indexProductForm}/>}/>
                         <Route
                             path="products/edit/:id"

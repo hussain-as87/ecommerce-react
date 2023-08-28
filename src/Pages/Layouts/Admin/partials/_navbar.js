@@ -16,7 +16,7 @@ const Navbar = ({index}) => {
         e.preventDefault();
         localStorage.removeItem("user");
         localStorage.removeItem("token");
-        window.location.href();
+        window.location.href = "/";
     };
     return (
         <nav className="navbar">

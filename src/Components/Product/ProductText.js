@@ -1,8 +1,6 @@
-import React, {useState} from 'react'
-import {Row, Col} from 'react-bootstrap'
-import {CartPlus, Heart, HeartFill, StarFill} from "react-bootstrap-icons";
+import React from 'react'
+import { Heart, HeartFill} from "react-bootstrap-icons";
 import {CreateCartItem} from "../../Controllers/CartController";
-import ReactStars from "react-rating-stars-component";
 import RateContainer from "../Rate/RateContainer";
 import RenderStars from "../Utility/RenderStars";
 import WishlistController from "../../Controllers/WishlistController";
@@ -12,7 +10,7 @@ const ProductText = ({product}) => {
     const outlineStars = 5 - filledStars;
     const {handleToggleWishlist, isProductInWishlist} = WishlistController({productId: product?._id});
     const HeartIcon = isProductInWishlist ? HeartFill : Heart;
-    const {data, handleSubmit, isPress, handlerOnChangeInput} = CreateCartItem(product._id)
+    const {data, handleSubmit, handlerOnChangeInput} = CreateCartItem(product._id)
     return (
         <div className="product__details__content">
             <div className="container">

@@ -1,6 +1,6 @@
-import Pagination from "../../Components/Utility/Pagination";
-import {GetBanners} from "../../Controllers/BannerController";
-import AdminBannersContainer from "../../Components/Admin/Banners/AdminBannersContainer";
+import Pagination from "../../../Components/Utility/Pagination";
+import {GetBanners} from "../../../Controllers/BannerController";
+import AdminBannersContainer from "../../../Components/Admin/Banners/AdminBannersContainer";
 
 const AdminBannersPage = () => {
     const {banners, loading, getPage, pageCount} = GetBanners()

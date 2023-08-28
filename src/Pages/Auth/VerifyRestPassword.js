@@ -1,13 +1,19 @@
-import React from "react";
-import { Button, Col, Container, FloatingLabel, Form, Row, Spinner } from "react-bootstrap";
-import { VerifyRestPasswordUser } from "../../Controllers/AuthController";
-import { Link } from "react-router-dom";
+import React, {useEffect} from "react";
+import {Container, Spinner} from "react-bootstrap";
+import {VerifyRestPasswordUser} from "../../Controllers/AuthController";
+import {Link, useNavigate} from "react-router-dom";
 
 const VerifyRestPassword = () => {
-    const { data, handlerOnChangeInput, handleSubmit, isPress, errors } = VerifyRestPasswordUser();
+    const navigate = useNavigate();
+    const {data, handlerOnChangeInput, handleSubmit, isPress, errors} = VerifyRestPasswordUser();
+    useEffect(() => {
+        if (localStorage.getItem("previousStepAuth") !== "forgotPassword") {
+            navigate('/forgotPassword');
+        }
+    }, []);
 
     return (
-        <Container style={{ minHeight: "450px", paddingBottom: '50px' }} className="pt-5">
+        <Container style={{minHeight: "450px", paddingBottom: '50px'}} className="pt-5">
             <div className="row">
                 <div className="col-lg-6 col-md-6">
                     <div className="contact__text">
@@ -17,7 +23,7 @@ const VerifyRestPassword = () => {
                     </div>
                 </div>
                 <div className="col-lg-6 col-md-6">
-                    <br />
+                    <br/>
 
                     <div className="contact__form">
                         <form onSubmit={handleSubmit}>
@@ -53,11 +59,12 @@ const VerifyRestPassword = () => {
                                     </button>
                                 </div>
                                 <label className="mx-auto my-4">
-                                    <Link to="/signup" style={{ textDecoration: 'none' }}>
-                                        <span style={{ cursor: "pointer" }} className="text-warning">Create an account</span>
+                                    <Link to="/signup" style={{textDecoration: 'none'}}>
+                                        <span style={{cursor: "pointer"}}
+                                              className="text-warning">Create an account</span>
                                     </Link>
-                                    <Link to="/login" style={{ textDecoration: 'none' }}>
-                                        <span style={{ cursor: "pointer" }} className="text-primary mx-3">Login</span>
+                                    <Link to="/login" style={{textDecoration: 'none'}}>
+                                        <span style={{cursor: "pointer"}} className="text-primary mx-3">Login</span>
                                     </Link>
                                 </label>
                             </div>

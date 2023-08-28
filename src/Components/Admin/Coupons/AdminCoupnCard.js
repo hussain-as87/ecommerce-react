@@ -1,7 +1,7 @@
 import React from 'react'
-import {Button, Card, Col, Modal, Row} from 'react-bootstrap'
-import {Backspace, Check2Circle, Pencil, Trash2} from "react-bootstrap-icons";
-import {DestroyCoupon, EditCoupon} from "../../../Controllers/CouponController";
+import {Button, Card} from 'react-bootstrap'
+import {Trash2} from "react-bootstrap-icons";
+import {DestroyCoupon} from "../../../Controllers/CouponController";
 import AdminEditCoupon from "./AdminEditCoupon";
 import {format} from 'date-fns';
 

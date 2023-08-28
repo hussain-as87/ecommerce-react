@@ -114,6 +114,7 @@ export const ForgetPasswordUser = () => {
     const response = useSelector((state) => state.auth.forgetPassword);
     const successMessage = () => {
         localStorage.setItem("email", response.email);
+        localStorage.setItem("previousStepAuth", "forgetPassword");
         use_notification("the code has sent to your email!", "success");
         navigate("/verifyResetPassword");
     }
@@ -130,6 +131,7 @@ export const VerifyRestPasswordUser = () => {
     };
     const response = useSelector((state) => state.auth.verifyRestPassword);
     const successMessage = () => {
+        localStorage.setItem("previousStepAuth", "verifyResetPassword");
         use_notification("the code has verified!", "success");
         navigate("/resetPassword");
     }

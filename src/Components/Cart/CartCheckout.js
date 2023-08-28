@@ -1,8 +1,6 @@
 import React, {useEffect} from 'react';
-import {Row, Col, Button, Form, Card} from 'react-bootstrap';
 import {useNavigate} from 'react-router-dom';
-import {ApplyCouponOnCart, ClearCartItems, GetCartItems} from "../../Controllers/CartController";
-import {BagCheck, CartX} from "react-bootstrap-icons";
+import {ApplyCouponOnCart, GetCartItems} from "../../Controllers/CartController";
 import use_notification from "../../Controllers/use_notification";
 
 const CartCheckout = () => {

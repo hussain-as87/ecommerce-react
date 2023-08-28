@@ -1,6 +1,4 @@
 import React from "react";
-import {Col, Row} from "react-bootstrap";
-import AdminSideBar from "../../../Components/Admin/AdminSideBar";
 import {Outlet} from "react-router-dom";
 import Footer from "./partials/_footer";
 import Navbar from "./partials/_navbar";
@@ -130,13 +128,3 @@ const AdminLayout = ({children,index}) => {
 };
 
 export default AdminLayout;
-/*         <Row className='py-3'>
-            <Col sm="4" xs="3" md="3">
-                <AdminSideBar/>
-            </Col>
-
-            <Col sm="8" xs="9" md="9">
-                {children}
-                <Outlet />
-            </Col>
-        </Row>*/

@@ -1,4 +1,4 @@
-import {CardGroup, Container, Row} from "react-bootstrap";
+import {Container, Row} from "react-bootstrap";
 import AdminOrdersCards from "./AdminOrdersCards";
 
 const AdminOrdersContainer = ({orders}) => {

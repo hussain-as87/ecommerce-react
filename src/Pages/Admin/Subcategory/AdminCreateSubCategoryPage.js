@@ -1,4 +1,4 @@
-import AdminCreateSubCategories from "../../Components/Admin/SubCategories/AdminCreateSubCategories";
+import AdminCreateSubCategories from "../../../Components/Admin/SubCategories/AdminCreateSubCategories";
 
 const AdminCreateSubCategoryPage = () => {
     return  <AdminCreateSubCategories/>

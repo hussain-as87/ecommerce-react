@@ -1,4 +1,3 @@
-import {Container} from "react-bootstrap";
 import PaymentMethod from "../../Components/Checkout/PaymentMethod";
 import {Link} from "react-router-dom";
 
