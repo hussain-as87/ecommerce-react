@@ -1,7 +1,7 @@
-import UserProfile from "../../Components/User/UserProfile";
+import AdminProfile from "../../Components/Admin/AdminProfile";
 
 const AdminCreateBrandPage = () => {
-    return <UserProfile/>
+    return <AdminProfile/>
 }
 
 export default AdminCreateBrandPage

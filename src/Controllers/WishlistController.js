@@ -6,6 +6,15 @@ import {
     removeProductToWishlistAction,
 } from "../Redux/Actions/WishlistAction";
 
+export const WishlistProducts = () => {
+    const dispatch = useDispatch();
+    const {loggedUserWishlist, loading} = useSelector((state) => state.wishlist);
+
+    useEffect(() => {
+        dispatch(loggedUserWishlistAction());
+    }, [dispatch])
+    return {loggedUserWishlist, loading}
+}
 const ProductWishlist = ({productId}) => {
     const dispatch = useDispatch();
     const [data, setData] = useState({

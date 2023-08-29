@@ -44,6 +44,7 @@ import AdminCreateCategoryPage from "./Pages/Admin/Category/AdminCreateCategoryP
 import AdminCreateSubCategoryPage from "./Pages/Admin/Subcategory/AdminCreateSubCategoryPage";
 import AdminCreateCouponPage from "./Pages/Admin/Coupon/AdminCreateCouponPage";
 import AdminProfilePage from "./Pages/Admin/AdminProfilePage";
+import Favorites from "./Pages/Favorite/Favorites";
 
 function App() {
     const location = useLocation()
@@ -52,9 +53,9 @@ function App() {
     useEffect(() => {
         if (indexProductForm.keyword) {
             if (location.pathname.includes('admin')) {
-              return   navigate('/admin/products')
+                return navigate('/admin/products')
             } else {
-             return    navigate('/shop')
+                return navigate('/shop')
             }
         }
     }, [indexProductForm.keyword])
@@ -103,7 +104,7 @@ function App() {
                 {/**Admin Dashboard routes End*/}
 
                 {/**User Dashboard routes Start*/}
-                <Route path="/user/*" element={<UserLayout index={indexProductForm}/>}>
+                {/*      <Route path="/user/*" element={<HomeLayout index={indexProductForm}/>}>
                     <Route path="" element={<ProtectionRoutes authType="user"/>}>
                         <Route path="orders" element={<UserOrdersPage/>}/>
                         <Route path="paymethod" element={<PaymentMethodType/>}/>
@@ -116,7 +117,7 @@ function App() {
                         <Route path="addresses/edit" element={<UserEditAddressPage/>}/>
                         <Route path="profile" element={<UserProfilePage/>}/>
                     </Route>
-                </Route>
+                </Route>*/}
                 {/**User Dashboard routes End*/}
 
                 {/** Landing page routes Start*/}
@@ -128,9 +129,19 @@ function App() {
                         path="shop"
                         element={<Products index={indexProductForm}/>}
                     />
+                    <Route path="" element={<ProtectionRoutes authType="user"/>}>
+                        <Route
+                            path="favorite"
+                            element={<Favorites index={indexProductForm}/>}
+                        />
+                        <Route path="cart" element={<CartContent/>}/>
+                        <Route path="checkout" element={<PaymentMethodType/>}/>
+                        <Route path="profile" element={<UserProfilePage/>}/>
+
+                    </Route>
+
                     <Route path=":id" element={<ProductDetails/>}/>
-                    <Route path="cart" element={<CartContent/>}/>
-                    <Route path="checkout" element={<PaymentMethodType/>}/>
+
                     <Route path="about-us" element={<About/>}/>
                     <Route path="contact" element={<Contact/>}/>
                     <Route path="500" element={<BadConnectionPage/>}/>
