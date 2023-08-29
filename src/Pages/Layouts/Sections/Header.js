@@ -93,7 +93,7 @@ const Header = ({index}) => {
                     <a className="search-switch" onClick={handleSearchModal}>
                         <img src="img/icon/search.png" alt=""/>
                     </a>
-                    <a href="#"><img src="img/icon/heart.png" alt=""/></a>
+                    <Link to="/favorite"><img src="img/icon/heart.png" alt=""/></Link>
                     <Link to="/cart"><img src="img/icon/cart.png" alt=""/> <span>{itemsCount}</span></Link>
                     <div className="price">${carts?.data?.totalCartPrice || '0.0'}</div>
                 </div>
@@ -127,7 +127,7 @@ const Header = ({index}) => {
                                                     <span>{userData.name} <i className="arrow_carrot-down"></i></span>
                                                     <ul>
                                                         <NavDropdown.Item
-                                                            href={`/${userData.role}/profile`}
+                                                            href={userData.role === 'admin' ? '/admin/profile' : '/profile'}
                                                             className="text-center"><Person
                                                             size={20} className="text-warning"/> <span
                                                             className="text-dark">Profile</span> </NavDropdown.Item>
@@ -198,7 +198,8 @@ const Header = ({index}) => {
                             <div className="header__nav__option">
                                 <a className="search-switch" onClick={handleSearchModal}>
                                     <img src="img/icon/search.png" alt=""/>
-                                </a> <a href="#"><img src="img/icon/heart.png" alt=""/></a>
+                                </a>
+                                <Link to="/favorite"><img src="img/icon/heart.png" alt=""/></Link>
                                 <Link to="/cart"><img src="img/icon/cart.png" alt=""/> <span>{itemsCount}</span></Link>
                                 <div className="price">${carts?.data?.totalCartPrice || '0.0'}</div>
                             </div>

@@ -8,21 +8,7 @@
     <meta name="keywords" content="Male_Fashion, unica, creative, html">
     <title>Male-Fashion | Template</title>
     <script>
-        const publicUrl = "%PUBLIC_URL%";
-        const isDashboard = window.location.pathname.includes("admin") || window.location.pathname.includes("user");
-
-        const addStylesheet = (href) => {
-            const link = document.createElement("link");
-            link.rel = "stylesheet";
-            link.href = href;
-            document.head.appendChild(link);
-        };
-
-        const addScript = (src) => {
-            const script = document.createElement("script");
-            script.src = src;
-            document.body.appendChild(script);
-        };
+        const isDashboard = window.location.pathname.includes("admin");
 
         if (isDashboard) {
             document.write('<title>Dashboard</title>')
@@ -36,6 +22,7 @@
             document.write('<link rel="shortcut icon" href="%PUBLIC_URL%/dashboard/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css"/>')
 
         } else {
+
             /*Google Font*/
             document.write('<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">')
 
@@ -48,6 +35,7 @@
             document.write('<link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">')
             document.write('<link rel="stylesheet" href="css/slicknav.min.css" type="text/css">')
             document.write('<link rel="stylesheet" href="css/style.css" type="text/css">')
+            document.write('<link rel="shortcut icon" href="%PUBLIC_URL%/img/logo.png"/>')
         }
     </script>
 </head>
