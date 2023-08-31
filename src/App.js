@@ -123,8 +123,8 @@ function App() {
                 {/** Landing page routes Start*/}
                 <Route path="/*" element={<HomeLayout index={indexProductForm}/>}>
                     <Route index element={<HomePage/>}/>
-                    <Route path="categories" element={<Categories/>}/>
-                    <Route path="brands" element={<Brands/>}/>
+                   {/* <Route path="categories" element={<Categories/>}/>
+                    <Route path="brands" element={<Brands/>}/>*/}
                     <Route
                         path="shop"
                         element={<Products index={indexProductForm}/>}

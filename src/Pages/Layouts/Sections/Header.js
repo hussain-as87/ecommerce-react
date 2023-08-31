@@ -187,8 +187,8 @@ const Header = ({index}) => {
                                             <li><a href="./blog-details.html">Blog Details</a></li>
                                         </ul>
                                     </li>*/}
-                                    <li className={isActive('categories')}><Link to="/categories">Categories</Link></li>
-                                    <li className={isActive('brands')}><Link to="/brands">Brands</Link></li>
+                                    {/*<li className={isActive('categories')}><Link to="/categories">Categories</Link></li>
+                                    <li className={isActive('brands')}><Link to="/brands">Brands</Link></li>*/}
                                     <li className={isActive('contact')}><Link to="/contact">Contacts</Link></li>
                                     <li className={isActive('about-us')}><Link to="/about-us">About Us</Link></li>
                                 </ul>
