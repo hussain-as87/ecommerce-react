@@ -15,6 +15,7 @@ const AdminBanners = ({banner}) => {
             <th>{LimitCharacters(banner?.subtitle,10)}</th>
             <th>{LimitCharacters(banner?.summary,10)}</th>
             <th>{LimitCharacters(banner?.description,10)}</th>
+
             <th>
                 <AdminEditBrand id={banner?._id} key={banner?._id}/>
             </th>
