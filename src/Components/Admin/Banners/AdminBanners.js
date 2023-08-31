@@ -13,8 +13,9 @@ const AdminBanners = ({banner}) => {
                      src={banner?.image} alt={banner?.name} width={20}/></th>
             <th>{LimitCharacters(banner?.title,10)}</th>
             <th>{LimitCharacters(banner?.subtitle,10)}</th>
-            <th>{LimitCharacters(banner?.summary,5)}</th>
-            <th>{LimitCharacters(banner?.description,5)}</th>
+            <th>{LimitCharacters(banner?.summary,10)}</th>
+            <th>{LimitCharacters(banner?.description,10)}</th>
+
             <th>
                 <AdminEditBrand id={banner?._id} key={banner?._id}/>
             </th>

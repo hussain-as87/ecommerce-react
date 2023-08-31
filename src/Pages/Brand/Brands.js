@@ -5,7 +5,7 @@ import {GetBrands} from "../../Controllers/BrandController";
 const Brands = () => {
     const {brands,getPage,pageCount,loading} = GetBrands()
     return (<>
-        <BrandContainer brands={brands.data} loading={loading}/>
+        <BrandContainer brands={brands?.data} loading={loading}/>
         {pageCount > 1 && (<Pagination pageCount={pageCount} onPress={getPage}/>)}
     </>)
 }
